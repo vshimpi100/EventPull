@@ -5,22 +5,28 @@ const Schema = mongoose.Schema;
 
 const commentSchema = new Schema({
 
-  // Event metadata
-  // event will have an id: _id property by default
-  creator: { type: Schema.Types.ObjectId, ref: "User", required: true }, // the creator of the event
-  niche: { type: Schema.Types.ObjectId, ref: "Niche", required: true }, // the niche to which the post was posted
-  comments: { type: Schema.Types.ObjectId, ref: "Comment", required: true }, // the comments pertaining to this post
-  created: { type: Date, default: Date.now, required: true },
+  // Comment metadata
+  // Comment will have an id: _id property by default
+  creator: { type: Schema.Types.ObjectId, ref: "User", required: true }, // the creator of the Comment
+  event: { type: Schema.Types.ObjectId, ref: "Event", required: true }, // the event to which the comment was posted
+  parent: { type: Schema.Types.ObjectId, ref: "Comment", required: false }, // the parent of this comment
+  children: { type: Schema.Types.ObjectId, ref: "Comment", required: false }, // the comments under this comment
+  created: { type: Date, default: Date.now, required: true }, // the time the event was created
 
-  // Event properties
-  title: { type: String, required: true, minlength: 3, maxlength: 140}, // the name of the event or post for event
-  description: { type: String, required: false, minlength: 3, maxlength: 400}, // short paragraph describing the event
-  location: { type: String, required: false}, // this will be saved as a place using Google Maps Autocomplete, and will be the place_id field specifically
-  date: { type: Date, required: true, min: Date.now, default: Date.now}, // the date of the event
-  image: { type: mongoose.SchemaTypes.Url, required: true, default: 'https://via.placeholder.com/300x300?text=Image+Not+Found'}, // link to an image of the event
-  link: { type: mongoose.SchemaTypes.Url, required: true, default: 'https://eventpull.com'}, // link to event main page
-  tickets: { type: mongoose.SchemaTypes.Url, required: false}, // link to event tickets page
-  
+  // Attributes used for Comment Score calculation
+  // these attributes will be fed into the calculation for Comment score, which will be calculated on api call
+  up: {type: Number, default: 0, required: true}, // the up votes for the Comment
+  down: {type: Number, default: 0, required: true}, // the down votes for the Comment
+  // the last item that will be fed into the algorithm is the number of children comments
+
+  // Comment properties
+  text: { type: String, required: true, minlength: 3, maxlength: 1000}, // the text of the comment
+
+  // Comment properties acted upon by moderators
+  isHidden: { type: Boolean, default: false, required: true }, // allows the event to be "removed" by niche moderators
+  hiddenReason: { type: String, required: false}, // allows moderators to provide a reason why the post was removed
+  reports: [{ type: String, required: false}] // allows users to report comments for inappropriateness
+
 });
 
 const Comment = mongoose.model("Comment", commentSchema);

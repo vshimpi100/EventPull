@@ -9,7 +9,8 @@ const eventSchema = new Schema({
   // Event metadata created without user direct input
   // event will have an id: _id property by default
 
-  // these attributes will be fed into the calculation for event score
+  // Attributes used for Event Score calculation
+  // these attributes will be fed into the calculation for event score, which will be calculated on api call
   up: {type: Number, default: 0, required: true}, // the up votes for the event
   down: {type: Number, default: 0, required: true}, // the down votes for the event
   saves: {type: Number, default: 0, required: true}, // the number of users that have saved this event
@@ -34,8 +35,9 @@ const eventSchema = new Schema({
 
   // Event properties acted upon by moderators
   isHidden: { type: Boolean, default: false, required: true }, // allows the event to be "removed" by niche moderators
-  hiddenReason: { type: String, required: false} // allows moderators to provide a reason why the post was removed
-  
+  hiddenReason: { type: String, required: false}, // allows moderators to provide a reason why the post was removed
+  reports: [{ type: String, required: false}] // allows users to report posts for inappropriateness
+
 });
 
 const Event = mongoose.model("Event", eventSchema);

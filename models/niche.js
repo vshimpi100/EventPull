@@ -3,40 +3,57 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const nicheSchema = new Schema({
-
   // Niche metadata created without user direct input
   // Niche will have an id: _id property by default
 
-  // these attributes will be fed into the calculation for Niche popularity (recent means in the last week)
-  recentScore: {type: Number, default: 0, required: true}, // the average score of the recent posts of the niche
-  recentVotes: {type: Number, default: 0, required: true}, // the total number of votes of the recent posts of the niche
-  recentPosts: {type: Number, default: 0, required: true}, // the number of recent posts
-  recentSaves: {type: Number, default: 0, required: true}, // the number of posts saved recently
-  recentComments: {type: Number, default: 0, required: true}, // the number of comments over the past week
-  // the calculation will also be based on the total number of followers of the niche
+  // Popularity and hotness calculations
+  // these attributes will be fed into the calculation for Niche popularity on api call
+  totalScore: { type: Number, default: 0, required: true }, // the average score of the total posts of the niche
+  totalVotes: { type: Number, default: 0, required: true }, // the total number of votes of the total posts of the niche
+  totalPosts: { type: Number, default: 0, required: true }, // the number of total posts
+  totalSaves: { type: Number, default: 0, required: true }, // the number of posts saved ever
+  totalComments: { type: Number, default: 0, required: true }, // the number of comments ever
+  // the calculation will also be based on the total number of members of the niche
+
+  // these attributes will be fed into the calculation for Niche hotness (recent means in the last day) on api call
+  recentScore: { type: Number, default: 0, required: true }, // the average score of the recent posts of the niche
+  recentVotes: { type: Number, default: 0, required: true }, // the total number of votes of the recent posts of the niche
+  recentPosts: { type: Number, default: 0, required: true }, // the number of recent posts
+  recentSaves: { type: Number, default: 0, required: true }, // the number of posts saved recently
+  recentComments: { type: Number, default: 0, required: true }, // the number of comments over the past day
+  // the calculation will also be based on the total number of recent members of the niche
 
   // these attributes are based purely on the Niche creation
   creator: { type: Schema.Types.ObjectId, ref: "User", required: true }, // the creator of the Niche
-  niche: { type: Schema.Types.ObjectId, ref: "Niche", required: true }, // the niche to which the post was posted
-  comments: [{ type: Schema.Types.ObjectId, ref: "Comment", required: true }], // the comments pertaining to this post
+  parent: { type: Schema.Types.ObjectId, ref: "Niche", required: true }, // the niche to which this Niche is a child
+  children: { type: Schema.Types.ObjectId, ref: "Niche", required: false }, // the niches to which this niche is a parent
   created: { type: Date, default: Date.now, required: true }, // the time the Niche was created
 
   // Niche properties created by user
-  title: { type: String, required: true, minlength: 3, maxlength: 140}, // the name of the Niche or post for Niche
-  price: { type: mongoose.Types.Currency, required: true, min: 0, max: 10000000 }, // the price of the Niche or Niche ticket
-  description: { type: String, required: false, minlength: 3, maxlength: 400}, // short paragraph describing the Niche
-  location: { type: String, required: false}, // this will be saved as a place using Google Maps Autocomplete, and will be the place_id field specifically
-  date: { type: Date, required: true, min: Date.now, default: Date.now}, // the date of the Niche
-  image: { type: mongoose.SchemaTypes.Url, required: true, default: 'https://via.placeholder.com/300x300?text=Image+Not+Found'}, // link to an image of the Niche
-  link: { type: mongoose.SchemaTypes.Url, required: true, default: 'https://Nichepull.com'}, // link to Niche main page
-  tickets: { type: mongoose.SchemaTypes.Url, required: false}, // link to Niche tickets page
-  isNicheRestricted: { type: Boolean, default: false, required: true }, // allows the Niche to be posted only to its niche, and not appear in parent niches
+  name: { type: String, required: true, minlength: 3, maxlength: 70 }, // the name of the Niche or post for Niche
+  description: { type: String, required: false, minlength: 3, maxlength: 400 }, // short paragraph describing the Niche
+  image: {
+    type: mongoose.SchemaTypes.Url,
+    required: true,
+    default: "https://via.placeholder.com/600x150?text=Image+Not+Found"
+  }, // link to an image for the niche header
+  tags: [{
+    type: String,
+    required: false,
+    validate: [arrayLimit, '{PATH} exceeds the limit of 10'], // users can only set 10 tags maximum
+  }], // tags are set by the niche creator to tell users what the niche pertains to
+  isPrivate: { type: Boolean, default: false, required: true }, // means the Niche will only be visible to moderators and members
 
-  // Niche properties acted upon by moderators
-  isHidden: { type: Boolean, default: false, required: true }, // allows the Niche to be "removed" by niche moderators
-  hiddenReason: { type: String, required: false} // allows moderators to provide a reason why the post was removed
-  
+  // Moderators and Members
+  moderators: [{ type: Schema.Types.ObjectId, ref: "User", required: true }], // the moderators of the Niche
+  members: [{ type: Schema.Types.ObjectId, ref: "User", required: false }], // the members of the Niche
+  // if the niche is private, only members can view posts, otherwise the niche members are anyone that follows it
+  // if the niche is private, moderators can approve members
+  pendingMembers: [{ type: Schema.Types.ObjectId, ref: "User", required: false }] // pending members are those that moderators have not approved yet
+
 });
+
+const arrayLimit = val => val.length <= 10;
 
 const Niche = mongoose.model("Niche", nicheSchema);
 
