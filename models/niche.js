@@ -40,7 +40,7 @@ const nicheSchema = new Schema({
   tags: [{
     type: String,
     required: false,
-    validate: [arrayLimit, '{PATH} exceeds the limit of 10'], // users can only set 10 tags maximum
+    validate: [val => val.length <= 10, '{PATH} exceeds the limit of 10'], // users can only set 10 tags maximum
   }], // tags are set by the niche creator to tell users what the niche pertains to
   isPrivate: { type: Boolean, default: false, required: true }, // means the Niche will only be visible to moderators and members
 
@@ -53,7 +53,7 @@ const nicheSchema = new Schema({
 
 });
 
-const arrayLimit = val => val.length <= 10;
+// const arrayLimit = val => val.length <= 10;
 
 const Niche = mongoose.model("Niche", nicheSchema);
 

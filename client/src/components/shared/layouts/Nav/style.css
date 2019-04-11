@@ -1,0 +1,42 @@
+.ui.text.menu {
+    background-color: #3fb0ac;
+    margin: 0px;
+    min-height: 70px;
+    width: 100%;
+    padding: 0;
+    position: fixed;
+    color: #fff;
+    font-size: calc(10px + 14 * (100vw - 320px)/ 800);
+    box-shadow: 0 14px 28px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.22);
+    z-index: 1000;
+}
+
+.ui.text.menu .nav-header.item {
+    color: #fff;
+    font-size: 40px;
+    padding: 0px 30px;
+}
+
+.ui.text.menu .item {
+    color: #fff;
+    font-size: 20px;
+    padding: 4px 10px 0px 10px;
+}
+
+.ui.menu .menu {
+    padding-right: 30px;
+}
+
+.ui.text.menu a:hover {
+    color: #fff;
+    transform: scale(1.1);
+}
+
+.ui.text.menu a.item.active {
+    background-color: transparent;
+    border: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    font-weight: 800;
+    color: #fff;
+}
