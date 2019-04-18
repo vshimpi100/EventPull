@@ -7,8 +7,9 @@ Event organizers (music venues, restaurants, sports, etc.) will integrate their 
 Once inside the database, events will be sanitized, formatted, and labeled as necessary to ensure uniformity.
 Event promoters can then integrate their sites with EventPull’s API through WordPress, EventPull.com, or their own backend. These platforms will allow promoters to pull events from the EventPull database and auto-populate their website’s events page.
 
-Goals
+# Goals
 Develop EventPull API
+
 Design per OpenAPI specification
 Implement with AWS Lambda & API Gateway
 Configure payment tiered permissions and user authentication
