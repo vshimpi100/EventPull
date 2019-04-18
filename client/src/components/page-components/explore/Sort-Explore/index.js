@@ -1,82 +1,109 @@
-import React, { Component } from 'react'
-import { Menu, Icon, Grid } from 'semantic-ui-react'
-import './style.css';
+// import React, { Component } from 'react'
+// import { Menu, Icon } from 'semantic-ui-react'
+// import './style.css';
+
+// export default class SortExplore extends Component {
+//   state = { activeItem: 'closest' }
+
+//   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+
+//   render() {
+//     const { activeItem } = this.state
+
+//     return (
+//       <Menu id="explore-sort" text>
+//         <Menu.Item>
+//           <Icon
+//             name='angle double right'
+//           />
+//         </Menu.Item>
+//         <Menu.Item header>Sort:</Menu.Item>
+//         <Menu.Menu>
+//           <Menu.Item>
+//             <Icon
+//               name='star'
+//               active={activeItem === 'mostComments'}
+//               onClick={this.handleItemClick}
+//             />
+//           </Menu.Item>
+//           <Menu.Item>
+//             <Icon
+//               name='calendar alternate outline'
+//               active={activeItem === 'mostComments'}
+//               onClick={this.handleItemClick}
+//             />
+//           </Menu.Item>
+//           <Menu.Item>
+//             <Icon
+//               name='map marker alternate'
+//               active={activeItem === 'mostComments'}
+//               onClick={this.handleItemClick}
+//             />
+//           </Menu.Item>
+//           <Menu.Item>
+//             <Icon
+//               name='dollar sign'
+//               active={activeItem === 'mostComments'}
+//               onClick={this.handleItemClick}
+//             />
+//           </Menu.Item>
+//           <Menu.Item>
+//             <Icon
+//               name='comment'
+//               active={activeItem === 'mostComments'}
+//               onClick={this.handleItemClick}
+//             />
+//           </Menu.Item>
+//         </Menu.Menu>
+//         <Menu.Menu>
+//           <Menu.Item>
+//             <Icon
+//               name='arrow alternate circle down outline'
+//               active={activeItem === 'mostComments'}
+//               onClick={this.handleItemClick}
+//             />
+//           </Menu.Item>
+//           <Menu.Item>
+//             <Icon
+//               name='arrow alternate circle up outline'
+//               active={activeItem === 'mostComments'}
+//               onClick={this.handleItemClick}
+//             />
+//           </Menu.Item>
+//         </Menu.Menu>
+//       </Menu>
+//     )
+//   }
+// }
+
+import React, { Component } from "react";
+import Nav from "react-bootstrap/Nav";
+import "./style.css";
+import { FaAngleDoubleRight } from "react-icons/fa";
 
 export default class SortExplore extends Component {
-  state = { activeItem: 'closest' }
+  // state = { activeItem: "closest" };
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+  // handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
   render() {
-    const { activeItem } = this.state
+    //   const { activeItem } = this.state;
 
     return (
-      <Menu id="explore-sort" text>
-        <Grid>
-          <Grid.Row verticalAlign='middle'>
-            <Grid.Column width={8}>
-              <Icon
-                name='angle double right'
-                size='small'
-              />
-            </Grid.Column>
-            <Grid.Column width={2} textAlign='center'>
-              <Menu.Item className='sort-header'>Sort:</Menu.Item>
-            </Grid.Column>
-            <Grid.Column width={4} textAlign='center'>
-              <Icon
-                name='star'
-                className="sort-icon"
-                size='small'
-                active={activeItem === 'mostComments'}
-                onClick={this.handleItemClick}
-              />
-              <Icon
-                name='calendar alternate outline'
-                className="sort-icon"
-                size='small'
-                active={activeItem === 'mostComments'}
-                onClick={this.handleItemClick}
-              />
-              <Icon
-                name='map marker alternate'
-                className="sort-icon"
-                size='small'
-                active={activeItem === 'mostComments'}
-                onClick={this.handleItemClick}
-              />
-              <Icon
-                name='dollar sign'
-                className="sort-icon"
-                size='small'
-                active={activeItem === 'mostComments'}
-                onClick={this.handleItemClick}
-              />
-              <Icon
-                name='comment'
-                className="sort-icon"
-                size='small'
-                active={activeItem === 'mostComments'}
-                onClick={this.handleItemClick}
-              />
-            </Grid.Column>
-            <Grid.Column width={2} textAlign='center'>
-              <Icon
-                name='arrow alternate circle down outline'
-                size='small'
-                active={activeItem === 'mostComments'}
-                onClick={this.handleItemClick}
-              />
-              <Icon
-                name='arrow alternate circle up outline'
-                size='small'
-                active={activeItem === 'mostComments'}
-                onClick={this.handleItemClick}
-              />
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Menu>
-    )
+      <Nav defaultActiveKey="/home" as="ul" id="explore-sort">
+        <Nav.Item as="li" xs={2}>
+          <Nav.Link href="/home">
+            <FaAngleDoubleRight />
+            All
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item as="li">
+          <Nav.Link eventKey="link-1">Sort</Nav.Link>
+        </Nav.Item>
+        <Nav.Item as="li">
+          <Nav.Link eventKey="link-2">Link</Nav.Link>
+        </Nav.Item>
+      </Nav>
+    );
   }
 }
