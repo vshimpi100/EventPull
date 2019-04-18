@@ -1,6 +1,20 @@
 #explore-sort {
     background-color: #ffe07f;
-    min-height: 40px;
+    min-height: 30px;
+    color: #3fb0ac;
+}
+
+#explore-sort  li a{
+    color: #3fb0ac;
+}
+/*
+
+#explore-sort .item.sort-header {
+    color: #3fb0ac;
+}
+
+#explore-sort .ui.grid .row{
+    padding: 10px;
 }
 
 .ui.grid{
@@ -16,4 +30,4 @@
 
 i.icon.sort-icon {
     margin-right: 10%;
-}
+} */
