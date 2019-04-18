@@ -7,12 +7,12 @@ class Nav extends Component {
   render() {
     return (
       <Menu text>
-        <Menu.Item className='nav-header' href="/explore">EventPull</Menu.Item>
+        <Menu.Item className='nav-header'>EventPull</Menu.Item>
         <Menu.Menu position='right'>
           <Menu.Item>
             <Input icon='search' placeholder='Search...' />
           </Menu.Item>
-          <Link to='/' className={window.location.pathname === "/explore" ? "item active" : "item"}>Explore</Link>
+          <Link to='/' className={window.location.pathname === "/" ? "item active" : "item"}>Explore</Link>
           <Link to='/nearby' className={window.location.pathname === "/nearby" ? "item active" : "item"}>Nearby</Link>
           <Link to='/saved' className={window.location.pathname === "/saved" ? "item active" : "item"}>Saved</Link>
           <Menu.Item>
