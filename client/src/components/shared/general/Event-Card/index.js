@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Icon, Image, Grid, Segment } from 'semantic-ui-react';
+import { Card, Icon, Image, Grid } from 'semantic-ui-react';
 import './style.css';
 
 function EventCard(props) {
