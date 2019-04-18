@@ -4,10 +4,9 @@
     min-height: 70px;
     width: 100%;
     padding: 0;
-    position: fixed;
     color: #fff;
     font-size: calc(10px + 14 * (100vw - 320px)/ 800);
-    box-shadow: 0 14px 28px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.22);
+    /* box-shadow: 0 14px 28px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.22); */
     z-index: 1000;
 }
 
