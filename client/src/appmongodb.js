@@ -6,7 +6,7 @@ const MONGO_PORT = '27017';
 const MONGO_DB = 'EventPull';
 db.createUser(
     {
-      user: "sammy",
+      user: "darup67",
       pwd: "your_password",
       roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
     }
