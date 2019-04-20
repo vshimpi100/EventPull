@@ -3,6 +3,17 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+  "dependencies": {
+    "bootstrap": "^4.3.1",
+    "bootstrap-daterangepicker": "^3.0.4",
+    "dayjs": "^1.8.12",
+    "googleapis": "^27.0.0",
+    "mongoose": "^5.5.2",
+    "prop-types": "^15.7.2",
+    "rb-datepicker": "^0.0.5",
+    "react": "^16.8.6"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
@@ -16,21 +27,5 @@
   "bugs": {
     "url": "https://github.com/vshimpi100/EventPull/issues"
   },
-  "homepage": "https://github.com/vshimpi100/EventPull#readme",
-  "dependencies": {
-<<<<<<< HEAD
-    "googleapis": "^27.0.0",
-    "mongoose": "^5.5.2"
-=======
-    "axios": "^0.18.0",
-    "cheerio": "^1.0.0-rc.3",
-    "express": "^4.16.3",
-    "helmet": "^3.16.0",
-    "if-env": "^1.0.4",
-    "mongoose": "^5.3.16",
-    "mongoose-currency": "^0.2.0",
-    "mongoose-type-url": "^1.0.5",
-    "swagger-ui-express": "^4.0.2"
->>>>>>> d176e6f8f3389863a5a875e0fbeaaa2f05fb780a
-  }
+  "homepage": "https://github.com/vshimpi100/EventPull#readme"
 }
