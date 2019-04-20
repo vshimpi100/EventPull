@@ -26,7 +26,8 @@ const eventSchema = new Schema({
   title: { type: String, required: true, minlength: 3, maxlength: 140}, // the name of the event or post for event
   price: { type: mongoose.Types.Currency, required: true, min: 0, max: 10000000 }, // the price of the event or event ticket
   description: { type: String, required: false, minlength: 3, maxlength: 400}, // short paragraph describing the event
-  location: { type: String, required: false}, // this will be saved as a place using Google Maps Autocomplete, and will be the place_id field specifically
+  location: { type: String, required: false}, // this will be the location saved
+  isUsingGoogleLocation: { type: Boolean, required: true, default: false}, // this will be a boolean stating whether the location is a google location or a normal string
   date: { type: Date, required: true, min: Date.now, default: Date.now}, // the date of the event
   image: { type: mongoose.SchemaTypes.Url, required: true, default: 'https://via.placeholder.com/300x300?text=Image+Not+Found'}, // link to an image of the event
   link: { type: mongoose.SchemaTypes.Url, required: true, default: 'https://eventpull.com'}, // link to event main page
