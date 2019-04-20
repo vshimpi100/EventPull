@@ -29,7 +29,7 @@ export default class SortExplore extends Component {
                 <Col xs={2}>
                   <FaAngleDoubleRight />
                 </Col>
-                <Col auto>Home</Col>
+                <Col>Explore</Col>
               </Row>
             </Nav.Link>
           </Nav.Item>
@@ -68,24 +68,22 @@ export default class SortExplore extends Component {
             </Col>
           </Row>
         </Col>
-        <Col xs={2}>
-          <Row>
-            <Col className="text-center">
-              <Nav.Item as="li">
-                <Nav.Link>
-                  <FaArrowUp />
-                </Nav.Link>
-              </Nav.Item>
-            </Col>
-            <Col className="text-center">
-              <Nav.Item as="li">
-                <Nav.Link>
-                  <FaArrowDown />
-                </Nav.Link>
-              </Nav.Item>
-            </Col>
-          </Row>
-        </Col>
+        <Row>
+          <Col className="text-center">
+            <Nav.Item as="li">
+              <Nav.Link>
+                <FaArrowUp />
+              </Nav.Link>
+            </Nav.Item>
+          </Col>
+          <Col className="text-center">
+            <Nav.Item as="li">
+              <Nav.Link>
+                <FaArrowDown />
+              </Nav.Link>
+            </Nav.Item>
+          </Col>
+        </Row>
       </Nav>
     );
   }
