@@ -1,28 +1,36 @@
 {
-  "name": "mern",
+  "name": "eventpull",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
-    "start:prod": "node server.js",
-    "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
-    "client": "cd client && npm run start",
-    "seed": "node scripts/seedDB.js",
-    "install": "cd client && npm install",
-    "build": "cd client && npm run build",
-    "heroku-postbuild": "npm run build"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vshimpi100/EventPull.git"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "concurrently": "^4.1.0",
-    "nodemon": "^1.18.7"
+  "bugs": {
+    "url": "https://github.com/vshimpi100/EventPull/issues"
   },
+  "homepage": "https://github.com/vshimpi100/EventPull#readme",
   "dependencies": {
+<<<<<<< HEAD
+    "googleapis": "^27.0.0",
+    "mongoose": "^5.5.2"
+=======
     "axios": "^0.18.0",
+    "cheerio": "^1.0.0-rc.3",
     "express": "^4.16.3",
+    "helmet": "^3.16.0",
     "if-env": "^1.0.4",
-    "mongoose": "^5.3.16"
+    "mongoose": "^5.3.16",
+    "mongoose-currency": "^0.2.0",
+    "mongoose-type-url": "^1.0.5",
+    "swagger-ui-express": "^4.0.2"
+>>>>>>> d176e6f8f3389863a5a875e0fbeaaa2f05fb780a
   }
 }
