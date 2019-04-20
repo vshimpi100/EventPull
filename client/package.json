@@ -4,6 +4,8 @@
   "private": true,
   "proxy": "http://localhost:3001/",
   "dependencies": {
+    "antd": "^3.16.3",
+    "antd-mobile": "^2.2.11",
     "axios": "^0.18.0",
     "bootstrap": "^4.3.1",
     "css-modules": "^0.3.0",
