@@ -5,7 +5,7 @@ import MobileNav from './components/mobile/shared/layouts/Nav';
 import "antd/dist/antd.css";
 import "antd-mobile/dist/antd-mobile.css";
 import windowSize from 'react-window-size';
-// import Explore from './pages/explore';
+import Explore from './pages/explore';
 
 class App extends Component {
 
@@ -27,7 +27,7 @@ class App extends Component {
             <Router>
                 <div>
                     {this.handleView(this.props.windowWidth)}
-                    {/* <Route exact path='/' component={Explore} /> */}
+                    <Route exact path='/' component={Explore} />
                 </div>
             </Router>
         )
