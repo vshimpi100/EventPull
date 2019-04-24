@@ -18,6 +18,10 @@
     height:1.3rem;
 }
 
+i.active {
+    transform: scale(1.4);
+}
+
 /*
 
 #explore-sort .item.sort-header {

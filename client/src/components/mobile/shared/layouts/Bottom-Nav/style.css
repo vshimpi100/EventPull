@@ -1,0 +1,6 @@
+#bottomNav
+{
+    pointer-events: none;
+    touch-action: none !important;
+    background-color: red;
+}

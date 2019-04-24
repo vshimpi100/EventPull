@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Nav, Col, Row } from "react-bootstrap";
 import { Icon as WebIcon } from "antd";
-import { SegmentedControl, Icon, Flex, Tag } from "antd-mobile";
+import { SegmentedControl, Icon, Flex, Tag, WhiteSpace } from "antd-mobile";
 
 // import "./style.css";
 import {
@@ -25,7 +25,7 @@ export default class SortExplore extends Component {
 
     return (
       <div>
-        <Flex justify="center">
+        <Flex justify="center" style={{marginTop:"5px"}}>
           <Tag>Sort</Tag>
           <SegmentedControl
             justify="center"
@@ -38,7 +38,7 @@ export default class SortExplore extends Component {
               <FaDollarSign key="4" />,
               <FaComment key="5" />
             ]}
-            style={{ width: "80%" }}
+            style={{ width: "80%"}}
           />
           <Tag>
             <FaArrowDown />

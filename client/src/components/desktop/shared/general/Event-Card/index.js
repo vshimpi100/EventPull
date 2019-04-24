@@ -1,69 +1,94 @@
-import React from 'react';
-import { Card, Icon, Image, Grid } from 'semantic-ui-react';
+import React, { Component } from 'react';
+import { Card } from 'antd-mobile';
+import { Avatar, Row, Col, Icon, Comment, Tooltip } from 'antd';
+import moment from 'moment';
 import './style.css';
 
-function EventCard(props) {
-    return (
-        <Card fluid>
-            <Card.Content>
-                <Grid>
-                    <Grid.Row className='padding'>
-                        <Grid.Column width={1} verticalAlign='middle'>
-                            <Grid textAlign='center'>
-                                <Grid.Row className='padding'>
-                                    <Icon link name='caret up' size='large' />
-                                </Grid.Row>
-                                <Grid.Row className='padding'>
-                                    450
-                            </Grid.Row>
-                                <Grid.Row className='padding'>
-                                    <Icon link name='caret down' size='large' />
-                                </Grid.Row>
-                            </Grid>
-                        </Grid.Column>
-                        <Grid.Column width={2} verticalAlign='middle' textAlign='center'>
-                            <Image src='https://via.placeholder.com/150' size='tiny' />
-                        </Grid.Column>
-                        <Grid.Column width={13} verticalAlign='middle'>
-                            <Grid>
-                                <Grid.Row className='padding'>
-                                    <Grid.Column width={15}>
-                                        <Card.Description>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Card.Description>
-                                    </Grid.Column>
-                                    <Grid.Column width={1}>
-                                        <Icon link name='external alternate' size='large' />
-                                    </Grid.Column>
-                                </Grid.Row>
-                                <Grid.Row className='padding' verticalAlign='middle'>
-                                    <Grid.Column width={3}>
-                                        <Icon className='info-icon' name='calendar alternate outline' size='large' />
-                                        <Card.Description className='icon-description'>4/30</Card.Description>
-                                    </Grid.Column>
-                                    <Grid.Column width={3}>
-                                        <Icon className='info-icon' name='map marker alternate' size='large' />
-                                        <Card.Description className='icon-description'>4.8 mi</Card.Description>
-                                    </Grid.Column>
-                                    <Grid.Column width={3}>
-                                        <Icon className='info-icon' name='dollar sign' size='large' />
-                                        <Card.Description className='icon-description'>$299.99</Card.Description>
-                                    </Grid.Column>
-                                    <Grid.Column width={3}>
-                                        <Icon className='info-icon' name='comment' size='large' />
-                                        <Card.Description className='icon-description'>54</Card.Description>
-                                    </Grid.Column>
-                                    <Grid.Column width={4} textAlign='right'>
-                                        <Card.Meta>
-                                            <Card.Description className='icon-description'>zlmartin at 7:30pm</Card.Description>
-                                        </Card.Meta>
-                                    </Grid.Column>
-                                </Grid.Row>
-                            </Grid>
-                        </Grid.Column>
-                    </Grid.Row>
-                </Grid>
-            </Card.Content>
-        </Card>
-    )
+class EventCard extends Component {
+
+    state = {
+        upvotes: 0,
+        downvotes: 0,
+        total: 0,
+    }
+
+    handleUpVote = () => {
+        this.setState({
+            upvotes: this.state.upvotes + 1,
+            total: this.state.total + 1
+        });
+    }
+
+    handleDownVote = () => {
+        this.setState({
+            downvotes: this.state.downvotes - 1,
+            total: this.state.total - 1
+        });
+    }
+
+    render() {
+        return (
+            <Card full style={{ width: "70%" }}>
+                <Card.Body>
+                    <Row>
+                        <Col span={1} style={{ textAlign: 'center' }}>
+                            <Row>
+                                <Icon type="caret-up" onClick = {this.handleUpVote} />
+                            </Row>
+                            <Row>
+                                <span className='total-votes'>{this.state.total}</span>
+                            </Row>
+                            <Row>
+                                <Icon type="caret-down" onClick = {this.handleDownVote} />
+                            </Row>
+                        </Col>
+                        <Col span={3} style={{ textAlign: 'center' }}>
+                            <Avatar shape='square' size={64} src='https://via.placeholder.com/150' />
+                        </Col>
+                        <Col span={20}>
+                            <Row>
+                                <Col span={22}>
+                                    <Row>
+                                        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+                                    </Row>
+                                </Col>
+                                <Icon type="export" id="save-button" />
+                            </Row>
+                            <Row>
+                                <Col span={4}>
+                                    <Row>
+                                        <Icon type="calendar" /><span className='icon-data'>4/30</span>
+                                    </Row>
+                                </Col>
+                                <Col span={4}>
+                                    <Row>
+                                        <Icon type="environment" /><span className='icon-data'>4.8 mi</span>
+                                    </Row>
+                                </Col>
+                                <Col span={4}>
+                                    <Row>
+                                        <Icon type="dollar" /><span className='icon-data'>$ 299.99</span>
+                                    </Row>
+                                </Col>
+                                <Col span={4}>
+                                    <Icon type="message" /><span className='icon-data'>59</span>
+                                </Col>
+                                <Comment
+                                    className="web"
+                                    author={<a href='#'>zlmartin</a>}
+                                    datetime={(
+                                        <Tooltip title={moment().format('YYYY-MM-DD HH:mm:ss')}>
+                                            <span>{moment().fromNow()}</span>
+                                        </Tooltip>
+                                    )}
+                                />
+                            </Row>
+                        </Col>
+                    </Row>
+                </Card.Body>
+            </Card>
+        )
+    }
 }
 
 export default EventCard;

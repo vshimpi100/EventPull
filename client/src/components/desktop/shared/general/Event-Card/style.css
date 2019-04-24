@@ -1,46 +1,24 @@
-.content-body {
-    width: 70%;
-    margin-top: 0px;
+.ant-comment.web {
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
 
-.ui.card>.content {
-    padding: 0px;
+.ant-comment-inner {
+    padding: 0;
 }
 
-.ui.card>.content>.header:not(.ui) {
-    margin-top: 0px;
+.ant-comment-content-author {
+    margin-bottom: 0;
 }
 
-.ui.card>.content>.description {
-    display: inline-block;
+#save-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
 }
 
-.ui.grid {
-    margin: 0px;
+.icon-data {
+    margin-left: 1vw;
 }
-
-.ui.grid>.row.padding {
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
-
-.content-body i.icon {
-    margin: 0px;
-}
-
-.icon-description {
-    display: inline-block;
-    font-size: calc(10px + 2 * (100vw - 320px)/ 800);
-    padding-left: 10px;
-}
-
-
-/* .content-body i.icon.caret {
-    font-size: 30px;
-    margin: 0px;
-    height: auto;
-} */
-
-/* .content-body i.icon.info-icon {
-    font-size: 22px;
-} */
