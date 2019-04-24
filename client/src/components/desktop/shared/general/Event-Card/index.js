@@ -28,18 +28,18 @@ class EventCard extends Component {
 
     render() {
         return (
-            <Card full style={{ width: "70%" }}>
+            <Card full style={{ width: "80%" }}>
                 <Card.Body>
                     <Row>
                         <Col span={1} style={{ textAlign: 'center' }}>
                             <Row>
-                                <Icon type="caret-up" onClick = {this.handleUpVote} />
+                                <Icon type="caret-up" onClick={this.handleUpVote} />
                             </Row>
                             <Row>
                                 <span className='total-votes'>{this.state.total}</span>
                             </Row>
                             <Row>
-                                <Icon type="caret-down" onClick = {this.handleDownVote} />
+                                <Icon type="caret-down" onClick={this.handleDownVote} />
                             </Row>
                         </Col>
                         <Col span={3} style={{ textAlign: 'center' }}>
@@ -54,38 +54,39 @@ class EventCard extends Component {
                                 </Col>
                                 <Icon type="export" id="save-button" />
                             </Row>
-                            <Row>
-                                <Col span={4}>
-                                    <Row>
-                                        <Icon type="calendar" /><span className='icon-data'>4/30</span>
-                                    </Row>
-                                </Col>
-                                <Col span={4}>
-                                    <Row>
-                                        <Icon type="environment" /><span className='icon-data'>4.8 mi</span>
-                                    </Row>
-                                </Col>
-                                <Col span={4}>
-                                    <Row>
-                                        <Icon type="dollar" /><span className='icon-data'>$ 299.99</span>
-                                    </Row>
-                                </Col>
-                                <Col span={4}>
-                                    <Icon type="message" /><span className='icon-data'>59</span>
-                                </Col>
-                                <Comment
-                                    author={<a href='#'>zlmartin</a>}
-                                    datetime={(
-                                        <Tooltip title={moment().format('YYYY-MM-DD HH:mm:ss')}>
-                                            <span>{moment().fromNow()}</span>
-                                        </Tooltip>
-                                    )}
-                                />
-                            </Row>
                         </Col>
                     </Row>
+                    <Row className='card-icons'>
+                        <Col span={6} style={{ width: 'fit-content' }} className='card-icon'>
+                            <Row>
+                                <Icon type="calendar" /><span className='icon-data'>4/30</span>
+                            </Row>
+                        </Col>
+                        <Col span={6} style={{ width: 'fit-content' }} className='card-icon'>
+                            <Row>
+                                <Icon type="environment" /><span className='icon-data'>4.8 mi</span>
+                            </Row>
+                        </Col>
+                        <Col span={6} style={{ width: 'fit-content' }} className='card-icon'>
+                            <Row>
+                                <Icon type="dollar" /><span className='icon-data'>$ 299.99</span>
+                            </Row>
+                        </Col>
+                        <Col span={6} style={{ width: 'fit-content' }} className='card-icon'>
+                            <Icon type="message" /><span className='icon-data'>59</span>
+                        </Col>
+
+                    </Row>
+                    <Comment
+                        author={<a href='#'>zlmartin</a>}
+                        datetime={(
+                            <Tooltip title={moment().format('YYYY-MM-DD HH:mm:ss')}>
+                                <span>{moment().fromNow()}</span>
+                            </Tooltip>
+                        )}
+                    />
                 </Card.Body>
-            </Card>
+            </Card >
         )
     }
 }

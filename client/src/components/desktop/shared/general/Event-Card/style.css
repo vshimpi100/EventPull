@@ -12,6 +12,17 @@
     margin-bottom: 0;
 }
 
+.card-icons {
+    position: absolute;
+    bottom: 0;
+    left: 14vw;
+    width: 100%;
+}
+
+.card-icon {
+    margin-right: 5rem;
+}
+
 #save-button {
     position: absolute;
     top: 0;
@@ -21,4 +32,5 @@
 
 .icon-data {
     margin-left: 1vw;
+
 }
