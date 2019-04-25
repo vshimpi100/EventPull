@@ -104,6 +104,7 @@ class EventCard extends Component {
             </Col>
           </Row>
           <Comment
+            className="web"
             author={<a href="#">zlmartin</a>}
             datetime={
               <Tooltip title={moment().format("YYYY-MM-DD HH:mm:ss")}>

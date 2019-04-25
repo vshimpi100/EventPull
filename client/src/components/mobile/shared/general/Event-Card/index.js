@@ -35,7 +35,6 @@ export default class SortExplore extends Component {
   };
 
   render() {
-    //   const { activeItem } = this.state;
 
     return (
       <div>
