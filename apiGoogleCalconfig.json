@@ -1,6 +1,6 @@
 {
-    "clientId": "",
-    "apiKey": "AIzaSyBcuPNS9MK8Hm4WMClCpYxtFZ09ub6ngNY",
+    "clientId": "https://calendar.google.com/calendar/embed?src=darup67%40gmail.com&ctz=America%2FNew_York",
+    "apiKey": "AIzaSyBfMsM5cgC0WckrJ73bckil5Nxzz4jOO48",
     "scope": "https://www.googleapis.com/auth/calendar.readonly",
     "discoveryDocs": ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"]
   }
