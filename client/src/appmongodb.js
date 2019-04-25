@@ -7,7 +7,7 @@ const MONGO_DB = 'EventPull';
 db.createUser(
     {
       user: "darup67",
-      pwd: "your_password",
+      pwd: "Dhruv.Patel93",
       roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
     }
   )

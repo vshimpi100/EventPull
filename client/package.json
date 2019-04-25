@@ -17,6 +17,7 @@
     "react-scripts": "^2.1.1",
     "semantic-ui-react": "^0.86.0",
     "stripe": "^6.29.0"
+    "babel" "presets": "react", "es2015",
   },
   "scripts": {
     "start": "react-scripts start",
