@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import { Nav, Col, Row } from "react-bootstrap";
 import { Icon as WebIcon } from "antd";
 import { SegmentedControl, Icon, Flex, Tag, WhiteSpace } from "antd-mobile";
-
-// import "./style.css";
+import "./style.css";
 import {
   FaAngleDoubleRight,
   FaStar,
@@ -16,21 +15,46 @@ import {
 } from "react-icons/fa";
 
 export default class SortExplore extends Component {
-  // state = { activeItem: "closest" };
+  state = {
+    current: 0,
+    active: "descending"
+  };
 
-  // handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+  handleClick = e => {
+    console.log(e.nativeEvent.selectedSegmentIndex);
+    if (
+      e.nativeEvent.selectedSegmentIndex === "hidden-bar" ||
+      !e.nativeEvent.selectedSegmentIndex
+    ) {
+    } else {
+      this.setState({
+        current: e.nativeEvent.selectedSegmentIndex
+      });
+    }
+  };
+
+  handleActiveClass = () => {
+    if (this.state.active === "descending") {
+      this.setState({
+        active: "ascending"
+      });
+    } else {
+      this.setState({
+        active: "descending"
+      });
+    }
+  };
 
   render() {
-    //   const { activeItem } = this.state;
-
     return (
       <div>
-        <Flex justify="center" style={{marginTop:"5px"}}>
+        <Flex justify="center" style={{ marginTop: "5px" }}>
           <Tag>Sort</Tag>
           <SegmentedControl
             justify="center"
             className="inline"
-            selectedIndex={0}
+            selectedIndex={this.state.current}
+            onChange={this.handleClick}
             values={[
               <FaStar key="1" />,
               <FaCalendarAlt key="2" />,
@@ -38,10 +62,16 @@ export default class SortExplore extends Component {
               <FaDollarSign key="4" />,
               <FaComment key="5" />
             ]}
-            style={{ width: "80%"}}
+            style={{ width: "80%" }}
           />
           <Tag>
-            <FaArrowDown />
+            <WebIcon
+              type={
+                this.state.active === "descending" ? "arrow-down" : "arrow-up"
+              }
+              className="sort-order"
+              onClick={this.handleActiveClass}
+            />
           </Tag>
         </Flex>
       </div>

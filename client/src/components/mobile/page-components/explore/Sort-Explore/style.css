@@ -18,6 +18,14 @@
     height:1.3rem;
 }
 
+.am-segment-item{
+    color: #5fadab;
+}
+
+.am-segment-item.am-segment-item-selected{
+    background: #5fadab;
+}
+
 /*
 
 #explore-sort .item.sort-header {

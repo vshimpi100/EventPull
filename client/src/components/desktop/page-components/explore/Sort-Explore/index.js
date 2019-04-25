@@ -14,7 +14,6 @@ class SortExplore extends Component {
     if (e.key === 'hidden-bar' || !e.key) {
 
     } else {
-      console.log(e.key)
       this.setState({
         current: e.key,
       });
@@ -43,9 +42,6 @@ class SortExplore extends Component {
         active: 'descending'
       })
     }
-    // this.setState({
-    //   active: object.name
-    // });
   }
 
   render() {
@@ -79,16 +75,6 @@ class SortExplore extends Component {
             className='sort-order'
             onClick={this.handleActiveClass}
           />
-          {/* <Icon 
-            type='arrow-down' 
-            className={this.state.active === 'descending' ? 'active' : ''} 
-            onClick={() => {this.handleActiveClass({name: 'descending'})}}
-          />
-          <Icon 
-            type='arrow-up' 
-            className={this.state.active === 'ascending' ? 'active' : ''} 
-            onClick={() => {this.handleActiveClass({name: 'ascending'})}} 
-          /> */}
         </Menu>
         <Drawer
           title="Basic Drawer"

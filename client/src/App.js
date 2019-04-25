@@ -7,6 +7,7 @@ import "antd-mobile/dist/antd-mobile.css";
 import windowSize from "react-window-size";
 import Explore from "./pages/explore";
 import BottomNav from "./components/mobile/shared/layouts/Bottom-Nav";
+import Nearby from "./pages/nearby";
 
 class App extends Component {
   handleView = width => {
@@ -15,7 +16,8 @@ class App extends Component {
         <div>
           <NavMobile />
           <Route exact path="/" component={Explore} />
-          <BottomNav/>
+          <BottomNav />
+          {/* <Route exact path='/nearby' component={Nearby} /> */}
         </div>
       );
     } else {
@@ -23,6 +25,7 @@ class App extends Component {
         <div>
           <NavDesktop />
           <Route exact path="/" component={Explore} />
+          <Route exact path="/nearby" component={Nearby} />
         </div>
       );
     }

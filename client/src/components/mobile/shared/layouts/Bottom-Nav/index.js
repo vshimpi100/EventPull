@@ -20,7 +20,7 @@ class BottomNav extends Component {
         <TabBar
           id="bottomNav"
           unselectedTintColor="#949494"
-          tintColor="#33A3F4"
+          tintColor="#5fadab"
           barTintColor="white"
           tabBarPosition="bottom"
           hidden={this.state.hidden}
@@ -42,7 +42,7 @@ class BottomNav extends Component {
                 style={{
                   width: "22px",
                   height: "22px",
-                  color: "#4ca1f0"
+                  color: "#5fadab"
                 }}
               />
             }
@@ -70,7 +70,7 @@ class BottomNav extends Component {
                 style={{
                   width: "22px",
                   height: "22px",
-                  color: "#4ca1f0"
+                  color: "#5fadab"
                 }}
               />
             }
@@ -98,7 +98,7 @@ class BottomNav extends Component {
                 style={{
                   width: "22px",
                   height: "22px",
-                  color: "#4ca1f0"
+                  color: "#5fadab"
                 }}
               />
             }
