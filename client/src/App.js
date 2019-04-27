@@ -12,32 +12,36 @@ import BottomNav from './components/mobile/shared/layouts/Bottom-Nav';
 
 class App extends Component {
 
-  handleView = (width) => {
-      if (width <= 1024) {
-          return (
-              <div>
-                  <NavMobile />
-                  <Route exact path='/' component={Explore} />
-                  <Route exact path='/nearby' component={Nearby} />
-                  <BottomNav/>
-              </div>
+    handleSearch = (search) => {
+        console.log(search);
+    }
 
-          )
-      } else {
-          return (
-              <div>
-                  <NavDesktop />
-                  <Route exact path='/' component={Explore} />
-                  <Route exact path='/nearby' component={Nearby} />
-                  <Route exact path='/saved' component={Saved} />
-              </div>
-          )
-      }
-  }
+    handleView = (width) => {
+        if (width <= 1024) {
+            return (
+                <div>
+                    <NavMobile />
+                    <Route exact path='/' component={Explore} />
+                    <Route exact path='/nearby' component={Nearby} />
+                    <BottomNav />
+                </div>
 
-  render() {
-    return <Router>{this.handleView(this.props.windowWidth)}</Router>;
-  }
+            )
+        } else {
+            return (
+                <div>
+                    <NavDesktop search={this.handleSearch} />
+                    <Route exact path='/' component={Explore} />
+                    <Route exact path='/nearby' component={Nearby} />
+                    <Route exact path='/saved' component={Saved} />
+                </div>
+            )
+        }
+    }
+
+    render() {
+        return <Router>{this.handleView(this.props.windowWidth)}</Router>;
+    }
 }
 
 export default windowSize(App);

@@ -19,6 +19,27 @@ const menu = (
 );
 
 class Nav extends Component {
+
+  state = {
+    search: ''
+  }
+
+  handleFormSubmit = (e) => {
+    e.preventDefault();
+    this.props.search(this.state.search);
+    this.setState({
+      search: ''
+    })
+  }
+
+  handleInputChange = (e) => {
+    const { name, value } = e.target;
+
+    this.setState({
+      [name]: value
+    });
+  }
+
   render() {
     return (
       <NavBar
@@ -32,13 +53,18 @@ class Nav extends Component {
           <Link to='/saved' className={window.location.pathname === "/saved" ? "item active" : "item"}>Saved</Link>,
           <Dropdown overlay={menu} trigger={['click']}>
             <a className="ant-dropdown-link item" href="#">
-              <FaUser /> 
+              <FaUser />
             </a>
           </Dropdown>
         ]}>
-        <Form layout='inline' style={{ position: "relative" }}>
+        <Form layout='inline' style={{ position: "relative" }} onSubmit={this.handleFormSubmit}>
           <Form.Item type="text">
-            <Input placeholder='Search EventPull' id='search-bar' />
+            <Input
+              value={this.state.search}
+              onChange={this.handleInputChange}
+              name='search'
+              placeholder='Search EventPull'
+              id='search-bar' />
           </Form.Item>
           <FaSearch id='search-button' />
         </Form>
