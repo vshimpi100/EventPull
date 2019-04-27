@@ -5,28 +5,3 @@
 .am-segment-item.am-segment-item-selected{
     background: #5fadab;
 }
-
-/*
-
-#explore-sort .item.sort-header {
-    color: #3fb0ac;
-}
-
-#explore-sort .ui.grid .row{
-    padding: 10px;
-}
-
-.ui.grid{
-    width: 100%;
-}
-
-.ui.text.menu .item.sort-header {
-    font-size: 24px;
-    margin-left: auto;
-    padding: 0px;
-    width: fit-content;
-}
-
-i.icon.sort-icon {
-    margin-right: 10%;
-} */

@@ -39,6 +39,7 @@ class SortNearby extends Component {
           onClick={this.handleClick}
           selectedKeys={[this.state.current]}
           mode="horizontal"
+          id='nearby-sort'
         >
           <Menu.Item key="hidden-bar" onClick={this.showDrawer}>
             <Icon type="double-right" />
