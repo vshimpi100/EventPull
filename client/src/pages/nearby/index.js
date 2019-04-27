@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import SortMobile from "../../components/mobile/page-components/nearby/Sort-Nearby";
 import SortDesktop from "../../components/desktop/page-components/nearby/Sort-Nearby"
 import EventCardMobile from "../../components/mobile/shared/general/Event-Card";
-import EventCardDesktop from "../../components/desktop/shared/general/Event-Card"
+import EventCardDesktop from "../../components/desktop/shared/general/Event-Card";
 import windowSize from 'react-window-size';
 
 class Nearby extends Component {

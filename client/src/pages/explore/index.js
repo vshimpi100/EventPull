@@ -4,8 +4,13 @@ import SortDesktop from "../../components/desktop/page-components/explore/Sort-E
 import EventCardMobile from "../../components/mobile/shared/general/Event-Card";
 import EventCardDesktop from "../../components/desktop/shared/general/Event-Card"
 import windowSize from 'react-window-size';
+import dummyData from '../../utils/mock-data.json';
 
 class Explore extends Component {
+
+  state = {
+    data: dummyData
+  }
 
   handleView = (width) => {
     if (width <= 1024) {
@@ -18,9 +23,19 @@ class Explore extends Component {
       )
     } else {
       return (
-        <div>
+        <div style={{ paddingTop: "117px" }}>
           <SortDesktop />
-          <EventCardDesktop />
+          {this.state.data.map(element => {
+            return (
+              <section>
+                <EventCardDesktop
+                  title={element.title}
+                  image={element.image}
+                />
+              </section>
+            )
+          })}
+
         </div>
       )
     }

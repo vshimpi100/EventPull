@@ -1,3 +1,8 @@
+.ant-avatar > img {
+    object-fit: cover;
+    object-position: center;
+}
+
 .ant-comment {
     position: absolute;
     bottom: 0;
@@ -9,14 +14,11 @@
 }
 
 .ant-comment-content-author {
-    margin-bottom: 0;
+    margin-bottom: 0.1rem;
 }
 
-.card-icons {
-    position: absolute;
-    bottom: 0;
-    left: 14vw;
-    width: 100%;
+.card-title {
+    margin-bottom: 1rem;
 }
 
 .card-icon {
@@ -25,12 +27,11 @@
 
 #save-button {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 1rem;
+    right: 1rem;
     cursor: pointer;
 }
 
 .icon-data {
     margin-left: 1vw;
-
 }

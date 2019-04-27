@@ -4,6 +4,8 @@ div.am-navbar {
     min-height: 70px;
     width: 100%;
     padding: 0;
+    position: fixed;
+    top: 0;
     z-index: 1000;
 }
 
