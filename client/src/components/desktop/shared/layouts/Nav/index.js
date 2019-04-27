@@ -22,6 +22,7 @@ class Nav extends Component {
   render() {
     return (
       <NavBar
+        className="nav-web"
         leftContent={[
           <h1 className='navbar-brand'>EventPull</h1>
         ]}
