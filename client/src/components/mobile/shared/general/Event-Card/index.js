@@ -97,7 +97,7 @@ export default class SortExplore extends Component {
                   </Tag>
                 </Flex>
                 <Flex justify="end" align="center" style={{ marginTop: "4px" }}>
-                  <Badge className="inline" text={"loremipsum"} />
+                  <Badge className="inline" text={"loremipsum"} style={{zIndex: 1}}/>
                   <div className="inline">
                     <Comment
                       className="mobile"
