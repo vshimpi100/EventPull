@@ -4,7 +4,7 @@ import SortDesktop from "../../components/desktop/page-components/explore/Sort-E
 import EventCardMobile from "../../components/mobile/shared/general/Event-Card";
 import EventCardDesktop from "../../components/desktop/shared/general/Event-Card"
 import windowSize from 'react-window-size';
-import dummyData from '../../utils/mock-data.json';
+import dummyData from '../../demo/demoEvents.json';
 
 class Explore extends Component {
 
@@ -31,6 +31,13 @@ class Explore extends Component {
                 <EventCardDesktop
                   title={element.title}
                   image={element.image}
+                  date={element.date}
+                  creator={element.creator}
+                  created={element.created}
+                  price={element.price}
+                  comments={element.comments}
+                  upvotes={element.up}
+                  downvotes={element.down}
                 />
               </section>
             )
