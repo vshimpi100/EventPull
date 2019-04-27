@@ -12,6 +12,18 @@ class Explore extends Component {
     data: dummyData
   }
 
+  handleSort = (sort_type, order) => {
+    console.log(sort_type, order);
+  }
+
+  handleVote = (vote) => {
+    console.log(vote);
+  }
+
+  handleSave = (saved_event, action) => {
+    console.log(saved_event, action);
+  }
+
   handleView = (width) => {
     if (width <= 1024) {
       return (
@@ -24,20 +36,25 @@ class Explore extends Component {
     } else {
       return (
         <div style={{ paddingTop: "117px" }}>
-          <SortDesktop />
+          <SortDesktop
+            sort={this.handleSort}
+          />
           {this.state.data.map(element => {
             return (
               <section>
                 <EventCardDesktop
+                  key={element.id}
                   title={element.title}
                   image={element.image}
                   date={element.date}
                   creator={element.creator}
-                  created={element.created}
+                  date_created={element.created}
                   price={element.price}
                   comments={element.comments}
                   upvotes={element.up}
                   downvotes={element.down}
+                  handleVote={this.handleVote}
+                  handleSave={this.handleSave}
                 />
               </section>
             )

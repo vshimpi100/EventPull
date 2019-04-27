@@ -12,6 +12,14 @@ class Nearby extends Component {
     data: dummyData
   }
 
+  handleSort = (sort_type) => {
+    console.log(sort_type, -1);
+  }
+
+  handleVote = (vote) => {
+    console.log(vote);
+  }
+
   handleView = (width) => {
     if (width <= 1024) {
       return (
@@ -24,7 +32,7 @@ class Nearby extends Component {
     } else {
       return (
         <div style={{ paddingTop: "117px" }}>
-          <SortDesktop />
+          <SortDesktop sort={this.handleSort} />
           {this.state.data.map(element => {
             return (
               <section>
@@ -38,6 +46,7 @@ class Nearby extends Component {
                   comments={element.comments}
                   upvotes={element.up}
                   downvotes={element.down}
+                  handleVote={this.handleVote}
                 />
               </section>
             )

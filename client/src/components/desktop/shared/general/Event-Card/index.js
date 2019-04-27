@@ -5,19 +5,10 @@ import "./style.css";
 
 class EventCard extends Component {
     state = {
-        total: 0
-    };
-
-    handleUpVote = () => {
-        this.setState({
-            upvotes: this.state.upvotes + 1,
-        });
-    };
-
-    handleDownVote = () => {
-        this.setState({
-            downvotes: this.state.downvotes - 1,
-        });
+        currentVote: 0,
+        total: 0,
+        save_theme: 'outlined',
+        saved: false
     };
 
     componentDidMount = () => {
@@ -30,20 +21,91 @@ class EventCard extends Component {
         })
     }
 
+    handleUpVote = () => {
+        if (this.state.currentVote !== 1) {
+            this.setState({
+                currentVote: 1
+            })
+            this.props.handleVote('upvote')
+        } else if (this.state.currentVote === 1) {
+            this.setState({
+                currentVote: 0
+            })
+            this.props.handleVote('removing upvote')
+        }
+    };
+
+    handleDownVote = () => {
+        if (this.state.currentVote !== -1) {
+            this.setState({
+                currentVote: -1
+            })
+            this.props.handleVote('downvote')
+        } else if (this.state.currentVote === -1) {
+            this.setState({
+                currentVote: 0
+            })
+            this.props.handleVote('removing downvote')
+        }
+    };
+
+    handleMouseEnter = () => {
+        if (this.state.saved === false) {
+            this.setState({
+                save_theme: 'filled'
+            })
+        }
+    }
+
+    handleMouseLeave = () => {
+        if (this.state.saved === false) {
+            this.setState({
+                save_theme: 'outlined'
+            })
+        }
+    }
+
+    handleClickEvent = () => {
+        const event = {
+            title: this.props.title,
+            image: this.props.image,
+            date: this.props.date,
+            creator: this.props.creator,
+            date_created: this.props.date_created,
+            price: this.props.price,
+            comments: this.props.comments,
+            upvotes: this.props.date,
+            downvotes: this.props.date,
+        }
+        if (this.state.saved === false) {
+            this.setState({
+                save_theme: 'filled',
+                saved: true,
+            })
+            this.props.handleSave(event, 'save');
+        } else {
+            this.setState({
+                save_them: 'outlined',
+                saved: false
+            })
+            this.props.handleSave(event, 'remove');
+        }
+    }
+
     render() {
         return (
             <Card full style={{ width: "80%" }}>
                 <Card.Body>
                     <Row>
                         <Col span={1} style={{ textAlign: "center" }}>
-                            <Row style={{ fontSize: '18px' }}>
-                                <Icon type="caret-up" onClick={this.handleUpVote} />
+                            <Row style={{ fontSize: '20px' }}>
+                                <Icon type="caret-up" className='vote-icon' onClick={this.handleUpVote} />
                             </Row>
-                            <Row style={{ fontSize: '18px' }}>
+                            <Row style={{ fontSize: '16px' }}>
                                 <span className="total-votes">{this.state.total} </span>
                             </Row>
-                            <Row style={{ fontSize: '18px' }}>
-                                <Icon type="caret-down" onClick={this.handleDownVote} />
+                            <Row style={{ fontSize: '20px' }}>
+                                <Icon type="caret-down" className='vote-icon' onClick={this.handleDownVote} />
                             </Row>
                         </Col>
                         <Col span={3} style={{ textAlign: "center" }}>
@@ -65,7 +127,7 @@ class EventCard extends Component {
                                 >
                                     <Row>
                                         <Icon type="calendar" />
-                                        <span className="icon-data">{this.props.created}</span>
+                                        <span className="icon-data">{this.props.date}</span>
                                     </Row>
                                 </Col>
                                 <Col
@@ -100,11 +162,19 @@ class EventCard extends Component {
                         </Col>
                     </Row>
 
-                    <Icon type="heart" id="save-button" />
+                    <Icon
+                        type="heart"
+                        id="save-button"
+                        style={{ color: '#FF4400' }}
+                        theme={this.state.save_theme}
+                        onMouseEnter={this.handleMouseEnter}
+                        onMouseLeave={this.handleMouseLeave}
+                        onClick={this.handleClickEvent}
+                    />
                     <Comment
                         author={<a href="#">{this.props.creator}</a>}
                         datetime={
-                            <span>{this.props.date}</span>
+                            <span>{this.props.date_created}</span>
                         }
                     />
                 </Card.Body>
