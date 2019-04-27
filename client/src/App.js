@@ -8,6 +8,7 @@ import windowSize from 'react-window-size';
 import Explore from './pages/explore';
 import Nearby from './pages/nearby';
 import Saved from './pages/saved';
+import BottomNav from './components/mobile/shared/layouts/Bottom-Nav';
 
 class App extends Component {
 
