@@ -51,6 +51,7 @@ class SortExplore extends Component {
           onClick={this.handleClick}
           selectedKeys={[this.state.current]}
           mode="horizontal"
+          id='explore-sort'
         >
           <Menu.Item key="hidden-bar" onClick={this.showDrawer}>
             <Icon type="double-right" />

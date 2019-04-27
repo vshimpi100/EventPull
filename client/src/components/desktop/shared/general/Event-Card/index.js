@@ -43,40 +43,40 @@ class EventCard extends Component {
                             </Row>
                         </Col>
                         <Col span={3} style={{ textAlign: 'center' }}>
-                            <Avatar shape='square' size={64} src='https://via.placeholder.com/150' />
+                            <Avatar shape='square' size={64} src={this.props.image} />
                         </Col>
                         <Col span={20}>
                             <Row>
                                 <Col span={22}>
-                                    <Row>
-                                        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+                                    <Row className='card-title'>
+                                        <span>{this.props.title}</span>
                                     </Row>
                                 </Col>
-                                <Icon type="export" id="save-button" />
+                            </Row>
+                            <Row className='card-icons'>
+                                <Col span={6} style={{ width: 'fit-content' }} className='card-icon'>
+                                    <Row>
+                                        <Icon type="calendar" /><span className='icon-data'>4/30</span>
+                                    </Row>
+                                </Col>
+                                <Col span={6} style={{ width: 'fit-content' }} className='card-icon'>
+                                    <Row>
+                                        <Icon type="environment" /><span className='icon-data'>4.8 mi</span>
+                                    </Row>
+                                </Col>
+                                <Col span={6} style={{ width: 'fit-content' }} className='card-icon'>
+                                    <Row>
+                                        <Icon type="dollar" /><span className='icon-data'>$ 299.99</span>
+                                    </Row>
+                                </Col>
+                                <Col span={6} style={{ width: 'fit-content' }} className='card-icon'>
+                                    <Icon type="message" /><span className='icon-data'>59</span>
+                                </Col>
                             </Row>
                         </Col>
                     </Row>
-                    <Row className='card-icons'>
-                        <Col span={6} style={{ width: 'fit-content' }} className='card-icon'>
-                            <Row>
-                                <Icon type="calendar" /><span className='icon-data'>4/30</span>
-                            </Row>
-                        </Col>
-                        <Col span={6} style={{ width: 'fit-content' }} className='card-icon'>
-                            <Row>
-                                <Icon type="environment" /><span className='icon-data'>4.8 mi</span>
-                            </Row>
-                        </Col>
-                        <Col span={6} style={{ width: 'fit-content' }} className='card-icon'>
-                            <Row>
-                                <Icon type="dollar" /><span className='icon-data'>$ 299.99</span>
-                            </Row>
-                        </Col>
-                        <Col span={6} style={{ width: 'fit-content' }} className='card-icon'>
-                            <Icon type="message" /><span className='icon-data'>59</span>
-                        </Col>
 
-                    </Row>
+                    <Icon type="heart" id="save-button" />
                     <Comment
                         author={<a href='#'>zlmartin</a>}
                         datetime={(
