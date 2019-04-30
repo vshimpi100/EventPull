@@ -172,6 +172,7 @@ class EventCard extends Component {
                         onClick={this.handleClickEvent}
                     />
                     <Comment
+                        className='event-card-comment'
                         author={<a href="#">{this.props.creator}</a>}
                         datetime={
                             <span>{this.props.date_created}</span>

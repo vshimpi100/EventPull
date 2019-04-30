@@ -6,7 +6,7 @@
 /* =================================== */
 
 /* Event Creator and Date Created */
-.ant-comment {
+.ant-comment.event-card-comment {
     position: absolute;
     bottom: 0;
     right: 0;
@@ -18,6 +18,10 @@
 
 .ant-comment-content-author {
     margin-bottom: 0.1rem;
+}
+
+.ant-comment-avatar {
+    display: none;
 }
 /* =================================== */
 
