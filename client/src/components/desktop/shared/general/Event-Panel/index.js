@@ -12,7 +12,7 @@ class EventPanel extends Component {
                 className='event-panel inline'
                 style={{ width: '22vw' }}
                 cover={<img className='event-card-img' alt="example" src={this.props.image} />}
-                extra={<Icon type="heart" id="save-button" />}
+                extra={<Icon type="close" id="delete-button" />}
                 actions={[<a href=''>Tickets</a>, <a href=''>Directions</a>, <a href=''>Calender</a>, <a href=''>Share</a>]}
             >
                 <Meta
@@ -20,11 +20,10 @@ class EventPanel extends Component {
                     className='sub-info'
                 />
                 <Comment
-                    author={<a href='#'>zlmartin</a>}
+                    className='event-panel-comment'
+                    author={<a href='#'>{this.props.creator}</a>}
                     datetime={(
-                        <Tooltip title={moment().format('YYYY-MM-DD HH:mm:ss')}>
-                            <span>{moment().fromNow()}</span>
-                        </Tooltip>
+                        <span>{this.props.date_created}</span>
                     )}
                 />
             </Card>
