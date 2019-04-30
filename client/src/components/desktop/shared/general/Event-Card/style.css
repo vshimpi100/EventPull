@@ -1,9 +1,12 @@
+/* Event Image */
 .ant-avatar > img {
     object-fit: cover;
     object-position: center;
 }
+/* =================================== */
 
-.ant-comment {
+/* Event Creator and Date Created */
+.ant-comment.event-card-comment {
     position: absolute;
     bottom: 0;
     right: 0;
@@ -17,21 +20,44 @@
     margin-bottom: 0.1rem;
 }
 
+.ant-comment-avatar {
+    display: none;
+}
+/* =================================== */
+
+/* Event Title */
 .card-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
     margin-bottom: 1rem;
 }
+/* =================================== */
 
+/* Description Icons */
 .card-icon {
+    color: #FF4400;
     margin-right: 5rem;
 }
+.icon-data {
+    color: #000;
+    margin-left: 1vw;
+}
+/* =================================== */
 
+/* Save Event Button */
 #save-button {
     position: absolute;
     top: 1rem;
     right: 1rem;
     cursor: pointer;
 }
+/* =================================== */
 
-.icon-data {
-    margin-left: 1vw;
+
+/* Upvote / Downvote */
+.vote-icon:hover {
+    color: #FF4400;
+    transform: scale(1.1);
 }
+/* =================================== */

@@ -5,9 +5,13 @@ import "./style.css";
 
 class SortExplore extends Component {
   state = {
-    current: 'item_1',
+    current: 'best',
     visible: false,
-    active: 'descending'
+    sort_order: -1
+  }
+
+  componentDidMount = () => {
+    this.props.sort('best', this.state.sort_order);
   }
 
   handleClick = (e) => {
@@ -17,6 +21,10 @@ class SortExplore extends Component {
       this.setState({
         current: e.key,
       });
+    }
+
+    if (e.key) {
+      this.props.sort(e.key, this.state.sort_order);
     }
   }
 
@@ -32,14 +40,14 @@ class SortExplore extends Component {
     });
   };
 
-  handleActiveClass = () => {
-    if (this.state.active === 'descending') {
+  handleSortOrder = () => {
+    if (this.state.sort_order === -1) {
       this.setState({
-        active: 'ascending'
+        sort_order: 1
       })
     } else {
       this.setState({
-        active: 'descending'
+        sort_order: -1
       })
     }
   }
@@ -56,25 +64,25 @@ class SortExplore extends Component {
           <Menu.Item key="hidden-bar" onClick={this.showDrawer}>
             <Icon type="double-right" />
           </Menu.Item>
-          <Menu.Item>
+          <Menu.Item key='best'>
             <Icon type='star' /> Best
           </Menu.Item>
-          <Menu.Item>
+          <Menu.Item key='date'>
             <Icon type="calendar" /> Date
           </Menu.Item>
-          <Menu.Item>
+          <Menu.Item key='distance'>
             <Icon type="environment" /> Distance
           </Menu.Item>
-          <Menu.Item>
+          <Menu.Item key='price'>
             <Icon type="dollar" /> Price
           </Menu.Item>
-          <Menu.Item>
+          <Menu.Item key='comments'>
             <Icon type="message" /> Comments
           </Menu.Item>
           <Icon
-            type={this.state.active === 'descending' ? 'arrow-down' : 'arrow-up'}
+            type={this.state.sort_order === -1 ? 'arrow-down' : 'arrow-up'}
             className='sort-order'
-            onClick={this.handleActiveClass}
+            onClick={this.handleSortOrder}
           />
         </Menu>
         <Drawer

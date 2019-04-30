@@ -1,120 +1,187 @@
 import React, { Component } from "react";
 import { Card } from "antd-mobile";
-import { Avatar, Row, Col, Icon, Comment, Tooltip } from "antd";
-import moment from "moment";
+import { Avatar, Row, Col, Icon, Comment } from "antd";
 import "./style.css";
 
 class EventCard extends Component {
-  state = {
-    upvotes: 0,
-    downvotes: 0,
-    total: 0
-  };
+    state = {
+        currentVote: 0,
+        total: 0,
+        save_theme: 'outlined',
+        saved: false
+    };
 
-  handleUpVote = () => {
-    this.setState({
-      upvotes: this.state.upvotes + 1,
-      total: this.state.total + 1
-    });
-  };
+    componentDidMount = () => {
+        let downvotes = this.props.downvotes;
+        let upvotes = this.props.upvotes;
 
-  handleDownVote = () => {
-    this.setState({
-      downvotes: this.state.downvotes - 1,
-      total: this.state.total - 1
-    });
-  };
+        let totalvotes = upvotes - downvotes;
+        this.setState({
+            total: totalvotes
+        })
+    }
 
-  handleDownVote = () => {
-    this.setState({
-      downvotes: this.state.downvotes - 1,
-      total: this.state.total - 1
-    });
-  };
+    handleUpVote = () => {
+        if (this.state.currentVote !== 1) {
+            this.setState({
+                currentVote: 1
+            })
+            this.props.handleVote('upvote')
+        } else if (this.state.currentVote === 1) {
+            this.setState({
+                currentVote: 0
+            })
+            this.props.handleVote('removing upvote')
+        }
+    };
 
-  render() {
-    return (
-      <Card full style={{ width: "80%" }}>
-        <Card.Body>
-          <Row>
-            <Col span={1} style={{ textAlign: "center" }}>
-              <Row>
-                <Icon type="caret-up" onClick={this.handleUpVote} />
-              </Row>
-              <Row>
-                <span className="total-votes">{this.state.total}</span>
-              </Row>
-              <Row>
-                <Icon type="caret-down" onClick={this.handleDownVote} />
-              </Row>
-            </Col>
-            <Col span={3} style={{ textAlign: "center" }}>
-              <Avatar shape="square" size={64} src={this.props.image} />
-            </Col>
-            <Col span={20}>
-              <Row>
-                <Col span={22}>
-                  <Row className="card-title">
-                    <span>{this.props.title}</span>
-                  </Row>
-                </Col>
-              </Row>
-              <Row className="card-icons">
-                <Col
-                  span={6}
-                  style={{ width: "fit-content" }}
-                  className="card-icon"
-                >
-                  <Row>
-                    <Icon type="calendar" />
-                    <span className="icon-data">4/30</span>
-                  </Row>
-                </Col>
-                <Col
-                  span={6}
-                  style={{ width: "fit-content" }}
-                  className="card-icon"
-                >
-                  <Row>
-                    <Icon type="environment" />
-                    <span className="icon-data">4.8 mi</span>
-                  </Row>
-                </Col>
-                <Col
-                  span={6}
-                  style={{ width: "fit-content" }}
-                  className="card-icon"
-                >
-                  <Row>
-                    <Icon type="dollar" />
-                    <span className="icon-data">$ 299.99</span>
-                  </Row>
-                </Col>
-                <Col
-                  span={6}
-                  style={{ width: "fit-content" }}
-                  className="card-icon"
-                >
-                  <Icon type="message" />
-                  <span className="icon-data">59</span>
-                </Col>
-              </Row>
-            </Col>
-          </Row>
+    handleDownVote = () => {
+        if (this.state.currentVote !== -1) {
+            this.setState({
+                currentVote: -1
+            })
+            this.props.handleVote('downvote')
+        } else if (this.state.currentVote === -1) {
+            this.setState({
+                currentVote: 0
+            })
+            this.props.handleVote('removing downvote')
+        }
+    };
 
-          <Icon type="heart" id="save-button" />
-          <Comment
-            author={<a href="#">zlmartin</a>}
-            datetime={
-              <Tooltip title={moment().format("YYYY-MM-DD HH:mm:ss")}>
-                <span>{moment().fromNow()}</span>
-              </Tooltip>
-            }
-          />
-        </Card.Body>
-      </Card>
-    );
-  }
+    handleMouseEnter = () => {
+        if (this.state.saved === false) {
+            this.setState({
+                save_theme: 'filled'
+            })
+        }
+    }
+
+    handleMouseLeave = () => {
+        if (this.state.saved === false) {
+            this.setState({
+                save_theme: 'outlined'
+            })
+        }
+    }
+
+    handleClickEvent = () => {
+        const event = {
+            title: this.props.title,
+            image: this.props.image,
+            date: this.props.date,
+            creator: this.props.creator,
+            date_created: this.props.date_created,
+            price: this.props.price,
+            comments: this.props.comments,
+            upvotes: this.props.date,
+            downvotes: this.props.date,
+        }
+        if (this.state.saved === false) {
+            this.setState({
+                save_theme: 'filled',
+                saved: true,
+            })
+            this.props.handleSave(event, 'save');
+        } else {
+            this.setState({
+                save_them: 'outlined',
+                saved: false
+            })
+            this.props.handleSave(event, 'remove');
+        }
+    }
+
+    render() {
+        return (
+            <Card full style={{ width: "80%" }}>
+                <Card.Body>
+                    <Row>
+                        <Col span={1} style={{ textAlign: "center" }}>
+                            <Row style={{ fontSize: '20px' }}>
+                                <Icon type="caret-up" className='vote-icon' onClick={this.handleUpVote} />
+                            </Row>
+                            <Row style={{ fontSize: '16px' }}>
+                                <span className="total-votes">{this.state.total} </span>
+                            </Row>
+                            <Row style={{ fontSize: '20px' }}>
+                                <Icon type="caret-down" className='vote-icon' onClick={this.handleDownVote} />
+                            </Row>
+                        </Col>
+                        <Col span={3} style={{ textAlign: "center" }}>
+                            <Avatar shape="square" size={80} src={this.props.image} />
+                        </Col>
+                        <Col span={20}>
+                            <Row>
+                                <Col span={22}>
+                                    <Row className="card-title">
+                                        <span>{this.props.title}</span>
+                                    </Row>
+                                </Col>
+                            </Row>
+                            <Row className="card-icons">
+                                <Col
+                                    span={6}
+                                    style={{ width: "fit-content" }}
+                                    className="card-icon"
+                                >
+                                    <Row>
+                                        <Icon type="calendar" />
+                                        <span className="icon-data">{this.props.date}</span>
+                                    </Row>
+                                </Col>
+                                <Col
+                                    span={6}
+                                    style={{ width: "fit-content" }}
+                                    className="card-icon"
+                                >
+                                    <Row>
+                                        <Icon type="environment" />
+                                        <span className="icon-data">4.8 mi</span>
+                                    </Row>
+                                </Col>
+                                <Col
+                                    span={6}
+                                    style={{ width: "fit-content" }}
+                                    className="card-icon"
+                                >
+                                    <Row>
+                                        <Icon type="dollar" />
+                                        <span className="icon-data">$ {this.props.price.toFixed(2)}</span>
+                                    </Row>
+                                </Col>
+                                <Col
+                                    span={6}
+                                    style={{ width: "fit-content" }}
+                                    className="card-icon"
+                                >
+                                    <Icon type="message" />
+                                    <span className="icon-data">{this.props.comments.length}</span>
+                                </Col>
+                            </Row>
+                        </Col>
+                    </Row>
+
+                    <Icon
+                        type="heart"
+                        id="save-button"
+                        style={{ color: '#FF4400' }}
+                        theme={this.state.save_theme}
+                        onMouseEnter={this.handleMouseEnter}
+                        onMouseLeave={this.handleMouseLeave}
+                        onClick={this.handleClickEvent}
+                    />
+                    <Comment
+                        className='event-card-comment'
+                        author={<a href="#">{this.props.creator}</a>}
+                        datetime={
+                            <span>{this.props.date_created}</span>
+                        }
+                    />
+                </Card.Body>
+            </Card>
+        );
+    }
 }
 
 export default EventCard;
