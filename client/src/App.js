@@ -10,6 +10,16 @@ import Nearby from './pages/nearby';
 import Saved from './pages/saved';
 import BottomNav from './components/mobile/shared/layouts/Bottom-Nav';
 
+// AWS amplify imports
+import Auth from '@aws-amplify/auth';
+import Analytics from '@aws-amplify/analytics';
+import awsconfig from './aws-exports';
+
+// retrieve temporary AWS credentials and sign requests
+Auth.configure(awsconfig);
+// send analytics events to Amazon Pinpoint
+Analytics.configure(awsconfig);
+
 class App extends Component {
 
   handleView = (width) => {
