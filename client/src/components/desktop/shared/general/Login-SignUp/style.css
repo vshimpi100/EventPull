@@ -1,0 +1,27 @@
+.Art {
+    background-image: url(https://www.redditstatic.com/accountmanager/bbb584033aa89e39bad69436c504c9bd.png);
+    height: 450px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+h1.form-title {
+    font-size: 20px;
+    margin-bottom: 1rem;
+}
+
+.modal-content-body {
+    margin-top: 5rem;
+    margin-left: 0.8rem;
+}
+
+/* Username */
+#username, #password {
+    width: 300px;
+    height: 36px;
+    border: 1px solid rgba(0,0,0,.1);
+    border-radius: 4px;
+    background-color: #fcfcfb;
+    margin-bottom: 1rem;
+}
+/* =================================== */

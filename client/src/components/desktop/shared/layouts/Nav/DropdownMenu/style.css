@@ -1,0 +1,7 @@
+div.ant-modal-body {
+    padding: 0px;
+}
+
+.ant-modal-footer {
+    display: none;
+}
