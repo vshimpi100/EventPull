@@ -1,38 +1,16 @@
 {
-  "name": "mern",
-  "version": "0.1.0",
-  "private": true,
-  "proxy": "http://localhost:3001/",
+  "name": "client",
+  "version": "1.0.0",
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).",
+  "main": "webpack.config.js",
   "dependencies": {
-    "antd": "^3.16.3",
-    "antd-mobile": "^2.2.11",
-    "axios": "^0.18.0",
-    "bootstrap": "^4.3.1",
-    "css-modules": "^0.3.0",
-    "react": "^16.6.3",
-    "react-bootstrap": "^1.0.0-beta.8",
-    "react-dom": "^16.6.3",
-    "react-icons": "^3.6.1",
-    "react-router-dom": "^4.3.1",
-    "react-scripts": "^2.1.1",
-<<<<<<< HEAD
-    "semantic-ui-react": "^0.86.0",
+    "node": "^12.1.0",
     "stripe": "^6.29.0"
-    "babel" "presets": "react", "es2015",
-=======
-    "react-window-size": "^1.2.2"
->>>>>>> e85ff18aa737d0f29b34333a465e0a1d3f1aaa75
   },
+  "devDependencies": {},
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "author": "",
+  "license": "ISC"
 }
