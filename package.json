@@ -22,12 +22,12 @@
   "dependencies": {
     "axios": "^0.18.0",
     "cheerio": "^1.0.0-rc.3",
-    "express": "^4.16.3",
+    "express": "^4.16.4",
     "helmet": "^3.16.0",
     "if-env": "^1.0.4",
-    "mongoose": "^5.3.16",
+    "mongoose": "^5.5.5",
     "mongoose-currency": "^0.2.0",
-    "mongoose-type-url": "^1.0.5",
+    "mongoose-type-url": "^1.0.6",
     "node": "^12.1.0",
     "swagger-ui-express": "^4.0.2"
   }
