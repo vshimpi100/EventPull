@@ -32,6 +32,10 @@ div.am-navbar.nav-web {
     position: relative;
 }
 
+.ant-form-inline div.ant-form-item {
+    margin-right: 0px;
+}
+
 #search-button {
     fill: rgb(135, 138, 140);
     font-size: calc(6px + 8 * (100vw - 320px)/ 800);
