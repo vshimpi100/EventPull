@@ -1,46 +1,63 @@
-.content-body {
-    width: 70%;
-    margin-top: 0px;
+/* Event Image */
+.ant-avatar > img {
+    object-fit: cover;
+    object-position: center;
+}
+/* =================================== */
+
+/* Event Creator and Date Created */
+.ant-comment.event-card-comment {
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }
 
-.ui.card>.content {
-    padding: 0px;
+.ant-comment-inner {
+    padding: 0;
 }
 
-.ui.card>.content>.header:not(.ui) {
-    margin-top: 0px;
+.ant-comment-content-author {
+    margin-bottom: 0.1rem;
 }
 
-.ui.card>.content>.description {
-    display: inline-block;
+.ant-comment-avatar {
+    display: none;
 }
+/* =================================== */
 
-.ui.grid {
-    margin: 0px;
+/* Event Title */
+.card-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
 }
+/* =================================== */
 
-.ui.grid>.row.padding {
-    padding-top: 5px;
-    padding-bottom: 5px;
+/* Description Icons */
+.card-icon {
+    color: #FF4400;
+    margin-right: 5rem;
 }
-
-.content-body i.icon {
-    margin: 0px;
+.icon-data {
+    color: #000;
+    margin-left: 1vw;
 }
+/* =================================== */
 
-.icon-description {
-    display: inline-block;
-    font-size: calc(10px + 2 * (100vw - 320px)/ 800);
-    padding-left: 10px;
+/* Save Event Button */
+#save-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    cursor: pointer;
 }
+/* =================================== */
 
 
-/* .content-body i.icon.caret {
-    font-size: 30px;
-    margin: 0px;
-    height: auto;
-} */
-
-/* .content-body i.icon.info-icon {
-    font-size: 22px;
-} */
+/* Upvote / Downvote */
+.vote-icon:hover {
+    color: #FF4400;
+    transform: scale(1.1);
+}
+/* =================================== */

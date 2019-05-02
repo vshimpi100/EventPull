@@ -1,90 +1,80 @@
 import React, { Component } from "react";
 import { Nav, Col, Row } from "react-bootstrap";
+import { Icon as WebIcon } from "antd";
+import { SegmentedControl, Icon, Flex, Tag, WhiteSpace } from "antd-mobile";
 import "./style.css";
 import {
   FaAngleDoubleRight,
-  // FaStar,
-  // FaCalendar,
-  // FaMap,
-  // FaDollarSign,
-  // FaComment,
+  FaStar,
+  FaCalendarAlt,
+  FaMapMarkerAlt,
+  FaDollarSign,
+  FaComment,
   FaArrowUp,
   FaArrowDown
 } from "react-icons/fa";
 
 export default class SortExplore extends Component {
-  // state = { activeItem: "closest" };
+  state = {
+    current: 0,
+    active: "descending"
+  };
 
-  // handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+  handleClick = e => {
+    console.log(e.nativeEvent.selectedSegmentIndex);
+    if (
+      e.nativeEvent.selectedSegmentIndex === "hidden-bar" ||
+      !e.nativeEvent.selectedSegmentIndex
+    ) {
+    } else {
+      this.setState({
+        current: e.nativeEvent.selectedSegmentIndex
+      });
+    }
+  };
+
+  handleActiveClass = () => {
+    if (this.state.active === "descending") {
+      this.setState({
+        active: "ascending"
+      });
+    } else {
+      this.setState({
+        active: "descending"
+      });
+    }
+  };
 
   render() {
-    //   const { activeItem } = this.state;
-
     return (
-      <Nav defaultActiveKey="/home" as="ul" id="explore-sort">
-        <Col xs={2}>
-          <Nav.Item as="li">
-            <Nav.Link href="/home">
-              <Row>
-                <Col xs={2}>
-                  <FaAngleDoubleRight />
-                </Col>
-                <Col>Explore</Col>
-              </Row>
-            </Nav.Link>
-          </Nav.Item>
-        </Col>
-        <Col xs={6}>
-          <Row className="text-right">
-            <Col>
-              <Nav.Item as="li" id="sort-header">
-                <Nav.Link>Sort:</Nav.Link>
-              </Nav.Item>
-            </Col>
-            <Col>
-              <Nav.Item as="li">
-                <Nav.Link>Best</Nav.Link>
-              </Nav.Item>
-            </Col>
-            <Col>
-              <Nav.Item as="li">
-                <Nav.Link>Date</Nav.Link>
-              </Nav.Item>
-            </Col>
-            <Col>
-              <Nav.Item as="li">
-                <Nav.Link>Distance</Nav.Link>
-              </Nav.Item>
-            </Col>
-            <Col>
-              <Nav.Item as="li">
-                <Nav.Link>Price</Nav.Link>
-              </Nav.Item>
-            </Col>
-            <Col>
-              <Nav.Item as="li">
-                <Nav.Link>Comments</Nav.Link>
-              </Nav.Item>
-            </Col>
-          </Row>
-        </Col>
-        <Row>
-          <Col className="text-center">
-            <Nav.Item as="li">
-              <Nav.Link>
-                <FaArrowUp />
-              </Nav.Link>
-            </Nav.Item>
-          </Col>
-          <Col className="text-center">
-            <Nav.Item as="li">
-              <Nav.Link>
-                <FaArrowDown />
-              </Nav.Link>
-            </Nav.Item>
-          </Col>
-        </Row>
-      </Nav>
+      <div>
+        <Flex justify="center" style={{ marginTop: "5px" }}>
+          <Tag>Sort</Tag>
+          <SegmentedControl
+            justify="center"
+            className="inline"
+            selectedIndex={this.state.current}
+            onChange={this.handleClick}
+            values={[
+              <FaStar key="1" />,
+              <FaCalendarAlt key="2" />,
+              <FaMapMarkerAlt key="3" />,
+              <FaDollarSign key="4" />,
+              <FaComment key="5" />
+            ]}
+            style={{ width: "80%" }}
+          />
+          <Tag>
+            <WebIcon
+              type={
+                this.state.active === "descending" ? "arrow-down" : "arrow-up"
+              }
+              className="sort-order"
+              onClick={this.handleActiveClass}
+            />
+          </Tag>
+        </Flex>
+      </div>
     );
   }
 }

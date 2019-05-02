@@ -1,67 +1,15 @@
-import React, { Component, createRef } from 'react'
-import {
-  Button,
-  Header,
-  Image,
-  Menu,
-  Ref,
-  Segment,
-  Sidebar,
-} from 'semantic-ui-react'
+import React, { Component } from 'react';
 
-export default class VisibilityExampleTarget extends Component {
-  state = {}
-  segmentRef = createRef()
-
-  handleHideClick = () => this.setState({ visible: false })
-  handleShowClick = () => this.setState({ visible: true })
-
-  handleSidebarHide = () => this.setState({ visible: false })
-
+class App extends Component {
   render() {
-    const { visible } = this.state
-
     return (
       <div>
-        <Button.Group>
-          <Button disabled={visible} onClick={this.handleShowClick}>
-            Show sidebar
-          </Button>
-          <Button disabled={!visible} onClick={this.handleHideClick}>
-            Hide sidebar
-          </Button>
-        </Button.Group>
-
-        <Sidebar.Pushable as={Segment.Group} raised>
-          <Sidebar
-            as={Menu}
-            animation='overlay'
-            icon='labeled'
-            inverted
-            onHide={this.handleSidebarHide}
-            vertical
-            target={this.segmentRef}
-            visible={visible}
-            width='thin'
-          >
-            <Menu.Item as='a'>Home</Menu.Item>
-            <Menu.Item as='a'>Games</Menu.Item>
-            <Menu.Item as='a'>Channels</Menu.Item>
-          </Sidebar>
-
-          <Ref innerRef={this.segmentRef}>
-            <Segment>
-              <Header as='h3'>Clickable area</Header>
-              <p>When you will click there, the sidebar will be closed.</p>
-            </Segment>
-          </Ref>
-
-          <Segment>
-            <Header as='h3'>Application Content</Header>
-            <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
-          </Segment>
-        </Sidebar.Pushable>
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+          <p>Some contents...</p>
       </div>
-    )
+    );
   }
 }
+
+export default App;

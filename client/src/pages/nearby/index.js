@@ -1,20 +1,19 @@
 import React, { Component } from "react";
-import SortMobile from "../../components/mobile/page-components/explore/Sort-Explore";
-import SortDesktop from "../../components/desktop/page-components/explore/Sort-Explore"
+import SortMobile from "../../components/mobile/page-components/nearby/Sort-Nearby";
+import SortDesktop from "../../components/desktop/page-components/nearby/Sort-Nearby"
 import EventCardMobile from "../../components/mobile/shared/general/Event-Card";
 import EventCardDesktop from "../../components/desktop/shared/general/Event-Card";
-import SidebarDesktop from '../../components/desktop/shared/layouts/Right-Sidebar';
 import windowSize from 'react-window-size';
 import dummyData from '../../demo/demoEvents.json';
 
-class Explore extends Component {
+class Nearby extends Component {
 
   state = {
     data: dummyData
   }
 
-  handleSort = (sort_type, order) => {
-    console.log(sort_type, order);
+  handleSort = (sort_type) => {
+    console.log(sort_type, -1);
   }
 
   handleVote = (vote) => {
@@ -37,15 +36,11 @@ class Explore extends Component {
     } else {
       return (
         <div style={{ paddingTop: "117px" }}>
-          <SortDesktop
-            sort={this.handleSort}
-          />
-          <SidebarDesktop />
+          <SortDesktop sort={this.handleSort} />
           {this.state.data.map(element => {
             return (
-              <section style={{ width: '80%' }}>
+              <section>
                 <EventCardDesktop
-                  key={element.id}
                   title={element.title}
                   image={element.image}
                   date={element.date}
@@ -61,6 +56,7 @@ class Explore extends Component {
               </section>
             )
           })}
+
         </div>
       )
     }
@@ -75,4 +71,4 @@ class Explore extends Component {
   }
 }
 
-export default windowSize(Explore);
+export default windowSize(Nearby);

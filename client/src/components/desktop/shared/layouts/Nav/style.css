@@ -1,41 +1,72 @@
-.ui.text.menu {
+div.am-navbar.nav-web {
     background-color: #3fb0ac;
     margin: 0px;
     min-height: 70px;
     width: 100%;
     padding: 0;
-    color: #fff;
-    font-size: calc(10px + 14 * (100vw - 320px)/ 800);
-    /* box-shadow: 0 14px 28px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.22); */
+    position: fixed;
+    top: 0;
     z-index: 1000;
 }
 
-.ui.text.menu .nav-header.item {
+.navbar-brand {
     color: #fff;
-    font-size: 40px;
-    padding: 0px 30px;
+    font-size: calc(16px + 14 * (100vw - 320px)/ 800);
+    padding-left: calc(0.5rem + 10px)
 }
 
-.ui.text.menu .item {
+#search-bar {
+    background-color: rgb(246, 247, 248);
+    box-shadow: none;
+    color: rgb(28, 28, 28);
+    display: block;
+    height: 36px;
+    width: 35vw;
+    border-radius: 4px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(237, 239, 241);
+    border-image: initial;
+    outline: none;
+    padding: 0px 16px 0px 40px;
+    position: relative;
+}
+
+.ant-form-inline div.ant-form-item {
+    margin-right: 0px;
+}
+
+#search-button {
+    fill: rgb(135, 138, 140);
+    font-size: calc(6px + 8 * (100vw - 320px)/ 800);
+    position: absolute;
+    top: 25%;
+    left: 0.7vw;
+}
+
+#search-button:hover {
+    cursor: pointer;
+}
+
+.am-navbar-right .item {
     color: #fff;
-    font-size: 20px;
-    padding: 4px 10px 0px 10px;
+    font-size: calc(3px + 14 * (100vw - 320px)/ 800);
+    margin-right: 20px;
+    padding: 7.5px;
+    text-decoration: none;
 }
 
-.ui.menu .menu {
-    padding-right: 30px;
+.item.active {
+    background-color: #9bdcd8;
+    border-radius: 10px;
 }
 
-.ui.text.menu a:hover {
+a.item:hover, .nav-link:hover {
     color: #fff;
     transform: scale(1.1);
+    text-decoration: none;
 }
 
-.ui.text.menu a.item.active {
-    background-color: transparent;
-    border: none;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    font-weight: 800;
-    color: #fff;
+svg {
+    vertical-align: unset;
 }

@@ -1,69 +1,120 @@
-import React from 'react';
-import { Card, Icon, Image, Grid } from 'semantic-ui-react';
-import './style.css';
+import React, { Component } from "react";
+import { Card, WhiteSpace, Tag, Flex, Badge } from "antd-mobile";
+import {
+  FaAngleDoubleRight,
+  FaStar,
+  FaCalendarAlt,
+  FaMapMarkerAlt,
+  FaDollarSign,
+  FaComment,
+  FaArrowUp,
+  FaArrowDown
+} from "react-icons/fa";
+import moment from "moment";
+import { Icon, Comment, Tooltip } from "antd";
 
-function EventCard(props) {
+export default class SortExplore extends Component {
+  state = {
+    upvotes: 0,
+    downvotes: 0,
+    total: 0
+  };
+
+  handleUpVote = () => {
+    this.setState({
+      upvotes: this.state.upvotes + 1,
+      total: this.state.total + 1
+    });
+  };
+
+  handleDownVote = () => {
+    this.setState({
+      downvotes: this.state.downvotes - 1,
+      total: this.state.total - 1
+    });
+  };
+
+  render() {
+
     return (
-        <Card fluid>
-            <Card.Content>
-                <Grid>
-                    <Grid.Row className='padding'>
-                        <Grid.Column width={1} verticalAlign='middle'>
-                            <Grid textAlign='center'>
-                                <Grid.Row className='padding'>
-                                    <Icon link name='caret up' size='large' />
-                                </Grid.Row>
-                                <Grid.Row className='padding'>
-                                    450
-                            </Grid.Row>
-                                <Grid.Row className='padding'>
-                                    <Icon link name='caret down' size='large' />
-                                </Grid.Row>
-                            </Grid>
-                        </Grid.Column>
-                        <Grid.Column width={2} verticalAlign='middle' textAlign='center'>
-                            <Image src='https://via.placeholder.com/150' size='tiny' />
-                        </Grid.Column>
-                        <Grid.Column width={13} verticalAlign='middle'>
-                            <Grid>
-                                <Grid.Row className='padding'>
-                                    <Grid.Column width={15}>
-                                        <Card.Description>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Card.Description>
-                                    </Grid.Column>
-                                    <Grid.Column width={1}>
-                                        <Icon link name='external alternate' size='large' />
-                                    </Grid.Column>
-                                </Grid.Row>
-                                <Grid.Row className='padding' verticalAlign='middle'>
-                                    <Grid.Column width={3}>
-                                        <Icon className='info-icon' name='calendar alternate outline' size='large' />
-                                        <Card.Description className='icon-description'>4/30</Card.Description>
-                                    </Grid.Column>
-                                    <Grid.Column width={3}>
-                                        <Icon className='info-icon' name='map marker alternate' size='large' />
-                                        <Card.Description className='icon-description'>4.8 mi</Card.Description>
-                                    </Grid.Column>
-                                    <Grid.Column width={3}>
-                                        <Icon className='info-icon' name='dollar sign' size='large' />
-                                        <Card.Description className='icon-description'>$299.99</Card.Description>
-                                    </Grid.Column>
-                                    <Grid.Column width={3}>
-                                        <Icon className='info-icon' name='comment' size='large' />
-                                        <Card.Description className='icon-description'>54</Card.Description>
-                                    </Grid.Column>
-                                    <Grid.Column width={4} textAlign='right'>
-                                        <Card.Meta>
-                                            <Card.Description className='icon-description'>zlmartin at 7:30pm</Card.Description>
-                                        </Card.Meta>
-                                    </Grid.Column>
-                                </Grid.Row>
-                            </Grid>
-                        </Grid.Column>
-                    </Grid.Row>
-                </Grid>
-            </Card.Content>
+      <div>
+        <WhiteSpace size="sm" />
+        <Card full>
+          <Card.Body style={{ paddingTop: "6px" }}>
+            <Flex justify="between" align="center">
+              <span className="inline">
+                <Flex justify="center">
+                  <Icon type="caret-up" onClick={this.handleUpVote} />
+                </Flex>
+                <Flex justify="center">
+                  <div className="total-votes">{this.state.total}</div>
+                </Flex>
+                <Flex justify="center">
+                  <Icon type="caret-down" onClick={this.handleDownVote} />
+                </Flex>
+              </span>
+              <span
+                className="inline"
+                style={{ margin: "10px", verticalAlign: "top" }}
+              >
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              </span>
+              <span className="inline">
+                <img src="https://via.placeholder.com/75" />
+              </span>
+            </Flex>
+          </Card.Body>
+          <Card.Footer
+            content={
+              <div>
+                <Flex justify="around" wrap="wrap" align="center">
+                  <Tag
+                    className="inline"
+                    style={{ padding: "1,1px", margin: "2px" }}
+                  >
+                    <Icon type="calendar" />
+                    <span className="icon-data">4/30</span>
+                  </Tag>
+                  <Tag
+                    className="inline"
+                    style={{ padding: "1,1px", margin: "2px" }}
+                  >
+                    <Icon type="environment" />
+                    <span className="icon-data">4.8 mi</span>
+                  </Tag>
+                  <Tag
+                    className="inline"
+                    style={{ padding: "1,1px", margin: "2px" }}
+                  >
+                    <span>$ 9.99</span>
+                  </Tag>
+                  <Tag
+                    className="inline"
+                    style={{ padding: "1,1px", margin: "2px" }}
+                  >
+                    <Icon type="message" />
+                    <span className="icon-data">59</span>
+                  </Tag>
+                </Flex>
+                <Flex justify="end" align="center" style={{ marginTop: "4px" }}>
+                  <Badge className="inline" text={"loremipsum"} style={{zIndex: 1}}/>
+                  <div className="inline">
+                    <Comment
+                      className="mobile"
+                      author={<a href="#">zlmartin</a>}
+                      datetime={
+                        <Tooltip title={moment().format("YYYY-MM-DD HH:mm:ss")}>
+                          <span>{moment().fromNow()}</span>
+                        </Tooltip>
+                      }
+                    />
+                  </div>
+                </Flex>
+              </div>
+            }
+          />
         </Card>
-    )
+      </div>
+    );
+  }
 }
-
-export default EventCard;

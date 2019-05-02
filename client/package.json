@@ -15,9 +15,13 @@
     "react-icons": "^3.6.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "^2.1.1",
+<<<<<<< HEAD
     "semantic-ui-react": "^0.86.0",
     "stripe": "^6.29.0"
     "babel" "presets": "react", "es2015",
+=======
+    "react-window-size": "^1.2.2"
+>>>>>>> e85ff18aa737d0f29b34333a465e0a1d3f1aaa75
   },
   "scripts": {
     "start": "react-scripts start",

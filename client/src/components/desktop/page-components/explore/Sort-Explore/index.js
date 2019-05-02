@@ -1,90 +1,102 @@
 import React, { Component } from "react";
-import { Nav, Col, Row } from "react-bootstrap";
+import { Menu, Icon, Drawer } from 'antd';
+import Content from '../../../shared/layouts/Left-Sidebar'
 import "./style.css";
-import {
-  FaAngleDoubleRight,
-  // FaStar,
-  // FaCalendar,
-  // FaMap,
-  // FaDollarSign,
-  // FaComment,
-  FaArrowUp,
-  FaArrowDown
-} from "react-icons/fa";
 
-export default class SortExplore extends Component {
-  // state = { activeItem: "closest" };
+class SortExplore extends Component {
+  state = {
+    current: 'best',
+    visible: false,
+    sort_order: -1
+  }
 
-  // handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+  componentDidMount = () => {
+    this.props.sort('best', this.state.sort_order);
+  }
+
+  handleClick = (e) => {
+    if (e.key === 'hidden-bar' || !e.key) {
+
+    } else {
+      this.setState({
+        current: e.key,
+      });
+    }
+
+    if (e.key) {
+      this.props.sort(e.key, this.state.sort_order);
+    }
+  }
+
+  showDrawer = () => {
+    this.setState({
+      visible: true,
+    });
+  };
+
+  onClose = () => {
+    this.setState({
+      visible: false,
+    });
+  };
+
+  handleSortOrder = () => {
+    if (this.state.sort_order === -1) {
+      this.setState({
+        sort_order: 1
+      })
+    } else {
+      this.setState({
+        sort_order: -1
+      })
+    }
+  }
 
   render() {
-    //   const { activeItem } = this.state;
-
     return (
-      <Nav defaultActiveKey="/home" as="ul" id="explore-sort">
-        <Col xs={2}>
-          <Nav.Item as="li">
-            <Nav.Link href="/home">
-              <Row>
-                <Col xs={2}>
-                  <FaAngleDoubleRight />
-                </Col>
-                <Col>Explore</Col>
-              </Row>
-            </Nav.Link>
-          </Nav.Item>
-        </Col>
-        <Col xs={6}>
-          <Row className="text-right">
-            <Col>
-              <Nav.Item as="li" id="sort-header">
-                <Nav.Link>Sort:</Nav.Link>
-              </Nav.Item>
-            </Col>
-            <Col>
-              <Nav.Item as="li">
-                <Nav.Link>Best</Nav.Link>
-              </Nav.Item>
-            </Col>
-            <Col>
-              <Nav.Item as="li">
-                <Nav.Link>Date</Nav.Link>
-              </Nav.Item>
-            </Col>
-            <Col>
-              <Nav.Item as="li">
-                <Nav.Link>Distance</Nav.Link>
-              </Nav.Item>
-            </Col>
-            <Col>
-              <Nav.Item as="li">
-                <Nav.Link>Price</Nav.Link>
-              </Nav.Item>
-            </Col>
-            <Col>
-              <Nav.Item as="li">
-                <Nav.Link>Comments</Nav.Link>
-              </Nav.Item>
-            </Col>
-          </Row>
-        </Col>
-        <Row>
-          <Col className="text-center">
-            <Nav.Item as="li">
-              <Nav.Link>
-                <FaArrowUp />
-              </Nav.Link>
-            </Nav.Item>
-          </Col>
-          <Col className="text-center">
-            <Nav.Item as="li">
-              <Nav.Link>
-                <FaArrowDown />
-              </Nav.Link>
-            </Nav.Item>
-          </Col>
-        </Row>
-      </Nav>
+      <div>
+        <Menu
+          onClick={this.handleClick}
+          selectedKeys={[this.state.current]}
+          mode="horizontal"
+          id='explore-sort'
+        >
+          <Menu.Item key="hidden-bar" onClick={this.showDrawer}>
+            <Icon type="double-right" />
+          </Menu.Item>
+          <Menu.Item key='best'>
+            <Icon type='star' /> Best
+          </Menu.Item>
+          <Menu.Item key='date'>
+            <Icon type="calendar" /> Date
+          </Menu.Item>
+          <Menu.Item key='distance'>
+            <Icon type="environment" /> Distance
+          </Menu.Item>
+          <Menu.Item key='price'>
+            <Icon type="dollar" /> Price
+          </Menu.Item>
+          <Menu.Item key='comments'>
+            <Icon type="message" /> Comments
+          </Menu.Item>
+          <Icon
+            type={this.state.sort_order === -1 ? 'arrow-down' : 'arrow-up'}
+            className='sort-order'
+            onClick={this.handleSortOrder}
+          />
+        </Menu>
+        <Drawer
+          title="Basic Drawer"
+          placement="left"
+          closable={false}
+          onClose={this.onClose}
+          visible={this.state.visible}
+        >
+          <Content />
+        </Drawer>
+      </div>
     );
   }
 }
+
+export default SortExplore;

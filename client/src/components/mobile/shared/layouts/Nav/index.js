@@ -1,41 +1,54 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Menu, Input, Dropdown } from 'semantic-ui-react';
-import './style.css';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { NavBar, Icon, Drawer } from "antd-mobile";
+import { Icon as WebIcon } from "antd";
+import "./style.css";
+import Content from "../../../shared/layouts/Left-Sidebar/index";
 
 class Nav extends Component {
+  state = {
+    open: false
+  };
+
+  onOpenChange = (...args) => {
+    console.log(args);
+    this.setState({ open: !this.state.open });
+  };
+
   render() {
     return (
-      <Menu text>
-        <Menu.Item className='nav-header'>EventPull</Menu.Item>
-        <Menu.Menu position='right'>
-          <Menu.Item>
-            <Input icon='search' placeholder='Search...' />
-          </Menu.Item>
-          <Link to='/' className={window.location.pathname === "/" ? "item active" : "item"}>Explore</Link>
-          <Link to='/nearby' className={window.location.pathname === "/nearby" ? "item active" : "item"}>Nearby</Link>
-          <Link to='/saved' className={window.location.pathname === "/saved" ? "item active" : "item"}>Saved</Link>
-          <Menu.Item>
-            <Dropdown text='Profile'>
-              <Dropdown.Menu>
-                <Dropdown.Item text='New' />
-                <Dropdown.Item text='Open...' description='ctrl + o' />
-                <Dropdown.Item text='Save as...' description='ctrl + s' />
-                <Dropdown.Item text='Rename' description='ctrl + r' />
-                <Dropdown.Item text='Make a copy' />
-                <Dropdown.Item icon='folder' text='Move to folder' />
-                <Dropdown.Item icon='trash' text='Move to trash' />
-                <Dropdown.Divider />
-                <Dropdown.Item text='Download As...' />
-                <Dropdown.Item text='Publish To Web' />
-                <Dropdown.Item text='E-mail Collaborators' />
-              </Dropdown.Menu>
-            </Dropdown>
-          </Menu.Item>
+      <div>
+        {/* <Flex>
 
-        </Menu.Menu>
-      </Menu>
-    )
+        </Flex> */}
+        <NavBar
+          className="nav-mobile"
+          icon={<WebIcon type="bars" size="large" />}
+          onLeftClick={this.onOpenChange}
+          rightContent={[
+            <Icon key="0" type="search" style={{ marginRight: "16px" }} />,
+            <WebIcon key="1" type="user" />
+          ]}
+        >
+          EventPull
+        </NavBar>
+        <Drawer
+          position="left"
+          className="mobile-drawer"
+          style={{minHeight: document.documentElement.clientHeight }}
+          // enableDragHandle
+          contentStyle={{
+            color: "#A6A6A6",
+            textAlign: "center",
+            paddingTop: 42,
+          }}
+          touch={true}
+          sidebar={<Content />}
+          open={this.state.open}
+          onOpenChange={this.onOpenChange}
+        />
+      </div>
+    );
   }
 }
 

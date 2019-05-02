@@ -5,7 +5,11 @@ const db = require("../models");
 
 mongoose.connect(
   process.env.MONGODB_URI ||
+<<<<<<< HEAD
   "mongodb://localhost/eventpull-pxtsh"
+=======
+  "mongodb://localhost/eventpull"
+>>>>>>> e85ff18aa737d0f29b34333a465e0a1d3f1aaa75
 );
 
 const bookSeed = [

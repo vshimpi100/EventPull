@@ -1,44 +1,6 @@
 #explore-sort {
-    background-color: #ffe07f;
-    min-height: 30px;
-    max-height: 40px;
-    color: #3fb0ac;
-    font-size: 1.3rem;
-}
-
-#explore-sort  li a{
-    color: #3fb0ac;
-}
-
-#explore-sort #sort-header{
-    font-weight: bold;
-}
-
-#explore-sort svg{
-    height:1.3rem;
-}
-
-/*
-
-#explore-sort .item.sort-header {
-    color: #3fb0ac;
-}
-
-#explore-sort .ui.grid .row{
-    padding: 10px;
-}
-
-.ui.grid{
+    position: fixed;
+    top: 70px;
     width: 100%;
+    z-index: 999;
 }
-
-.ui.text.menu .item.sort-header {
-    font-size: 24px;
-    margin-left: auto;
-    padding: 0px;
-    width: fit-content;
-}
-
-i.icon.sort-icon {
-    margin-right: 10%;
-} */

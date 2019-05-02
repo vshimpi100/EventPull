@@ -1,0 +1,44 @@
+.ant-card {
+    display: inline-block;
+}
+
+.ant-card-head {
+    height: 0px;
+    min-height: unset;
+}
+
+.ant-card-body {
+    position: relative;
+}
+
+.event-panel {
+    box-shadow: 0px 0px 10px grey;
+    margin: 1rem 1rem;
+}
+
+.event-card-img {
+    object-fit: cover;
+    object-position: center;
+    height: 250px;
+    width: 100%;
+}
+
+/* Event Panel Creator and Date Created */
+.ant-comment.event-panel-comment {
+    position: absolute;
+    bottom: 0;
+    left: 24px;
+}
+/* =================================== */
+
+/* Save Event Button */
+#delete-button {
+    color: #fff;
+    background-color: #FF4400;
+    font-size: 1.3rem;
+    position: absolute;
+    top: 0.6rem;
+    right: 0.6rem;
+    cursor: pointer;
+}
+/* =================================== */

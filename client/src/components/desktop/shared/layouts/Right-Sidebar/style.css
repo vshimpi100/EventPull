@@ -1,0 +1,26 @@
+div.sidebar {
+    position: fixed;
+    right: 0;
+    top: 117px;
+}
+
+.ant-card-body {
+    padding: 0;
+}
+
+div.card-top {
+    background-color: #FF4400;
+    height: 50px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 0px;
+}
+
+h1.card-title {
+    margin: 1rem 0 1rem 1rem;
+}
+
+p.card-description {
+    width: 90%;
+    margin: 0 auto;
+}

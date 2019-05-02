@@ -1,18 +1,6 @@
-#explore-sort {
-    background-color: #ffe07f;
-    min-height: 30px;
-    color: #3fb0ac;
-    font-size: 1.3rem;
-}
-
-#explore-sort  li a{
-    color: #3fb0ac;
-}
-
-#explore-sort #sort-header{
-    font-weight: bold;
-}
-
-#explore-sort svg{
-    height:1.3rem;
+#nearby-sort {
+    position: fixed;
+    top: 70px;
+    width: 100%;
+    z-index: 999;
 }

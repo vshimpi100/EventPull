@@ -1,69 +1,187 @@
-import React from 'react';
-import { Card, Icon, Image, Grid } from 'semantic-ui-react';
-import './style.css';
+import React, { Component } from "react";
+import { Card } from "antd-mobile";
+import { Avatar, Row, Col, Icon, Comment } from "antd";
+import "./style.css";
 
-function EventCard(props) {
-    return (
-        <Card fluid>
-            <Card.Content>
-                <Grid>
-                    <Grid.Row className='padding'>
-                        <Grid.Column width={1} verticalAlign='middle'>
-                            <Grid textAlign='center'>
-                                <Grid.Row className='padding'>
-                                    <Icon link name='caret up' size='large' />
-                                </Grid.Row>
-                                <Grid.Row className='padding'>
-                                    450
-                            </Grid.Row>
-                                <Grid.Row className='padding'>
-                                    <Icon link name='caret down' size='large' />
-                                </Grid.Row>
-                            </Grid>
-                        </Grid.Column>
-                        <Grid.Column width={2} verticalAlign='middle' textAlign='center'>
-                            <Image src='https://via.placeholder.com/150' size='tiny' />
-                        </Grid.Column>
-                        <Grid.Column width={13} verticalAlign='middle'>
-                            <Grid>
-                                <Grid.Row className='padding'>
-                                    <Grid.Column width={15}>
-                                        <Card.Description>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Card.Description>
-                                    </Grid.Column>
-                                    <Grid.Column width={1}>
-                                        <Icon link name='external alternate' size='large' />
-                                    </Grid.Column>
-                                </Grid.Row>
-                                <Grid.Row className='padding' verticalAlign='middle'>
-                                    <Grid.Column width={3}>
-                                        <Icon className='info-icon' name='calendar alternate outline' size='large' />
-                                        <Card.Description className='icon-description'>4/30</Card.Description>
-                                    </Grid.Column>
-                                    <Grid.Column width={3}>
-                                        <Icon className='info-icon' name='map marker alternate' size='large' />
-                                        <Card.Description className='icon-description'>4.8 mi</Card.Description>
-                                    </Grid.Column>
-                                    <Grid.Column width={3}>
-                                        <Icon className='info-icon' name='dollar sign' size='large' />
-                                        <Card.Description className='icon-description'>$299.99</Card.Description>
-                                    </Grid.Column>
-                                    <Grid.Column width={3}>
-                                        <Icon className='info-icon' name='comment' size='large' />
-                                        <Card.Description className='icon-description'>54</Card.Description>
-                                    </Grid.Column>
-                                    <Grid.Column width={4} textAlign='right'>
-                                        <Card.Meta>
-                                            <Card.Description className='icon-description'>zlmartin at 7:30pm</Card.Description>
-                                        </Card.Meta>
-                                    </Grid.Column>
-                                </Grid.Row>
-                            </Grid>
-                        </Grid.Column>
-                    </Grid.Row>
-                </Grid>
-            </Card.Content>
-        </Card>
-    )
+class EventCard extends Component {
+    state = {
+        currentVote: 0,
+        total: 0,
+        save_theme: 'outlined',
+        saved: false
+    };
+
+    componentDidMount = () => {
+        let downvotes = this.props.downvotes;
+        let upvotes = this.props.upvotes;
+
+        let totalvotes = upvotes - downvotes;
+        this.setState({
+            total: totalvotes
+        })
+    }
+
+    handleUpVote = () => {
+        if (this.state.currentVote !== 1) {
+            this.setState({
+                currentVote: 1
+            })
+            this.props.handleVote('upvote')
+        } else if (this.state.currentVote === 1) {
+            this.setState({
+                currentVote: 0
+            })
+            this.props.handleVote('removing upvote')
+        }
+    };
+
+    handleDownVote = () => {
+        if (this.state.currentVote !== -1) {
+            this.setState({
+                currentVote: -1
+            })
+            this.props.handleVote('downvote')
+        } else if (this.state.currentVote === -1) {
+            this.setState({
+                currentVote: 0
+            })
+            this.props.handleVote('removing downvote')
+        }
+    };
+
+    handleMouseEnter = () => {
+        if (this.state.saved === false) {
+            this.setState({
+                save_theme: 'filled'
+            })
+        }
+    }
+
+    handleMouseLeave = () => {
+        if (this.state.saved === false) {
+            this.setState({
+                save_theme: 'outlined'
+            })
+        }
+    }
+
+    handleClickEvent = () => {
+        const event = {
+            title: this.props.title,
+            image: this.props.image,
+            date: this.props.date,
+            creator: this.props.creator,
+            date_created: this.props.date_created,
+            price: this.props.price,
+            comments: this.props.comments,
+            upvotes: this.props.date,
+            downvotes: this.props.date,
+        }
+        if (this.state.saved === false) {
+            this.setState({
+                save_theme: 'filled',
+                saved: true,
+            })
+            this.props.handleSave(event, 'save');
+        } else {
+            this.setState({
+                save_them: 'outlined',
+                saved: false
+            })
+            this.props.handleSave(event, 'remove');
+        }
+    }
+
+    render() {
+        return (
+            <Card full>
+                <Card.Body>
+                    <Row>
+                        <Col span={1} style={{ textAlign: "center" }}>
+                            <Row style={{ fontSize: '20px' }}>
+                                <Icon type="caret-up" className='vote-icon' onClick={this.handleUpVote} />
+                            </Row>
+                            <Row style={{ fontSize: '16px' }}>
+                                <span className="total-votes">{this.state.total} </span>
+                            </Row>
+                            <Row style={{ fontSize: '20px' }}>
+                                <Icon type="caret-down" className='vote-icon' onClick={this.handleDownVote} />
+                            </Row>
+                        </Col>
+                        <Col span={3} style={{ textAlign: "center" }}>
+                            <Avatar shape="square" size={80} src={this.props.image} />
+                        </Col>
+                        <Col span={20}>
+                            <Row>
+                                <Col span={22}>
+                                    <Row className="card-title">
+                                        <span>{this.props.title}</span>
+                                    </Row>
+                                </Col>
+                            </Row>
+                            <Row className="card-icons">
+                                <Col
+                                    span={6}
+                                    style={{ width: "fit-content" }}
+                                    className="card-icon"
+                                >
+                                    <Row>
+                                        <Icon type="calendar" />
+                                        <span className="icon-data">{this.props.date}</span>
+                                    </Row>
+                                </Col>
+                                <Col
+                                    span={6}
+                                    style={{ width: "fit-content" }}
+                                    className="card-icon"
+                                >
+                                    <Row>
+                                        <Icon type="environment" />
+                                        <span className="icon-data">4.8 mi</span>
+                                    </Row>
+                                </Col>
+                                <Col
+                                    span={6}
+                                    style={{ width: "fit-content" }}
+                                    className="card-icon"
+                                >
+                                    <Row>
+                                        <Icon type="dollar" />
+                                        <span className="icon-data">$ {this.props.price.toFixed(2)}</span>
+                                    </Row>
+                                </Col>
+                                <Col
+                                    span={6}
+                                    style={{ width: "fit-content" }}
+                                    className="card-icon"
+                                >
+                                    <Icon type="message" />
+                                    <span className="icon-data">{this.props.comments.length}</span>
+                                </Col>
+                            </Row>
+                        </Col>
+                    </Row>
+
+                    <Icon
+                        type="heart"
+                        id="save-button"
+                        style={{ color: '#FF4400' }}
+                        theme={this.state.save_theme}
+                        onMouseEnter={this.handleMouseEnter}
+                        onMouseLeave={this.handleMouseLeave}
+                        onClick={this.handleClickEvent}
+                    />
+                    <Comment
+                        className='event-card-comment'
+                        author={<a href="#">{this.props.creator}</a>}
+                        datetime={
+                            <span>{this.props.date_created}</span>
+                        }
+                    />
+                </Card.Body>
+            </Card>
+        );
+    }
 }
 
 export default EventCard;

@@ -1,92 +1,80 @@
 import React, { Component } from "react";
-import { Nav, Col, Row } from "react-bootstrap";
+import { Menu, Icon, Drawer } from 'antd';
+import Content from '../../../shared/layouts/Left-Sidebar'
 import "./style.css";
-import {
-  FaAngleDoubleRight,
-  // FaStar,
-  // FaCalendar,
-  // FaMap,
-  // FaDollarSign,
-  // FaComment,
-//   FaArrowUp,
-//   FaArrowDown
-} from "react-icons/fa";
 
-export default class SortExplore extends Component {
-  // state = { activeItem: "closest" };
+class SortNearby extends Component {
+  state = {
+    current: '0.5',
+    visible: false,
+  }
 
-  // handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+  handleClick = (e) => {
+    if (e.key === 'hidden-bar' || !e.key) {
+
+    } else {
+      this.setState({
+        current: e.key,
+      });
+    }
+
+    if (e.key) {
+      this.props.sort(e.key)
+    }
+  }
+
+  showDrawer = () => {
+    this.setState({
+      visible: true,
+    });
+  };
+
+  onClose = () => {
+    this.setState({
+      visible: false,
+    });
+  };
 
   render() {
-    //   const { activeItem } = this.state;
-
     return (
-      <Nav defaultActiveKey="/home" as="ul" id="explore-sort">
-        <Col xs={2}>
-          <Nav.Item as="li">
-            <Nav.Link href="/home">
-              <Row>
-                <Col xs={2}>
-                  <FaAngleDoubleRight />
-                </Col>
-                <Col>Nearby</Col>
-              </Row>
-            </Nav.Link>
-          </Nav.Item>
-        </Col>
-        <Col xs={6}>
-          <Row className="text-right">
-            <Col>
-              <Nav.Item as="li" id="sort-header">
-                <Nav.Link>Distance:</Nav.Link>
-              </Nav.Item>
-            </Col>
-            <Col>
-              <Nav.Item as="li">
-                <Nav.Link>0.5 mi</Nav.Link>
-              </Nav.Item>
-            </Col>
-            <Col>
-              <Nav.Item as="li">
-                <Nav.Link>1 mi</Nav.Link>
-              </Nav.Item>
-            </Col>
-            <Col>
-              <Nav.Item as="li">
-                <Nav.Link>5 mi</Nav.Link>
-              </Nav.Item>
-            </Col>
-            <Col>
-              <Nav.Item as="li">
-                <Nav.Link>10 mi</Nav.Link>
-              </Nav.Item>
-            </Col>
-            <Col>
-              <Nav.Item as="li">
-                <Nav.Link>25 mi</Nav.Link>
-              </Nav.Item>
-            </Col>
-          </Row>
-        </Col>
-        {/* <Col xs={2}>
-          <Row>
-            <Col className="text-center">
-              <Nav.Item as="li">
-                <Nav.Link>
-                  <FaArrowUp />
-                </Nav.Link>
-              </Nav.Item>
-            </Col>
-            <Col className="text-center">
-              <Nav.Item as="li">
-                <Nav.Link>
-                  <FaArrowDown />
-                </Nav.Link>
-              </Nav.Item>
-            </Col>
-          </Row>
-        </Col> */}
-      </Nav>
+      <div>
+        <Menu
+          onClick={this.handleClick}
+          selectedKeys={[this.state.current]}
+          mode="horizontal"
+          id='nearby-sort'
+        >
+          <Menu.Item key="hidden-bar" onClick={this.showDrawer}>
+            <Icon type="double-right" />
+          </Menu.Item>
+          <Menu.Item key='0.5'>
+            <Icon type='environment' /> 0.5 mi
+          </Menu.Item>
+          <Menu.Item key='1'>
+            <Icon type="environment" /> 1 mi
+          </Menu.Item>
+          <Menu.Item key='5'>
+            <Icon type="environment" /> 5 mi
+          </Menu.Item>
+          <Menu.Item key='10'>
+            <Icon type="environment" /> 10 mi
+          </Menu.Item>
+          <Menu.Item key='25'>
+            <Icon type="environment" /> 25 mi
+          </Menu.Item>
+        </Menu>
+        <Drawer
+          title="Basic Drawer"
+          placement="left"
+          closable={false}
+          onClose={this.onClose}
+          visible={this.state.visible}
+        >
+          <Content />
+        </Drawer>
+      </div>
     );
   }
 }
+
+export default SortNearby;
