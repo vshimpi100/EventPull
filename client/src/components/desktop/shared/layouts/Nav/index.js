@@ -12,6 +12,10 @@ class Nav extends Component {
     search: ''
   }
 
+  componentDidMount=()=>{
+    console.log(this.props.authState)
+  }
+
   handleFormSubmit = (e) => {
     e.preventDefault();
     this.props.search(this.state.search);
@@ -39,7 +43,7 @@ class Nav extends Component {
           <Link to='/' className={window.location.pathname === "/" ? "item active" : "item"}>Explore</Link>,
           <Link to='/nearby' className={window.location.pathname === "/nearby" ? "item active" : "item"}>Nearby</Link>,
           <Link to='/saved' className={window.location.pathname === "/saved" ? "item active" : "item"}>Saved</Link>,
-          <Dropdown overlay={<DropdownMenu />} trigger={['click']}>
+          <Dropdown overlay={<DropdownMenu/>} trigger={['click']}>
             <a className="ant-dropdown-link item" href="#">
               <FaUser />
             </a>
