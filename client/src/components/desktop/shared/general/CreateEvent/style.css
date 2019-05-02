@@ -1,0 +1,18 @@
+#title, #location, #description {
+    width: 500px;
+    border: 1px solid rgba(0,0,0,.1);
+    border-radius: 4px;
+    background-color: #fcfcfb;
+    margin-bottom: 0.5rem;
+}
+
+.create-event-title {
+    font-size: 16px;
+    padding: 18px 12px 8px 12px;
+}
+
+.event-post-button {
+    width: 75px;
+    margin-right: 12px;
+    margin-bottom: 1rem;
+}

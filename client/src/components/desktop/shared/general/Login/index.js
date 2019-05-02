@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { Row, Col, Form, Input, Button } from 'antd';
 import './style.css';
 
-class Login_SignUp extends Component {
+class Login extends Component {
     state = {
         username: '',
         password: '',
-        loading: false
+        loading: false,
     }
 
     handleFormSubmit = (e) => {
@@ -40,7 +40,7 @@ class Login_SignUp extends Component {
             <div>
                 <Row>
                     <Col span={6} className='Art'></Col>
-                    <Col span={16} className='modal-content-body'>
+                    <Col span={16} className='login-content-body'>
                         <Row>
                             <h1 className='form-title'>Sign In</h1>
                         </Row>
@@ -78,6 +78,12 @@ class Login_SignUp extends Component {
                                 Sign In
                             </Button>
                         </Row>
+                        <Row>
+                            <p className='modal-bottom'>
+                                New to EventPull?
+                                <span className='signup-link'>Sign Up</span>
+                            </p>
+                        </Row>
                     </Col>
                 </Row>
             </div>
@@ -85,4 +91,4 @@ class Login_SignUp extends Component {
     }
 }
 
-export default Login_SignUp;
+export default Login;

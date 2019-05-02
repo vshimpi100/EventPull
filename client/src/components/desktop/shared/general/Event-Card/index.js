@@ -94,7 +94,7 @@ class EventCard extends Component {
 
     render() {
         return (
-            <Card full style={{ width: "80%" }}>
+            <Card full>
                 <Card.Body>
                     <Row>
                         <Col span={1} style={{ textAlign: "center" }}>
