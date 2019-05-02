@@ -4,8 +4,14 @@
   "private": true,
   "proxy": "http://localhost:3001/",
   "dependencies": {
+<<<<<<< HEAD
     "antd": "^3.16.6",
     "antd-mobile": "^2.2.13",
+=======
+    "antd": "^3.16.3",
+    "antd-mobile": "^2.2.11",
+    "aws-amplify-react": "^2.3.6",
+>>>>>>> 3f42d414e8e4c228da8d1c4cb2a7138d3c978186
     "axios": "^0.18.0",
     "bootstrap": "^4.3.1",
     "css-modules": "^0.3.0",
