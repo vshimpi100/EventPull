@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import SortMobile from "../../components/mobile/page-components/explore/Sort-Explore";
 import SortDesktop from "../../components/desktop/page-components/explore/Sort-Explore"
 import EventCardMobile from "../../components/mobile/shared/general/Event-Card";
-import EventCardDesktop from "../../components/desktop/shared/general/Event-Card"
+import EventCardDesktop from "../../components/desktop/shared/general/Event-Card";
+import SidebarDesktop from '../../components/desktop/shared/layouts/Right-Sidebar';
 import windowSize from 'react-window-size';
 import dummyData from '../../demo/demoEvents.json';
 
@@ -39,9 +40,10 @@ class Explore extends Component {
           <SortDesktop
             sort={this.handleSort}
           />
+          <SidebarDesktop />
           {this.state.data.map(element => {
             return (
-              <section>
+              <section style={{ width: '80%' }}>
                 <EventCardDesktop
                   key={element.id}
                   title={element.title}
@@ -59,7 +61,6 @@ class Explore extends Component {
               </section>
             )
           })}
-
         </div>
       )
     }
