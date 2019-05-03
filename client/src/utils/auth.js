@@ -3,20 +3,19 @@ import awsmobile from '../aws-exports';
 import { FaMarsDouble } from 'react-icons/fa';
 Amplify.configure(awsmobile);
 
-const getCurrentUser = () =>{
+const getCurrentUser = () => {
     Auth.currentAuthenticatedUser({
         bypassCache: false  // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
     }).then(user => {
-        console.log(user);
         return user
     })
-    .catch(err => console.log(err));
+        .catch(err => console.log(err));
 }
 
-const signIn = async (username, password)=>{
+const signIn = async (username, password) => {
     try {
         const user = await Auth.signIn(username, password);
-        if (user.challengeName === 'SMS_MFA' || 
+        if (user.challengeName === 'SMS_MFA' ||
             user.challengeName === 'SOFTWARE_TOKEN_MFA') {
             // You need to get the code from the UI inputs
             // and then trigger the following function with a button click
@@ -49,8 +48,9 @@ const signIn = async (username, password)=>{
             Auth.setupTOTP(user);
         } else {
             // The user directly signs in
-            console.log("you're a user and your name is ",user)
-        } 
+            console.log("you're a user and your name is ", user)
+            return user;
+        }
     } catch (err) {
         if (err.code === 'UserNotConfirmedException') {
             // The error happens if the user didn't finish the confirmation step when signing up
@@ -68,7 +68,7 @@ const signIn = async (username, password)=>{
             console.log(err);
         }
     }
-    
+
     // For advanced usage
     // You can pass an object which has the username, password and validationData which is sent to a PreAuthentication Lambda trigger
     // Auth.signIn({
@@ -79,13 +79,20 @@ const signIn = async (username, password)=>{
     // .catch(err => console.log(err));
 }
 
-const signOut = ()=>{
-    Auth.signOut()
-        .then(data => console.log(data))
-        .catch(err => console.log(err));
+const signOut = async () => {
+    try {
+        await Auth.signOut()
+        return ({
+            signOut: true,
+        })
+    }
+    catch (err) {
+        console.log(err); 
+        return false
+    };
 }
 
-const signUp = (username, password, email) =>{
+const signUp = (username, password, email) => {
     Auth.signUp({
         username,
         password,
@@ -93,10 +100,10 @@ const signUp = (username, password, email) =>{
             email,          // optional
         },
         validationData: []  //optional
-        })
+    })
         .then(data => console.log(data))
         .catch(err => console.log(err));
-    
+
     // After retrieving the confirmation code from the user
     // Auth.confirmSignUp(username, code, {
     //     // Optional. Force user confirmation irrespective of existing alias. By default set to True.
@@ -104,7 +111,7 @@ const signUp = (username, password, email) =>{
     // })
     // .then(data => console.log(data))
     // .catch(err => console.log(err));
-    
+
     Auth.resendSignUp(username).then(() => {
         console.log('code resent successfully');
     }).catch(e => {
