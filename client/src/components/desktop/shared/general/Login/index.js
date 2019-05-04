@@ -31,7 +31,7 @@ class Login extends Component {
           console.log(res, "New user created");
         })
     }
-    
+
 
   };
 
@@ -67,7 +67,7 @@ class Login extends Component {
                 style={{ position: "relative" }}
                 onSubmit={this.handleFormSubmit}
               >
-                <Form.Item type="text">
+                <Form.Item type="text" style={{ marginBottom: '1rem' }}>
                   <Input
                     value={this.state.username}
                     onChange={this.handleInputChange}
@@ -76,8 +76,8 @@ class Login extends Component {
                     id="username"
                   />
                 </Form.Item>
-                <Form.Item type="text">
-                  <Input
+                <Form.Item type="text" style={{ marginBottom: '1rem' }}>
+                  <Input.Password
                     value={this.state.password}
                     onChange={this.handleInputChange}
                     name="password"

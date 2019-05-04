@@ -1,4 +1,4 @@
-#title, #location, #description {
+#title, #location, #description, #image_url, #event_url, #ticket_link {
     width: 500px;
     border: 1px solid rgba(0,0,0,.1);
     border-radius: 4px;
@@ -6,13 +6,35 @@
     margin-bottom: 0.5rem;
 }
 
+#date {
+    width: 250px;
+    background-color: #fcfcfb;
+}
+
+#price {
+    width: 250px;
+    border: 1px solid rgba(0,0,0,.1);
+    border-radius: 4px;
+    background-color: #fcfcfb;
+    margin-bottom: 0.5rem;
+}
+
+.ant-form-item-control {
+    line-height: unset;
+}
+
 .create-event-title {
     font-size: 16px;
     padding: 18px 12px 8px 12px;
 }
 
+.create-event-input-tab {
+    width: 170px;
+    text-align: center;
+}
+
 .event-post-button {
     width: 75px;
-    margin-right: 12px;
+    margin-top: 1rem;
     margin-bottom: 1rem;
 }
