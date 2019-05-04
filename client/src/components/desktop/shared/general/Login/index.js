@@ -2,7 +2,17 @@ import React, { Component } from "react";
 import { Row, Col, Form, Input, Button } from "antd";
 import "./style.css";
 import auth from "../../../../../utils/auth";
-var validator = require("email-validator");
+import emailValidator from "email-validator";
+import passwordValidator from "password-validator";
+
+var passwordSchema = new passwordValidator();
+passwordSchema
+.is().min(8)                                    // Minimum length 8
+.is().max(100)                                  // Maximum length 100
+.has().uppercase()                              // Must have uppercase letters
+.has().lowercase()                              // Must have lowercase letters
+.has().digits()                                 // Must have digits
+.has().not().spaces()                           // Should not have spaces
 
 class Login extends Component {
   state = {
@@ -39,9 +49,10 @@ class Login extends Component {
           this.props.handleValidationPending();
         });
     } else {
+        console.log(this.state);
       auth
-        .confirmSignUp(this.state.username, this.state.code)
-        .then(res => {
+        .confirmSignUp(this.state.username, this.state.validationCode)
+        .then(data => {
           auth.signIn(this.state.username, this.state.password).then(res => {
             this.props.handleLoginSubmit(res);
             this.props.handleCancel();
@@ -84,7 +95,7 @@ class Login extends Component {
     this.handleInputChange(e);
     this.state.emailValidateStatus="validating";
     let email = e.target.value;
-    if(validator.validate(email)){
+    if(emailValidator.validate(email)){
         this.state.emailValidateStatus="success";
         this.state.emailHelpMsg="";
     } else{
@@ -95,8 +106,15 @@ class Login extends Component {
 
   handlePasswordChange = e => {
     this.handleInputChange(e);
+    this.state.passwordValidateStatus="validating";
     let password = e.target.value;
-
+    if(passwordSchema.validate(password)){
+        this.state.passwordValidateStatus="success";
+        this.state.passwordHelpMsg="";
+    } else{
+        this.state.passwordValidateStatus="error";
+        this.state.passwordHelpMsg="Your password must have 8+ characters, uppercase letters, lowercase letters, numbers, and no spaces.";
+    }
   };
 
   render() {
