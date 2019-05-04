@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Card } from "antd-mobile";
 import { Avatar, Row, Col, Icon, Comment } from "antd";
 import "./style.css";
+import moment from 'moment';
 
 class EventCard extends Component {
     state = {
@@ -15,7 +16,8 @@ class EventCard extends Component {
         let downvotes = this.props.downvotes;
         let upvotes = this.props.upvotes;
 
-        let totalvotes = upvotes - downvotes;
+        let totalvotes = (upvotes - downvotes);
+
         this.setState({
             total: totalvotes
         })
@@ -62,6 +64,14 @@ class EventCard extends Component {
             this.setState({
                 save_theme: 'outlined'
             })
+        }
+    }
+
+    handleMoment = (date, indicator) => {
+        if (indicator === 'date') {
+            return moment(date).format('L')
+        } else if (indicator === 'date created') {
+            return moment(date).fromNow()
         }
     }
 
@@ -127,7 +137,7 @@ class EventCard extends Component {
                                 >
                                     <Row>
                                         <Icon type="calendar" />
-                                        <span className="icon-data">{this.props.date}</span>
+                                        <span className="icon-data">{this.handleMoment(this.props.date, 'date')}</span>
                                     </Row>
                                 </Col>
                                 <Col
@@ -147,7 +157,7 @@ class EventCard extends Component {
                                 >
                                     <Row>
                                         <Icon type="dollar" />
-                                        <span className="icon-data">$ {this.props.price.toFixed(2)}</span>
+                                        <span className="icon-data">{this.props.price.toFixed(2) < 0.01 ? "Free" : `$ ${this.props.price.toFixed(2)}`}</span>
                                     </Row>
                                 </Col>
                                 <Col
@@ -175,7 +185,7 @@ class EventCard extends Component {
                         className='event-card-comment'
                         author={<a href="#">{this.props.creator}</a>}
                         datetime={
-                            <span>{this.props.date_created}</span>
+                            <span>{this.handleMoment(this.props.date_created, 'date created')}</span>
                         }
                     />
                 </Card.Body>
