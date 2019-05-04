@@ -154,7 +154,7 @@ class Login extends Component {
                 style={{ position: "relative" }}
                 onSubmit={this.handleFormSubmit}
               >
-                <Form.Item type="text">
+                <Form.Item type="text" >
                   <Input
                     value={this.state.username}
                     onChange={this.handleInputChange}
