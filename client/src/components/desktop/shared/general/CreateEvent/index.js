@@ -20,7 +20,7 @@ class CreateEvent extends Component {
 
     handleFormSubmit = (e) => {
         e.preventDefault();
-        
+
         const newEvent = {
             title: this.state.title,
             description: this.state.description,
@@ -31,8 +31,23 @@ class CreateEvent extends Component {
             ticket_link: this.state.ticket_link
         }
 
+        console.log(newEvent);
+
         API.createEvent(newEvent)
-            .then(res => alert(`${res.data.title} has been successfuly created!`))
+            .then(res => {
+                alert(`${res.data.title} has been successfuly created!`)
+                this.setState({
+                    title: '',
+                    description: '',
+                    date: '',
+                    price: '',
+                    image_url: '',
+                    event_link: '',
+                    ticket_link: ''
+                })
+                this.props.onCancel();
+                this.props.loadEvents();
+            })
             .catch(err => console.log(err))
     }
 
