@@ -1,19 +1,34 @@
 import React, { Component } from "react";
 import Login from "../../../general/Login";
+import auth from "../../../../../../utils/auth";
 import NewUser from "../../../general/NewUser";
 import { Menu, Modal } from "antd";
 import "./style.css";
 
 class DropdownMenu extends Component {
   state = {
-    visible: false
+    visible: false,
+    isAuthenticated: false,
+    isNewUser: false,
+    user: []
   };
 
-  showLogin = () => {
+  handleLogin = () => {
     this.setState({
       visible: true
     });
   };
+
+  handleSignout = (user) => {
+    auth.signOut(user.username)
+      .then(res => {
+        if (res) {
+          this.setState({
+            isAuthenticated: false,
+          })
+        }
+      })
+  }
 
   handleCancel = () => {
     this.setState({
@@ -21,10 +36,21 @@ class DropdownMenu extends Component {
     });
   };
 
-  componentDidMount = () => {
-    console.log("dropdown props ", this.props.authState);
-    console.log(this.props)
-  };
+  handleLoginSubmit = (user) => {
+    if (user) {
+      this.setState({
+        isAuthenticated: true,
+        user: user
+      })
+    }
+  }
+
+  handleNewUser = () => {
+    let temp = !this.state.isNewUser;
+    this.setState({
+      isNewUser: temp
+    })
+  }
 
   render() {
     const { visible } = this.state;
@@ -36,10 +62,15 @@ class DropdownMenu extends Component {
             <a href="">2nd menu item</a>
           </Menu.Item>
           <Menu.Divider />
-          <Menu.Item onClick={this.showLogin} key="3">Log In / Sign Up</Menu.Item>
+          {this.state.isAuthenticated ? <Menu.Item onClick={() => this.handleSignout(this.state.user)} key="3">Log Out</Menu.Item> : <Menu.Item onClick={this.handleLogin} key="3">Log In / Sign Up</Menu.Item>}
         </Menu>
         <Modal visible={visible} onCancel={this.handleCancel}>
-          <Login handleCancel={this.handleCancel}/>
+          <Login
+            handleCancel={this.handleCancel}
+            handleLoginSubmit={this.handleLoginSubmit}
+            handleNewUser={this.handleNewUser}
+            isNewUser={this.state.isNewUser}
+          />
         </Modal>
       </div>
     );
