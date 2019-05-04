@@ -5,12 +5,7 @@
 			"providerPlugin": "awscloudformation"
 		}
 	},
-	"analytics": {
-		"eventpull": {
-			"service": "Pinpoint",
-			"providerPlugin": "awscloudformation"
-		}
-	},
+	"analytics": {},
 	"hosting": {
 		"S3AndCloudFront": {
 			"service": "S3AndCloudFront",

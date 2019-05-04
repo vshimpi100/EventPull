@@ -23,6 +23,7 @@
     "aws-amplify": "^1.1.26",
     "axios": "^0.18.0",
     "cheerio": "^1.0.0-rc.3",
+    "dotenv": "^8.0.0",
     "express": "^4.16.3",
     "helmet": "^3.16.0",
     "if-env": "^1.0.4",

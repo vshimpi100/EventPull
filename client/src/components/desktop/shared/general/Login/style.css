@@ -16,7 +16,7 @@ h1.form-title {
 }
 
 /* Username */
-#username, #password, #email {
+#username, #password, #email, #validationCode{
     width: 300px;
     height: 36px;
     border: 1px solid rgba(0,0,0,.1);
