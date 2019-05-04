@@ -1,16 +1,15 @@
 import Amplify, { Auth } from "aws-amplify";
 import awsmobile from "../aws-exports";
 import { FaMarsDouble } from "react-icons/fa";
+import axios from "axios";
 Amplify.configure(awsmobile);
 
-const getCurrentUser = () => {
-  Auth.currentAuthenticatedUser({
-    bypassCache: false // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
-  })
-    .then(user => {
-      return user;
-    })
-    .catch(err => console.log(err));
+const getCurrentUser = async () => {
+  const user = await Auth.currentAuthenticatedUser({
+    bypassCache: true // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
+  }).catch(err => console.log(err));
+  console.log("user found by auth", user);
+  return user;
 };
 
 const signIn = async (username, password) => {
@@ -103,35 +102,45 @@ const signUp = async (username, password, email) => {
     },
     validationData: [] //optional
   })
-    .then(data => console.log(data))
+    .then(data => {
+      console.log(data);
+      axios
+        .post("/u", {
+          username: username,
+          email: email
+        })
+        .then(function(response) {
+          console.log(response);
+        });
+    })
     .catch(err => console.log(err));
 };
 
 const confirmSignUp = async (username, code) => {
   // After retrieving the confirmation code from the user
-  Auth.confirmSignUp(username, code, 
-    {
+  Auth.confirmSignUp(username, code, {
     // Optional. Force user confirmation irrespective of existing alias. By default set to True.
     forceAliasCreation: false
-  }
-  )
+  })
     .then(data => console.log(data))
     .catch(err => console.log(err));
 };
 
 const resendConfirmation = async username => {
-  Auth.resendSignUp(username).then(() => {
-      console.log('code resent successfully');
-  }).catch(e => {
+  Auth.resendSignUp(username)
+    .then(() => {
+      console.log("code resent successfully");
+    })
+    .catch(e => {
       console.log(e);
-  });
+    });
 };
 
 export default {
   getCurrentUser,
   signIn,
   signUp,
-  signOut, 
+  signOut,
   confirmSignUp,
   resendConfirmation
 };

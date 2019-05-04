@@ -3,14 +3,28 @@ import Login from "../../../general/Login";
 import auth from "../../../../../../utils/auth";
 import { Menu, Modal } from "antd";
 import "./style.css";
+import { truncate } from "fs";
 
 class DropdownMenu extends Component {
   state = {
+    user: null,
     visible: false,
     isAuthenticated: false,
     isNewUser: false,
-    isPendingValidation: false,
-    user: []
+    isPendingValidation: false
+  };
+
+  componentDidMount = () => {
+    console.log("dropdown user passed", this.props.currentUser);
+    this.setState({
+        user: this.props.currentUser
+    })
+    if (this.state.user) {
+      this.setState({
+        isAuthenticated: true
+      });
+      console.log(this.state.user)
+    }
   };
 
   handleLogin = () => {
