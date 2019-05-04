@@ -12,20 +12,17 @@ import BottomNav from "./components/mobile/shared/layouts/Bottom-Nav";
 
 // AWS amplify imports
 import Auth from "@aws-amplify/auth";
-import Amplify from "aws-amplify";
-import Analytics from "@aws-amplify/analytics";
+import Amplify from 'aws-amplify';
+// import {Analytics} from 'aws-amplify';
 import awsconfig from "./aws-exports";
 
 // retrieve temporary AWS credentials and sign requests
 Auth.configure(awsconfig);
-// send analytics events to Amazon Pinpoint
-Analytics.configure(awsconfig);
 
 class App extends Component {
-
-  componentDidMount = () => {
-    Analytics.record('APP_STARTED');
-  }
+    // componentDidMount() {
+    //     Analytics.record('APP_STARTED');
+    // }
 
   handleSearch = search => {
     console.log(search);

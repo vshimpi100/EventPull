@@ -2,42 +2,70 @@ import React, { Component } from "react";
 import { Row, Col, Form, Input, Button } from "antd";
 import "./style.css";
 import auth from "../../../../../utils/auth";
+var validator = require("email-validator");
 
 class Login extends Component {
   state = {
     username: null,
     password: null,
     email: null,
-    loading: false
+    validationCode: null,
+    loading: false,
+    passwordValidateStatus: null,
+    emailValidateStatus: null,
+    passwordHelpMsg: "",
+    emailHelpMsg: ""
   };
 
   handleFormSubmit = e => {
     e.preventDefault();
     if (!this.state.email) {
-      auth.signIn(this.state.username, this.state.password)
-        .then(res => {
-          console.log(res, "this is on the frontend");
-          this.props.handleLoginSubmit(res);
-          this.props.handleCancel();
-          this.setState({
-            username: "",
-            password: "",
-            email: "",
-          });
-        })
-    } else {
-      auth.signUp(this.state.username, this.state.password, this.state.email)
+      auth.signIn(this.state.username, this.state.password).then(res => {
+        console.log(res, "this is on the frontend");
+        console.log("validation status", this.props.isPendingValidation);
+        this.props.handleLoginSubmit(res);
+        this.props.handleCancel();
+        this.setState({
+          username: "",
+          password: "",
+          email: ""
+        });
+      });
+    } else if (!this.state.validationCode) {
+      auth
+        .signUp(this.state.username, this.state.password, this.state.email)
         .then(res => {
           console.log(res, "New user created");
+          this.props.handleValidationPending();
+        });
+    } else {
+      auth
+        .confirmSignUp(this.state.username, this.state.code)
+        .then(res => {
+          auth.signIn(this.state.username, this.state.password).then(res => {
+            this.props.handleLoginSubmit(res);
+            this.props.handleCancel();
+            this.setState({
+              username: "",
+              password: "",
+              email: ""
+            });
+          });
+          this.props.handleValidationPending();
         })
+        .catch(err => console.log(err));
     }
+  };
 
-
+  resendValidation = () => {
+    auth
+      .resendConfirmation(this.state.username)
+      .then(console.log("email sent"))
+      .catch(err => console.log(err));
   };
 
   handleInputChange = e => {
     const { name, value } = e.target;
-
     this.setState({
       [name]: value
     });
@@ -52,6 +80,25 @@ class Login extends Component {
     }, 2000);
   };
 
+  handleEmailChange = e => {
+    this.handleInputChange(e);
+    this.state.emailValidateStatus="validating";
+    let email = e.target.value;
+    if(validator.validate(email)){
+        this.state.emailValidateStatus="success";
+        this.state.emailHelpMsg="";
+    } else{
+        this.state.emailValidateStatus="error";
+        this.state.emailHelpMsg="Please provide a valid email";
+    }
+  };
+
+  handlePasswordChange = e => {
+    this.handleInputChange(e);
+    let password = e.target.value;
+
+  };
+
   render() {
     return (
       <div>
@@ -59,7 +106,13 @@ class Login extends Component {
           <Col span={6} className="Art" />
           <Col span={16} className="login-content-body">
             <Row>
-              <h1 className="form-title">{this.props.isNewUser ? "Sign Up" : "Log In"}</h1>
+              <h1 className="form-title">
+                {!this.props.isPendingValidation
+                  ? this.props.isNewUser
+                    ? "Sign Up"
+                    : "Log In"
+                  : "Enter Validation Code"}
+              </h1>
             </Row>
             <Row>
               <Form
@@ -76,24 +129,49 @@ class Login extends Component {
                     id="username"
                   />
                 </Form.Item>
-                <Form.Item type="text" style={{ marginBottom: '1rem' }}>
-                  <Input.Password
-                    value={this.state.password}
-                    onChange={this.handleInputChange}
-                    name="password"
-                    placeholder="Password"
-                    id="password"
-                  />
-                </Form.Item>
-                {this.props.isNewUser ? <Form.Item type="text">
+                {!this.props.isPendingValidation ? (
+                  <div>
+                    <Form.Item
+                      type="text"
+                      hasFeedback
+                      validateStatus={this.state.passwordValidateStatus}
+                      help={this.state.passwordHelpMsg}
+                    >
+                      <Input
+                        value={this.state.password}
+                        onChange={this.handlePasswordChange}
+                        name="password"
+                        placeholder="Password"
+                        id="password"
+                      />
+                    </Form.Item>
+                    {this.props.isNewUser ? (
+                      <Form.Item
+                        type="text"
+                        hasFeedback
+                        validateStatus={this.state.emailValidateStatus}
+                        help={this.state.emailHelpMsg}
+                      >
+                        <Input
+                          value={this.state.email}
+                          onChange={this.handleEmailChange}
+                          name="email"
+                          placeholder="Email"
+                          id="email"
+                        />
+                      </Form.Item>
+                    ) : null}
+                  </div>
+                ) : (
                   <Input
-                    value={this.state.email}
+                    value={this.state.validationCode}
                     onChange={this.handleInputChange}
-                    name="email"
-                    placeholder="Email"
-                    id="email"
+                    name="validationCode"
+                    placeholder="Validation Code"
+                    id="validationCode"
                   />
-                </Form.Item> : null}
+                )}
+
                 <Button
                   type="primary"
                   htmlType="submit"
@@ -101,15 +179,33 @@ class Login extends Component {
                   loading={this.state.loading}
                   onClick={this.enterLoading}
                 >
-                  {this.props.isNewUser ? "Sign Up" : "Log In"}
+                  {!this.props.isPendingValidation
+                    ? this.props.isNewUser
+                      ? "Sign Up"
+                      : "Log In"
+                    : "Confirm Code"}
                 </Button>
               </Form>
             </Row>
             <Row>
-              <p className="modal-bottom">
-                New to EventPull?
-                <span className="signup-link" onClick={this.props.handleNewUser}>{this.props.isNewUser ? "Log In" : "Sign Up"}</span>
-              </p>
+              {!this.props.isPendingValidation ? (
+                <p className="modal-bottom">
+                  New to EventPull?
+                  <span
+                    className="signup-link"
+                    onClick={this.props.handleNewUser}
+                  >
+                    {this.props.isNewUser ? "Log In" : "Sign Up"}
+                  </span>
+                </p>
+              ) : (
+                <p className="modal-bottom">
+                  Can't find your code?
+                  <span className="signup-link" onClick={this.resendValidation}>
+                    Send Again
+                  </span>
+                </p>
+              )}
             </Row>
           </Col>
         </Row>
