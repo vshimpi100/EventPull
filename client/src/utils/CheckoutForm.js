@@ -38,7 +38,7 @@ class CheckoutForm extends Component {
     });
     if (response.ok) console.log("Purchase Complete!")
   }
-  async submit(ev) {
+  async; submit(ev) {
 
     if (response.ok) this.setState({complete: true});
   }

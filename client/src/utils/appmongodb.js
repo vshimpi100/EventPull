@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const MONGO_USERNAME = 'darup67@gmail.com';
-const MONGO_PASSWORD = 'password';
+const MONGO_PASSWORD = 'Dhruv.Patel93';
 const MONGO_HOSTNAME = '127.0.0.1';
 const MONGO_PORT = '27017';
 const MONGO_DB = 'EventPull';
