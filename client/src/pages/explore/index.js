@@ -4,13 +4,23 @@ import SortDesktop from "../../components/desktop/page-components/explore/Sort-E
 import EventCardMobile from "../../components/mobile/shared/general/Event-Card";
 import EventCardDesktop from "../../components/desktop/shared/general/Event-Card";
 import SidebarDesktop from '../../components/desktop/shared/layouts/Right-Sidebar';
+import API from '../../utils/API';
 import windowSize from 'react-window-size';
-import dummyData from '../../demo/demoEvents.json';
 
 class Explore extends Component {
 
   state = {
-    data: dummyData
+    data: []
+  }
+
+  componentDidMount = () => {
+    API.getEvents()
+      .then(res => {
+        console.log(res.data);
+        this.setState({
+          data: res.data
+        })
+    })
   }
 
   handleSort = (sort_type, order) => {
@@ -47,7 +57,7 @@ class Explore extends Component {
                 <EventCardDesktop
                   key={element.id}
                   title={element.title}
-                  image={element.image}
+                  image={element.image_url}
                   date={element.date}
                   creator={element.creator}
                   date_created={element.created}

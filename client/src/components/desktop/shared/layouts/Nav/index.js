@@ -12,10 +12,6 @@ class Nav extends Component {
     search: ''
   }
 
-  componentDidMount=()=>{
-    console.log(this.props.authState)
-  }
-
   handleFormSubmit = (e) => {
     e.preventDefault();
     this.props.search(this.state.search);
