@@ -109,10 +109,12 @@ const signUp = async (username, password, email) => {
 
 const confirmSignUp = async (username, code) => {
   // After retrieving the confirmation code from the user
-  Auth.confirmSignUp(username, code, {
+  Auth.confirmSignUp(username, code, 
+    {
     // Optional. Force user confirmation irrespective of existing alias. By default set to True.
-    forceAliasCreation: true
-  })
+    forceAliasCreation: false
+  }
+  )
     .then(data => console.log(data))
     .catch(err => console.log(err));
 };

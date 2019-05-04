@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Row, Col, Form, Input, Button } from "antd";
 import "./style.css";
 import auth from "../../../../../utils/auth";
+var validator = require("email-validator");
 
 class Login extends Component {
   state = {
@@ -9,7 +10,11 @@ class Login extends Component {
     password: null,
     email: null,
     validationCode: null,
-    loading: false
+    loading: false,
+    passwordValidateStatus: null,
+    emailValidateStatus: null,
+    passwordHelpMsg: "",
+    emailHelpMsg: ""
   };
 
   handleFormSubmit = e => {
@@ -75,6 +80,25 @@ class Login extends Component {
     }, 2000);
   };
 
+  handleEmailChange = e => {
+    this.handleInputChange(e);
+    this.state.emailValidateStatus="validating";
+    let email = e.target.value;
+    if(validator.validate(email)){
+        this.state.emailValidateStatus="success";
+        this.state.emailHelpMsg="";
+    } else{
+        this.state.emailValidateStatus="error";
+        this.state.emailHelpMsg="Please provide a valid email";
+    }
+  };
+
+  handlePasswordChange = e => {
+    this.handleInputChange(e);
+    let password = e.target.value;
+
+  };
+
   render() {
     return (
       <div>
@@ -107,20 +131,30 @@ class Login extends Component {
                 </Form.Item>
                 {!this.props.isPendingValidation ? (
                   <div>
-                    <Form.Item type="text">
+                    <Form.Item
+                      type="text"
+                      hasFeedback
+                      validateStatus={this.state.passwordValidateStatus}
+                      help={this.state.passwordHelpMsg}
+                    >
                       <Input
                         value={this.state.password}
-                        onChange={this.handleInputChange}
+                        onChange={this.handlePasswordChange}
                         name="password"
                         placeholder="Password"
                         id="password"
                       />
                     </Form.Item>
                     {this.props.isNewUser ? (
-                      <Form.Item type="text">
+                      <Form.Item
+                        type="text"
+                        hasFeedback
+                        validateStatus={this.state.emailValidateStatus}
+                        help={this.state.emailHelpMsg}
+                      >
                         <Input
                           value={this.state.email}
-                          onChange={this.handleInputChange}
+                          onChange={this.handleEmailChange}
                           name="email"
                           placeholder="Email"
                           id="email"
@@ -167,10 +201,7 @@ class Login extends Component {
               ) : (
                 <p className="modal-bottom">
                   Can't find your code?
-                  <span
-                    className="signup-link"
-                    onClick={this.resendValidation}
-                  >
+                  <span className="signup-link" onClick={this.resendValidation}>
                     Send Again
                   </span>
                 </p>
