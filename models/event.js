@@ -17,10 +17,10 @@ const eventSchema = new Schema({
   // the last item that will be fed into the algorithm is the number of comments
 
   // these attributes are based purely on the event creation
-  creator: { type: Schema.Types.ObjectId, ref: "User", required: true }, // the creator of the event
-  niche: { type: Schema.Types.ObjectId, ref: "Niche", required: true }, // the niche to which the post was posted
-  comments: [{ type: Schema.Types.ObjectId, ref: "Comment", required: true }], // the comments pertaining to this post
-  created: { type: Date, default: Date.now, required: true }, // the time the event was created
+  // creator: { type: Schema.Types.ObjectId, ref: "User", required: true }, // the creator of the event
+  // niche: { type: Schema.Types.ObjectId, ref: "Niche", required: true }, // the niche to which the post was posted
+  // comments: [{ type: Schema.Types.ObjectId, ref: "Comment", required: true }], // the comments pertaining to this post
+  // created: { type: Date, default: Date.now, required: true }, // the time the event was created
 
   // Event properties created by user
   title: { type: String, required: true, minlength: 3, maxlength: 140}, // the name of the event or post for event
