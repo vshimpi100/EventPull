@@ -23,14 +23,13 @@
     "aws-amplify": "^1.1.26",
     "axios": "^0.18.0",
     "cheerio": "^1.0.0-rc.3",
-    "express": "^4.16.4",
-    "googleapis": "^39.2.0",
+    "dotenv": "^8.0.0",
+    "express": "^4.16.3",
     "helmet": "^3.16.0",
     "if-env": "^1.0.4",
-    "mongoose": "^5.5.16",
+    "mongoose": "^5.3.16",
     "mongoose-currency": "^0.2.0",
-    "mongoose-type-url": "^1.0.6",
-    "node": "^12.1.0",
+    "mongoose-type-url": "^1.0.5",
     "swagger-ui-express": "^4.0.2"
   }
 }

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import Amplify, {Auth} from 'aws-amplify';
 import awsmobile from '../aws-exports';
 import { FaMarsDouble } from 'react-icons/fa';
@@ -12,10 +13,19 @@ const getCurrentUser = () => {
     }).then(user => {
         return user
 const getCurrentUser = () => {
+=======
+import Amplify, { Auth } from "aws-amplify";
+import awsmobile from "../aws-exports";
+import { FaMarsDouble } from "react-icons/fa";
+Amplify.configure(awsmobile);
+
+const getCurrentUser = () => {
+>>>>>>> 335ef120a353211dcf787ca3d629373e35b884eb
   Auth.currentAuthenticatedUser({
     bypassCache: false // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
   })
     .then(user => {
+<<<<<<< HEAD
       console.log(user);
       return user;
     })
@@ -79,6 +89,14 @@ const signIn = async (username, password) => {
             console.log(err);
         }
 const signIn = async (username, password) => {
+=======
+      return user;
+    })
+    .catch(err => console.log(err));
+};
+
+const signIn = async (username, password) => {
+>>>>>>> 335ef120a353211dcf787ca3d629373e35b884eb
   try {
     const user = await Auth.signIn(username, password);
     if (
@@ -117,8 +135,30 @@ const signIn = async (username, password) => {
     } else {
       // The user directly signs in
       console.log("you're a user and your name is ", user);
+<<<<<<< HEAD
+=======
+      return user;
+>>>>>>> 335ef120a353211dcf787ca3d629373e35b884eb
     }
+  } catch (err) {
+    if (err.code === "UserNotConfirmedException") {
+      // The error happens if the user didn't finish the confirmation step when signing up
+      // In this case you need to resend the code and confirm the user
+      // About how to resend the code and confirm the user, please check the signUp part
+    } else if (err.code === "PasswordResetRequiredException") {
+      // The error happens when the password is reset in the Cognito console
+      // In this case you need to call forgotPassword to reset the password
+      // Please check the Forgot Password part.
+    } else if (err.code === "NotAuthorizedException") {
+      // The error happens when the incorrect password is provided
+    } else if (err.code === "UserNotFoundException") {
+      // The error happens when the supplied username/email does not exist in the Cognito user pool
+    } else {
+      console.log(err);
+    }
+  }
 
+<<<<<<< HEAD
     // For advanced usage
     // You can pass an object which has the username, password and validationData which is sent to a PreAuthentication Lambda trigger
     // Auth.signIn({
@@ -146,6 +186,8 @@ const signIn = async (username, password) => {
     }
   }
 
+=======
+>>>>>>> 335ef120a353211dcf787ca3d629373e35b884eb
   // For advanced usage
   // You can pass an object which has the username, password and validationData which is sent to a PreAuthentication Lambda trigger
   // Auth.signIn({
@@ -157,43 +199,51 @@ const signIn = async (username, password) => {
 };
 
 const signOut = async () => {
-    try {
-        await Auth.signOut()
-        return ({
-            signOut: true,
-        })
-    }
-    catch (err) {
-        console.log(err); 
-        return false
+  try {
+    await Auth.signOut();
+    return {
+      signOut: true
     };
+<<<<<<< HEAD
 }
 const signOut = () => {
   Auth.signOut()
     .then(data => console.log(data))
     .catch(err => console.log(err));
+=======
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+>>>>>>> 335ef120a353211dcf787ca3d629373e35b884eb
 };
 
-const signUp = (username, password, email) => {
-    Auth.signUp({
-        username,
-        password,
-        attributes: {
-            email,          // optional
-        },
-        validationData: []  //optional
-    })
-        .then(data => console.log(data))
-        .catch(err => console.log(err));
+const signUp = async (username, password, email) => {
+  Auth.signUp({
+    username,
+    password,
+    attributes: {
+      email // optional
+    },
+    validationData: [] //optional
+  })
+    .then(data => console.log(data))
+    .catch(err => console.log(err));
+};
 
-    // After retrieving the confirmation code from the user
-    // Auth.confirmSignUp(username, code, {
-    //     // Optional. Force user confirmation irrespective of existing alias. By default set to True.
-    //     forceAliasCreation: true    
-    // })
-    // .then(data => console.log(data))
-    // .catch(err => console.log(err));
+const confirmSignUp = async (username, code) => {
+  // After retrieving the confirmation code from the user
+  Auth.confirmSignUp(username, code, 
+    {
+    // Optional. Force user confirmation irrespective of existing alias. By default set to True.
+    forceAliasCreation: false
+  }
+  )
+    .then(data => console.log(data))
+    .catch(err => console.log(err));
+};
 
+<<<<<<< HEAD
     Auth.resendSignUp(username).then(() => {
         console.log('code resent successfully');
     }).catch(e => {
@@ -240,3 +290,21 @@ export default {
   signUp,
   signOut
 };
+=======
+const resendConfirmation = async username => {
+  Auth.resendSignUp(username).then(() => {
+      console.log('code resent successfully');
+  }).catch(e => {
+      console.log(e);
+  });
+};
+
+export default {
+  getCurrentUser,
+  signIn,
+  signUp,
+  signOut, 
+  confirmSignUp,
+  resendConfirmation
+};
+>>>>>>> 335ef120a353211dcf787ca3d629373e35b884eb
