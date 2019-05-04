@@ -100,7 +100,9 @@ class Login extends Component {
 
   handleEmailChange = e => {
     this.handleInputChange(e);
-    this.state.emailValidateStatus = "validating";
+    this.setState({
+        emailValidateStatus: "validating"
+    })
     let email = e.target.value;
     if (emailValidator.validate(email)) {
       this.setState({
@@ -117,7 +119,9 @@ class Login extends Component {
 
   handlePasswordChange = e => {
     this.handleInputChange(e);
-    this.state.passwordValidateStatus = "validating";
+    this.setState({
+        passwordValidateStatus: "validating"
+    })
     let password = e.target.value;
     if (passwordSchema.validate(password)) {
       this.setState({
