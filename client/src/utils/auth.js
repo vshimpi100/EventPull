@@ -6,11 +6,10 @@ import awsmobile from "../aws-exports";
 import {FaMarsDouble} from "react-icons/fa";
 Amplify.configure(awsmobile);
 
-const getCurrentUser = () =>{
+const getCurrentUser = () => {
     Auth.currentAuthenticatedUser({
         bypassCache: false  // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
     }).then(user => {
-        console.log(user);
         return user
 const getCurrentUser = () => {
   Auth.currentAuthenticatedUser({
@@ -20,14 +19,14 @@ const getCurrentUser = () => {
       console.log(user);
       return user;
     })
-    .catch(err => console.log(err));
+        .catch(err => console.log(err));
 }
 };
 
-const signIn = async (username, password)=>{
+const signIn = async (username, password) => {
     try {
         const user = await Auth.signIn(username, password);
-        if (user.challengeName === 'SMS_MFA' || 
+        if (user.challengeName === 'SMS_MFA' ||
             user.challengeName === 'SOFTWARE_TOKEN_MFA') {
             // You need to get the code from the UI inputs
             // and then trigger the following function with a button click
@@ -60,8 +59,9 @@ const signIn = async (username, password)=>{
             Auth.setupTOTP(user);
         } else {
             // The user directly signs in
-            console.log("you're a user and your name is ",user)
-        } 
+            console.log("you're a user and your name is ", user)
+            return user;
+        }
     } catch (err) {
         if (err.code === 'UserNotConfirmedException') {
             // The error happens if the user didn't finish the confirmation step when signing up
@@ -156,10 +156,17 @@ const signIn = async (username, password) => {
   // .catch(err => console.log(err));
 };
 
-const signOut = ()=>{
-    Auth.signOut()
-        .then(data => console.log(data))
-        .catch(err => console.log(err));
+const signOut = async () => {
+    try {
+        await Auth.signOut()
+        return ({
+            signOut: true,
+        })
+    }
+    catch (err) {
+        console.log(err); 
+        return false
+    };
 }
 const signOut = () => {
   Auth.signOut()
@@ -167,7 +174,7 @@ const signOut = () => {
     .catch(err => console.log(err));
 };
 
-const signUp = (username, password, email) =>{
+const signUp = (username, password, email) => {
     Auth.signUp({
         username,
         password,
@@ -175,7 +182,7 @@ const signUp = (username, password, email) =>{
             email,          // optional
         },
         validationData: []  //optional
-        })
+    })
         .then(data => console.log(data))
         .catch(err => console.log(err));
 

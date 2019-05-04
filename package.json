@@ -24,6 +24,7 @@
     "axios": "^0.18.0",
     "cheerio": "^1.0.0-rc.3",
     "express": "^4.16.4",
+    "googleapis": "^39.2.0",
     "helmet": "^3.16.0",
     "if-env": "^1.0.4",
     "mongoose": "^5.5.16",
