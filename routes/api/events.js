@@ -6,6 +6,10 @@ router.route("/")
   .get(eventsController.findAll)
   .post(eventsController.create);
 
+// Matches with "/api/e/:sort"
+router.route("/:sort/:order")
+  .get(eventsController.findBySort)
+
 // Matches with "/api/e/:id"
 router
   .route("/:id")

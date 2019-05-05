@@ -5,6 +5,10 @@ export default {
   getEvents: function() {
     return axios.get("/api/e");
   },
+  // Get all events by sort
+  getEventsBySort: function(sort, order) {
+    return axios.get("/api/e/" + sort + "/" + order);
+  },
   // Create new event
   createEvent: function(eventData) {
     console.log(eventData);

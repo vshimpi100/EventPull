@@ -11,6 +11,10 @@
     background-color: #fcfcfb;
 }
 
+.ant-input {
+    background-color: #fcfcfb;
+}
+
 #price {
     width: 250px;
     border: 1px solid rgba(0,0,0,.1);
