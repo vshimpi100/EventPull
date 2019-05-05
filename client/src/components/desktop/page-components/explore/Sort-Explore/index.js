@@ -5,26 +5,24 @@ import "./style.css";
 
 class SortExplore extends Component {
   state = {
-    current: 'best',
+    sort: 'best',
     visible: false,
-    sort_order: -1
+    order: false
   }
 
   componentDidMount = () => {
-    this.props.sort('best', this.state.sort_order);
+    this.props.sort(this.state.sort, this.state.order);
   }
 
   handleClick = (e) => {
     if (e.key === 'hidden-bar' || !e.key) {
-
-    } else {
+      return null;
+    } else if (e.key) {
       this.setState({
-        current: e.key,
+        sort: e.key,
+      }, () => {
+        this.props.sort(this.state.sort, this.state.order);
       });
-    }
-
-    if (e.key) {
-      this.props.sort(e.key, this.state.sort_order);
     }
   }
 
@@ -41,15 +39,12 @@ class SortExplore extends Component {
   };
 
   handleSortOrder = () => {
-    if (this.state.sort_order === -1) {
-      this.setState({
-        sort_order: 1
-      })
-    } else {
-      this.setState({
-        sort_order: -1
-      })
-    }
+    let temp = !this.state.order;
+    this.setState({
+      order: temp
+    }, () => {
+      this.props.sort(this.state.sort, this.state.order);
+    })
   }
 
   render() {
@@ -57,7 +52,7 @@ class SortExplore extends Component {
       <div>
         <Menu
           onClick={this.handleClick}
-          selectedKeys={[this.state.current]}
+          selectedKeys={[this.state.sort]}
           mode="horizontal"
           id='explore-sort'
         >
@@ -80,7 +75,7 @@ class SortExplore extends Component {
             <Icon type="message" /> Comments
           </Menu.Item>
           <Icon
-            type={this.state.sort_order === -1 ? 'arrow-down' : 'arrow-up'}
+            type={this.state.order === false ? 'arrow-down' : 'arrow-up'}
             className='sort-order'
             onClick={this.handleSortOrder}
           />

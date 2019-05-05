@@ -14,17 +14,25 @@ class Explore extends Component {
   }
 
   componentDidMount = () => {
-    this.loadEvents();
+    this.loadEvents('recent');
   }
 
-  loadEvents = () => {
-    API.getEvents()
-      .then(res => {
-        console.log(res.data);
-        this.setState({
-          data: res.data
+  loadEvents = (sort_type, sort_order) => {
+    if (sort_type === 'recent') {
+      API.getEvents()
+        .then(res => {
+          this.setState({
+            data: res.data
+          })
+        });
+    } else {
+      API.getEventsBySort(sort_type, sort_order)
+        .then(res => {
+          this.setState({
+            data: res.data
+          })
         })
-      });
+    } 
   }
 
   handleSort = (sort_type, order) => {
@@ -52,7 +60,7 @@ class Explore extends Component {
       return (
         <div style={{ paddingTop: "117px" }}>
           <SortDesktop
-            sort={this.handleSort}
+            sort={this.loadEvents}
           />
           <SidebarDesktop loadEvents={this.loadEvents} />
           {this.state.data.map(element => {
