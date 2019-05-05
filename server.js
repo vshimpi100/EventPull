@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const routes = require("./routes");
 const app = express();
 const PORT = process.env.PORT || 3001;
-require('dotenv').config();
+require('dotenv').config()
 
 // Helmet HTTP protection
 const helmet = require('helmet');
