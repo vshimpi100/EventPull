@@ -15,15 +15,20 @@ class DropdownMenu extends Component {
   };
 
   componentDidMount = () => {
-    console.log("dropdown user passed", this.props.currentUser);
-    this.setState({
-        user: this.props.currentUser
-    })
-    if (this.state.user) {
-      this.setState({
-        isAuthenticated: true
-      });
-      console.log(this.state.user)
+    if (this.props.user) {
+      console.log("dropdown user is", this.props.user);
+      let currentUser = this.props.user;
+      this.setState(
+        {
+          user: currentUser,
+          isAuthenticated: true
+        },
+        () => {
+          console.log(this.state);
+        }
+      );
+    } else {
+      console.log("no user from dropdown menu");
     }
   };
 

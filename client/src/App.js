@@ -9,7 +9,8 @@ import Explore from "./pages/explore";
 import Nearby from "./pages/nearby";
 import Saved from "./pages/saved";
 import BottomNav from "./components/mobile/shared/layouts/Bottom-Nav";
-import auth from "./utils/auth";
+import authentication from "./utils/auth";
+import API from "./utils/API";
 
 // AWS amplify imports
 import Auth from "@aws-amplify/auth";
@@ -25,30 +26,31 @@ Auth.configure(awsconfig);
 //   return <NavDesktop search={this.handleSearch} currentUser={user} />;
 // };
 
-const getUser = async () => {
-  const user = await auth.getCurrentUser();
-  return user;
-};
-
-const user = getUser();
-
 class App extends Component {
-  //   state = {
-  //     user: null
-  //   };
+    state = {
+      user: null
+    };
 
-  //   componentDidMount = async () => {
-  //     // Analytics.record('APP_STARTED');
-  //     await auth
-  //       .getCurrentUser()
-  //       .then(currentUser => {
-  //         this.setState({
-  //           user: currentUser
-  //         });
-  //       })
-  //       .catch(err => console.log(err));
-  //     console.log("user", this.state.user);
-  //   };
+    componentWillMount = () => {
+      // Analytics.record('APP_STARTED');
+        authentication
+        .getCurrentUser()
+        .then(currentUser => {
+            if(currentUser){
+                console.log("getting userID for "+currentUser.username);
+                API.getUserID(currentUser.username)
+                .then(dbUser=>{
+                    this.setState({
+                        user: dbUser
+                    })
+                    console.log("db user found",this.state.user)
+                })
+            } else{
+                console.log("no user currently logged in")
+            }
+        })
+        .catch(err => console.log(err));
+    };
 
   handleSearch = search => {
     console.log(search);
@@ -67,15 +69,10 @@ class App extends Component {
     } else {
       return (
         <div>
-          {user ? (
-            <NavDesktop search={this.handleSearch} currentUser={user} />
-          ) : (
-            <NavDesktop search={this.handleSearch} currentUser={false} />
-          )}
-          <Route exact path="/" component={Explore} />
-
-          <Route exact path="/nearby" component={Nearby} />
-          <Route exact path="/saved" component={Saved} />
+          <NavDesktop search={this.handleSearch} user={this.state.user} />
+          <Route exact path="/" component={Explore} user={this.state.user}/>
+          <Route exact path="/nearby" component={Nearby} user={this.state.user}/>
+          <Route exact path="/saved" component={Saved} user={this.state.user}/>
         </div>
       );
     }

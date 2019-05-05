@@ -14,13 +14,17 @@ class Explore extends Component {
   }
 
   componentDidMount = () => {
+    this.loadEvents();
+  }
+
+  loadEvents = () => {
     API.getEvents()
       .then(res => {
         console.log(res.data);
         this.setState({
           data: res.data
         })
-    })
+      });
   }
 
   handleSort = (sort_type, order) => {
@@ -50,7 +54,7 @@ class Explore extends Component {
           <SortDesktop
             sort={this.handleSort}
           />
-          <SidebarDesktop />
+          <SidebarDesktop loadEvents={this.loadEvents} />
           {this.state.data.map(element => {
             return (
               <section style={{ width: '80%' }}>

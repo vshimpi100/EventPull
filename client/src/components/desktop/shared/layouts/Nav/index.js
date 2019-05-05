@@ -19,6 +19,10 @@ class Nav extends Component {
     });
   };
 
+  componentDidUpdate=()=>{
+    console.log("received user",this.props.user)
+  }
+
   handleInputChange = e => {
     const { name, value } = e.target;
 
@@ -58,9 +62,9 @@ class Nav extends Component {
             Saved
           </Link>,
           <Dropdown
-            overlay={<DropdownMenu />}
+            overlay={<DropdownMenu user={this.props.user}/>}
             trigger={["click"]}
-            currentUser={this.props.currentUser}
+            user={this.props.user}
           >
             <a className="ant-dropdown-link item" href="#">
               <FaUser />

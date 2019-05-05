@@ -7,6 +7,10 @@ class Saved extends Component {
         data: dummyData
     }
 
+    componentDidMount=()=>{
+        
+    }
+
     handleView = (width) => {
         if (width <= 1024) {
             return (

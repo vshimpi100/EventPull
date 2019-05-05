@@ -13,4 +13,8 @@ router
   .put(usersController.update)
   .delete(usersController.remove);
 
+router
+  .route("/find/:username")
+  .get(usersController.findOne);
+
 module.exports = router;

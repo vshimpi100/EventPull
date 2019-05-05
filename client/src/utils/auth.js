@@ -108,7 +108,7 @@ const signUp = async (username, password, email) => {
     API.createUser({
       username,
       email
-    })
+    });
   })
   .catch(err => console.log(err));
 };
