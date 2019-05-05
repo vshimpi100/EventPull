@@ -70,9 +70,9 @@ class App extends Component {
       return (
         <div>
           <NavDesktop search={this.handleSearch} user={this.state.user} />
-          <Route exact path="/" component={Explore} user={this.state.user}/>
-          <Route exact path="/nearby" component={Nearby} user={this.state.user}/>
-          <Route exact path="/saved" component={Saved} user={this.state.user}/>
+          <Route exact path="/" render={()=><Explore user={this.state.user}/>}/>
+          <Route exact path="/nearby" render={()=><Nearby user={this.state.user}/>}/>
+          <Route exact path="/saved" render={()=><Saved user={this.state.user}/>}/>
         </div>
       );
     }
