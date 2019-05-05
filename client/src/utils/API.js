@@ -22,6 +22,10 @@ export default {
     console.log("finding DB ID for user", username)
     return axios.get("/api/u/find/"+username)
   },
+  getUser: function(userID){
+    console.log("finding user", userID)
+    return axios.get("api/u/"+userID)
+  },
   saveEvent: function(eventID,userID){
     console.log("saving event",eventID,"to user",userID);
     return axios.put("")
