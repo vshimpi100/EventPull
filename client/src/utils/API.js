@@ -10,6 +10,10 @@ export default {
     console.log(eventData);
     return axios.post("/api/e", eventData)
   },
+  createUser: function(userData){
+    console.log(userData)
+    return axios.post("/api/u",userData)
+  }
   // // Gets the book with the given id
   // getBook: function(id) {
   //   return axios.get("/api/books/" + id);

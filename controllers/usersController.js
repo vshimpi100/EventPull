@@ -5,6 +5,8 @@ module.exports = {
   findAll: function(req, res) {
     db.User
       .find(req.query)
+      .populate('events')
+      .populate('saved')
       .sort({ created: -1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
@@ -12,6 +14,8 @@ module.exports = {
   findById: function(req, res) {
     db.User
       .findById(req.params.id)
+      .populate('events')
+      .populate('saved')
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },

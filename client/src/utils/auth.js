@@ -2,6 +2,7 @@ import Amplify, { Auth } from "aws-amplify";
 import awsmobile from "../aws-exports";
 import { FaMarsDouble } from "react-icons/fa";
 import axios from "axios";
+import API from "./API";
 Amplify.configure(awsmobile);
 
 const getCurrentUser = async () => {
@@ -102,18 +103,14 @@ const signUp = async (username, password, email) => {
     },
     validationData: [] //optional
   })
-    .then(data => {
-      console.log(data);
-      axios
-        .post("/u", {
-          username: username,
-          email: email
-        })
-        .then(function(response) {
-          console.log(response);
-        });
+  .then(data => {
+    console.log(data);
+    API.createUser({
+      username,
+      email
     })
-    .catch(err => console.log(err));
+  })
+  .catch(err => console.log(err));
 };
 
 const confirmSignUp = async (username, code) => {
