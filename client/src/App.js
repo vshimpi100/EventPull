@@ -20,9 +20,9 @@ import awsconfig from "./aws-exports";
 Auth.configure(awsconfig);
 
 class App extends Component {
-    // componentDidMount() {
-    //     Analytics.record('APP_STARTED');
-    // }
+  // componentDidMount() {
+  //     Analytics.record('APP_STARTED');
+  // }
 
   handleSearch = search => {
     console.log(search);

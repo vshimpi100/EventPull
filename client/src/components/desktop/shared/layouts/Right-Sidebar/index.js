@@ -47,7 +47,7 @@ class Sidebar extends Component {
                     visible={visible}
                     onCancel={this.handleCancel}
                 >
-                    <CreateEvent />
+                    <CreateEvent onCancel={this.handleCancel} loadEvents={this.props.loadEvents} />
                 </Modal>
             </section>
         )
