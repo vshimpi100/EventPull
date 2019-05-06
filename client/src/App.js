@@ -27,30 +27,34 @@ Auth.configure(awsconfig);
 // };
 
 class App extends Component {
-    state = {
-      user: null
-    };
+  state = {
+    user: null
+  };
 
-    componentWillMount = () => {
-      // Analytics.record('APP_STARTED');
-        authentication
-        .getCurrentUser()
-        .then(currentUser => {
-            if(currentUser){
-                console.log("getting userID for "+currentUser.username);
-                API.getUserID(currentUser.username)
-                .then(dbUser=>{
-                    this.setState({
-                        user: dbUser
-                    })
-                    console.log("db user found",this.state.user)
-                })
-            } else{
-                console.log("no user currently logged in")
-            }
-        })
-        .catch(err => console.log(err));
-    };
+  componentDidMount = () => {
+    // Analytics.record('APP_STARTED');
+    console.log("looking for current user...")
+    authentication
+      .getCurrentUser()
+      .then(currentUser => {
+        if (currentUser) {
+          console.log("getting userID for " + currentUser.username);
+          API.getUserID(currentUser.username).then(dbUser => {
+            this.setState(
+              {
+                user: dbUser
+              },
+              () => {
+                console.log("db user found", this.state.user);
+              }
+            );
+          });
+        } else {
+          console.log("no user currently logged in");
+        }
+      })
+      .catch(err => console.log(err));
+  };
 
   handleSearch = search => {
     console.log(search);
@@ -70,9 +74,21 @@ class App extends Component {
       return (
         <div>
           <NavDesktop search={this.handleSearch} user={this.state.user} />
-          <Route exact path="/" render={()=><Explore user={this.state.user}/>}/>
-          <Route exact path="/nearby" render={()=><Nearby user={this.state.user}/>}/>
-          <Route exact path="/saved" render={()=><Saved user={this.state.user}/>}/>
+          <Route
+            exact
+            path="/"
+            render={() => <Explore user={this.state.user} />}
+          />
+          <Route
+            exact
+            path="/nearby"
+            render={() => <Nearby user={this.state.user} />}
+          />
+          <Route
+            exact
+            path="/saved"
+            render={() => <Saved user={this.state.user} />}
+          />
         </div>
       );
     }
