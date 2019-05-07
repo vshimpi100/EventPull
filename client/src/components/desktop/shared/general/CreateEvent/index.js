@@ -34,7 +34,8 @@ class CreateEvent extends Component {
 
         if (this.state.image_url) {
             newEvent = Object.assign(newEvent, {image_url: this.state.image_url});
-        } else if (this.state.price) {
+        } 
+        if (this.state.price) {
             newEvent = Object.assign(newEvent, {price: this.state.price});
         }
 
