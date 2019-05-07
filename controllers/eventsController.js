@@ -7,7 +7,7 @@ module.exports = {
     db.Event
       .find(req.query)
       .populate('comments')
-      .sort({ created: -1 })
+      .sort({ up: -1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },

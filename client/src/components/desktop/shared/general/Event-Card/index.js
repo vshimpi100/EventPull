@@ -122,91 +122,75 @@ class EventCard extends Component {
     }
   };
 
-  render() {
-    return (
-      <Card full>
-        <Card.Body>
-          <Row>
-            <Col span={1} style={{ textAlign: "center" }}>
-              <Row style={{ fontSize: "20px" }}>
-                <Icon
-                  type="caret-up"
-                  className="vote-icon"
-                  onClick={this.handleUpVote}
-                />
-              </Row>
-              <Row style={{ fontSize: "16px" }}>
-                <span className="total-votes">{this.state.total} </span>
-              </Row>
-              <Row style={{ fontSize: "20px" }}>
-                <Icon
-                  type="caret-down"
-                  className="vote-icon"
-                  onClick={this.handleDownVote}
-                />
-              </Row>
-            </Col>
-            <Col span={3} style={{ textAlign: "center" }}>
-              <Avatar shape="square" size={80} src={this.props.image} />
-            </Col>
-            <Col span={20}>
-              <Row>
-                <Col span={22}>
-                  <Row className="card-title">
-                    <span>{this.props.title}</span>
-                  </Row>
-                </Col>
-              </Row>
-              <Row className="card-icons">
-                <Col
-                  span={6}
-                  style={{ width: "fit-content" }}
-                  className="card-icon"
-                >
-                  <Row>
-                    <Icon type="calendar" />
-                    <span className="icon-data">
-                      {this.handleMoment(this.props.date, "date")}
-                    </span>
-                  </Row>
-                </Col>
-                <Col
-                  span={6}
-                  style={{ width: "fit-content" }}
-                  className="card-icon"
-                >
-                  <Row>
-                    <Icon type="environment" />
-                    <span className="icon-data">4.8 mi</span>
-                  </Row>
-                </Col>
-                <Col
-                  span={6}
-                  style={{ width: "fit-content" }}
-                  className="card-icon"
-                >
-                  <Row>
-                    <Icon type="dollar" />
-                    <span className="icon-data">
-                      {this.props.price.toFixed(2) < 0.01
-                        ? "Free"
-                        : `$ ${this.props.price.toFixed(2)}`}
-                    </span>
-                  </Row>
-                </Col>
-                <Col
-                  span={6}
-                  style={{ width: "fit-content" }}
-                  className="card-icon"
-                >
-                  <Icon type="message" />
-                  <span className="icon-data">
-                    {this.props.comments.length}
-                  </span>
-                </Col>
-              </Row>
-            </Col>
-          </Row>
+    render() {
+        return (
+            <Card full>
+                <Card.Body>
+                    <Row>
+                        <Col span={1} style={{ textAlign: "center" }}>
+                            <Row style={{ fontSize: '20px' }}>
+                                <Icon type="caret-up" className='vote-icon' onClick={this.handleUpVote} />
+                            </Row>
+                            <Row style={{ fontSize: '16px' }}>
+                                <span className="total-votes">{this.state.total} </span>
+                            </Row>
+                            <Row style={{ fontSize: '20px' }}>
+                                <Icon type="caret-down" className='vote-icon' onClick={this.handleDownVote} />
+                            </Row>
+                        </Col>
+                        <Col span={3} style={{ textAlign: "center" }}>
+                            <Avatar shape="square" size={80} src={this.props.image} />
+                        </Col>
+                        <Col span={20}>
+                            <Row>
+                                <Col span={22}>
+                                    <Row className="card-title">
+                                        <span>{this.props.title}</span>
+                                    </Row>
+                                </Col>
+                            </Row>
+                            <Row className="card-icons">
+                                <Col
+                                    span={6}
+                                    style={{ width: "fit-content" }}
+                                    className="card-icon"
+                                >
+                                    <Row>
+                                        <Icon type="calendar" />
+                                        <span className="icon-data">{this.handleMoment(this.props.date, 'date')}</span>
+                                    </Row>
+                                </Col>
+                                <Col
+                                    span={6}
+                                    style={{ width: "fit-content" }}
+                                    className="card-icon"
+                                >
+                                    <Row>
+                                        <Icon type="environment" />
+                                        <span className="icon-data">4.8 mi</span>
+                                    </Row>
+                                </Col>
+                                <Col
+                                    span={6}
+                                    style={{ width: "fit-content" }}
+                                    className="card-icon"
+                                >
+                                    <Row>
+                                        <Icon type="dollar" />
+                                        <span className="icon-data">{this.props.price.toFixed(2) < 0.01 ? "Free" : `$ ${this.props.price.toFixed(2)}`}</span>
+                                    </Row>
+                                </Col>
+                                <Col
+                                    span={6}
+                                    style={{ width: "fit-content" }}
+                                    className="card-icon"
+                                >
+                                    <Icon type="message" />
+                                    <span className="icon-data">{this.props.commentLength}</span>
+                                </Col>
+                            </Row>
+                        </Col>
+                    </Row>
 
           <Icon
             type="heart"
