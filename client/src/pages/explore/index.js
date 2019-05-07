@@ -37,6 +37,7 @@ class Explore extends Component {
           })
         })
     } else {
+      console.log("working")
       API.getEvents()
         .then(res => {
           this.setState({
@@ -46,12 +47,13 @@ class Explore extends Component {
     }
   }
 
-  handleSort = (sort_type, order) => {
-    console.log(sort_type, order);
-  }
-
-  handleVote = (vote) => {
-    console.log(vote);
+  handleVote = (vote, eventID) => {
+    console.log({voteType: vote}, eventID);
+    API.updateEvent({voteType: vote}, eventID)
+      .then(res => {
+        console.log(res);
+        this.loadEvents();
+      })    
   }
 
   handleSave = (saved_event, action) => {
@@ -78,11 +80,13 @@ class Explore extends Component {
             return (
               <section style={{ width: '80%' }}>
                 <EventCardDesktop
-                  key={element.id}
+                  key={element._id}
+                  id={element._id}
                   title={element.title}
                   image={element.image_url}
                   date={element.date}
                   creator={element.creator}
+                  creatorID={element.creatorID}
                   date_created={element.created}
                   price={element.price}
                   comments={element.comments}

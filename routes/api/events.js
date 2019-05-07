@@ -14,7 +14,7 @@ router.route("/:sort/:order")
 router
   .route("/:id")
   .get(eventsController.findById)
-  .put(eventsController.update)
+  .put(eventsController.updateVotes)
   .delete(eventsController.remove);
 
 module.exports = router;

@@ -2,8 +2,8 @@ const db = require("../models");
 
 // Defining methods for the eventsController
 module.exports = {
+  // Default return of all events sorted by total upvotes in descending order
   findAll: function (req, res) {
-    console.log(req.query);
     db.Event
       .find(req.query)
       .populate('comments')
@@ -11,6 +11,7 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+  // Handles sorting and returns all events based on sort chosen
   findBySort: function (req, res) {
     console.log(req.params);
     const sort = req.params.sort;
@@ -87,6 +88,7 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+  // Creates new event in database
   create: function (req, res) {
     console.log(req.body, "event being created in database");
     db.Event
@@ -94,11 +96,36 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
-  update: function (req, res) {
-    db.Event
-      .findOneAndUpdate({ _id: req.params.id }, req.body)
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+  // Updates upvotes or downvotes for an event
+  updateVotes: function (req, res) {
+    console.log(req.params.id, req.body)
+    switch (req.body.voteType) {
+      case 'upvote':
+        db.Event
+          .findOneAndUpdate({ _id: req.params.id }, { $inc: { up: 1 } })
+          .then(dbModel => res.json(dbModel))
+          .catch(err => res.status(422).json(err));
+          break;
+      case 'remove upvote':
+        db.Event
+          .findOneAndUpdate({ _id: req.params.id }, { $inc: { up: -1 } })
+          .then(dbModel => res.json(dbModel))
+          .catch(err => res.status(422).json(err));
+          break;
+      case 'downvote':
+        db.Event
+          .findOneAndUpdate({ _id: req.params.id }, { $inc: { down: 1 } })
+          .then(dbModel => res.json(dbModel))
+          .catch(err => res.status(422).json(err));
+          break;
+      case 'remove downvote':
+        db.Event
+          .findOneAndUpdate({ _id: req.params.id }, { $inc: { down: -1 } })
+          .then(dbModel => res.json(dbModel))
+          .catch(err => res.status(422).json(err));
+          break;
+    }
+
   },
   remove: function (req, res) {
     db.Event

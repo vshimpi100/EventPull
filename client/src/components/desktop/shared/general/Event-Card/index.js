@@ -8,6 +8,8 @@ class EventCard extends Component {
     state = {
         currentVote: 0,
         total: 0,
+        upvote: 0,
+        downvote: 0,
         save_theme: 'outlined',
         saved: false
     };
@@ -24,30 +26,30 @@ class EventCard extends Component {
     }
 
     handleUpVote = () => {
-        if (this.state.currentVote !== 1) {
+        if (this.state.currentVote === 0) {
             this.setState({
                 currentVote: 1
             })
-            this.props.handleVote('upvote')
+            this.props.handleVote('upvote', this.props.id)
         } else if (this.state.currentVote === 1) {
             this.setState({
                 currentVote: 0
             })
-            this.props.handleVote('removing upvote')
+            this.props.handleVote('remove upvote', this.props.id)
         }
     };
 
     handleDownVote = () => {
-        if (this.state.currentVote !== -1) {
+        if (this.state.currentVote === 0) {
             this.setState({
                 currentVote: -1
             })
-            this.props.handleVote('downvote')
+            this.props.handleVote('downvote', this.props.id)
         } else if (this.state.currentVote === -1) {
             this.setState({
                 currentVote: 0
             })
-            this.props.handleVote('removing downvote')
+            this.props.handleVote('remove downvote', this.props.id)
         }
     };
 
