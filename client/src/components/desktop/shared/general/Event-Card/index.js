@@ -15,7 +15,7 @@ class EventCard extends Component {
         saved: false
     };
 
-    componentWillReceiveProps = () => {
+    componentDidMount = () => {
         // vote calculation
         let downvotes = this.props.downvotes;
         let upvotes = this.props.upvotes;
@@ -23,6 +23,10 @@ class EventCard extends Component {
         this.setState({
             total: totalvotes
         });
+    }
+
+    componentWillReceiveProps = () => {
+
         // check to see if the user has already saved this event
         if (this.props.user) {
             // console.log(this.props);
