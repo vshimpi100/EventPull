@@ -41,6 +41,8 @@ class Nearby extends Component {
             return (
               <section>
                 <EventCardDesktop
+                  key={element.id}
+                  id={element._id}
                   title={element.title}
                   image={element.image}
                   date={element.date}
@@ -52,6 +54,7 @@ class Nearby extends Component {
                   downvotes={element.down}
                   handleVote={this.handleVote}
                   handleSave={this.handleSave}
+                  user={this.props.user}
                 />
               </section>
             )

@@ -2,105 +2,125 @@ import React, { Component } from "react";
 import { Card } from "antd-mobile";
 import { Avatar, Row, Col, Icon, Comment } from "antd";
 import "./style.css";
-import moment from 'moment';
+import moment from "moment";
+import API from "../../../../../utils/API";
 
 class EventCard extends Component {
-    state = {
-        currentVote: 0,
-        total: 0,
-        save_theme: 'outlined',
+  state = {
+    currentVote: 0,
+    total: 0,
+    save_theme: "outlined",
+    saved: null
+  };
+
+  componentWillReceiveProps = () => {
+    // vote calculation
+    let downvotes = this.props.downvotes;
+    let upvotes = this.props.upvotes;
+    let totalvotes = upvotes - downvotes;
+    this.setState({
+      total: totalvotes
+    });
+    // check to see if the user has already saved this event
+    if (this.props.user) {
+      // console.log(this.props);
+      // console.log(this.props.user.data.saved)
+      this.props.user.data.saved.forEach(element => {
+        if(this.props.id===element._id){
+          console.log("the user has already saved",this.props.id)
+          this.setState({
+            save_theme: "filled",
+            saved: true
+          });
+        }else{
+          this.setState({
+              save_theme: "outlined",
+              saved: false
+            });
+        };
+      })
+    }
+  };
+
+  handleUpVote = () => {
+    if (this.state.currentVote !== 1) {
+      this.setState({
+        currentVote: 1
+      });
+      this.props.handleVote("upvote");
+    } else if (this.state.currentVote === 1) {
+      this.setState({
+        currentVote: 0
+      });
+      this.props.handleVote("removing upvote");
+    }
+  };
+
+  handleDownVote = () => {
+    if (this.state.currentVote !== -1) {
+      this.setState({
+        currentVote: -1
+      });
+      this.props.handleVote("downvote");
+    } else if (this.state.currentVote === -1) {
+      this.setState({
+        currentVote: 0
+      });
+      this.props.handleVote("removing downvote");
+    }
+  };
+
+  handleMouseEnter = () => {
+    if (this.state.saved === false) {
+      this.setState({
+        save_theme: "filled"
+      });
+    }
+  };
+
+  handleMouseLeave = () => {
+    if (this.state.saved === false) {
+      this.setState({
+        save_theme: "outlined"
+      });
+    }
+  };
+
+  handleMoment = (date, indicator) => {
+    if (indicator === "date") {
+      return moment(date).format("L");
+    } else if (indicator === "date created") {
+      return moment(date).fromNow();
+    }
+  };
+
+  handleClickEvent = () => {
+    const event = {
+    //   title: this.props.title,
+    //   image: this.props.image,
+    //   date: this.props.date,
+    //   creator: this.props.creator,
+    //   date_created: this.props.date_created,
+    //   price: this.props.price,
+    //   comments: this.props.comments,
+    //   upvotes: this.props.date,
+    //   downvotes: this.props.date
+    id:this.props.id
+    };
+    if (this.state.saved === false) {
+      this.setState({
+        save_theme: "filled",
+        saved: true
+      });
+      this.props.handleSave(event, "save");
+    } else {
+      this.setState({
+        save_them: "outlined",
         saved: false
-    };
-
-    componentDidMount = () => {
-        let downvotes = this.props.downvotes;
-        let upvotes = this.props.upvotes;
-
-        let totalvotes = (upvotes - downvotes);
-
-        this.setState({
-            total: totalvotes
-        })
+      });
+      this.props.handleSave(event, "remove");
     }
-
-    handleUpVote = () => {
-        if (this.state.currentVote !== 1) {
-            this.setState({
-                currentVote: 1
-            })
-            this.props.handleVote('upvote')
-        } else if (this.state.currentVote === 1) {
-            this.setState({
-                currentVote: 0
-            })
-            this.props.handleVote('removing upvote')
-        }
-    };
-
-    handleDownVote = () => {
-        if (this.state.currentVote !== -1) {
-            this.setState({
-                currentVote: -1
-            })
-            this.props.handleVote('downvote')
-        } else if (this.state.currentVote === -1) {
-            this.setState({
-                currentVote: 0
-            })
-            this.props.handleVote('removing downvote')
-        }
-    };
-
-    handleMouseEnter = () => {
-        if (this.state.saved === false) {
-            this.setState({
-                save_theme: 'filled'
-            })
-        }
-    }
-
-    handleMouseLeave = () => {
-        if (this.state.saved === false) {
-            this.setState({
-                save_theme: 'outlined'
-            })
-        }
-    }
-
-    handleMoment = (date, indicator) => {
-        if (indicator === 'date') {
-            return moment(date).format('L')
-        } else if (indicator === 'date created') {
-            return moment(date).fromNow()
-        }
-    }
-
-    handleClickEvent = () => {
-        const event = {
-            title: this.props.title,
-            image: this.props.image,
-            date: this.props.date,
-            creator: this.props.creator,
-            date_created: this.props.date_created,
-            price: this.props.price,
-            comments: this.props.comments,
-            upvotes: this.props.date,
-            downvotes: this.props.date,
-        }
-        if (this.state.saved === false) {
-            this.setState({
-                save_theme: 'filled',
-                saved: true,
-            })
-            this.props.handleSave(event, 'save');
-        } else {
-            this.setState({
-                save_them: 'outlined',
-                saved: false
-            })
-            this.props.handleSave(event, 'remove');
-        }
-    }
+  };
 
     render() {
         return (
@@ -172,26 +192,28 @@ class EventCard extends Component {
                         </Col>
                     </Row>
 
-                    <Icon
-                        type="heart"
-                        id="save-button"
-                        style={{ color: '#FF4400' }}
-                        theme={this.state.save_theme}
-                        onMouseEnter={this.handleMouseEnter}
-                        onMouseLeave={this.handleMouseLeave}
-                        onClick={this.handleClickEvent}
-                    />
-                    <Comment
-                        className='event-card-comment'
-                        author={<a href="#">{this.props.creator}</a>}
-                        datetime={
-                            <span>{this.handleMoment(this.props.date_created, 'date created')}</span>
-                        }
-                    />
-                </Card.Body>
-            </Card>
-        );
-    }
+          <Icon
+            type="heart"
+            id="save-button"
+            style={{ color: "#FF4400" }}
+            theme={this.state.save_theme}
+            onMouseEnter={this.handleMouseEnter}
+            onMouseLeave={this.handleMouseLeave}
+            onClick={this.handleClickEvent}
+          />
+          <Comment
+            className="event-card-comment"
+            author={<a href="#">{this.props.creator}</a>}
+            datetime={
+              <span>
+                {this.handleMoment(this.props.date_created, "date created")}
+              </span>
+            }
+          />
+        </Card.Body>
+      </Card>
+    );
+  }
 }
 
 export default EventCard;

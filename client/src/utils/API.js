@@ -26,9 +26,20 @@ export default {
     console.log("finding user", userID)
     return axios.get("api/u/"+userID)
   },
-  saveEvent: function(eventID,userID){
-    console.log("saving event",eventID,"to user",userID);
-    return axios.put("")
+  saveEvent: function(userID,eventID,action){
+    if(action==="save"){
+      console.log("adding",eventID,"to saved events for user",userID)
+      return axios.put("api/u/"+userID,
+      {
+        $push: { saved: eventID }
+      })
+    } else{ //action==="remove"
+      console.log("removing",eventID,"from saved events for user",userID)
+      return axios.put("api/u/"+userID,
+      {
+        $pull: { saved: eventID }
+      },(err,data)=>{console.log(err,data)})
+    }
   }
 
   // // Gets the book with the given id

@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import SortMobile from "../../components/mobile/page-components/explore/Sort-Explore";
-import SortDesktop from "../../components/desktop/page-components/explore/Sort-Explore"
+import SortDesktop from "../../components/desktop/page-components/explore/Sort-Explore";
 import EventCardMobile from "../../components/mobile/shared/general/Event-Card";
 import EventCardDesktop from "../../components/desktop/shared/general/Event-Card";
-import SidebarDesktop from '../../components/desktop/shared/layouts/Right-Sidebar';
-import API from '../../utils/API';
-import windowSize from 'react-window-size';
+import SidebarDesktop from "../../components/desktop/shared/layouts/Right-Sidebar";
+import API from "../../utils/API";
+import windowSize from "react-window-size";
 
 class Explore extends Component {
-
   state = {
     events: [],
     user: null,
@@ -48,25 +47,32 @@ class Explore extends Component {
 
   handleSort = (sort_type, order) => {
     console.log(sort_type, order);
-  }
+  };
 
-  handleVote = (vote) => {
+  handleVote = vote => {
     console.log(vote);
-  }
+  };
 
   handleSave = (saved_event, action) => {
     console.log(saved_event, action);
-  }
+    if (this.props.user) {
+      API.saveEvent(this.props.user.data._id, saved_event.id, action)
+      .then(res=>{
+        console.log(res)
+      })
+    } else {
+      alert("You must be logged in to save events.");
+    }
+  };
 
-  handleView = (width) => {
+  handleView = width => {
     if (width <= 1024) {
       return (
         <div>
           <SortMobile />
           <EventCardMobile />
         </div>
-
-      )
+      );
     } else {
       return (
         <div style={{ paddingTop: "117px" }}>
@@ -76,9 +82,10 @@ class Explore extends Component {
           <SidebarDesktop loadEvents={this.loadEvents} userID={this.state.userID} user={this.state.user} />
           {this.state.events.map(element => {
             return (
-              <section style={{ width: '80%' }}>
+              <section style={{ width: "80%" }}>
                 <EventCardDesktop
                   key={element.id}
+                  id={element._id}
                   title={element.title}
                   image={element.image_url}
                   date={element.date}
@@ -91,21 +98,18 @@ class Explore extends Component {
                   downvotes={element.down}
                   handleVote={this.handleVote}
                   handleSave={this.handleSave}
+                  user={this.props.user}
                 />
               </section>
-            )
+            );
           })}
         </div>
-      )
+      );
     }
-  }
+  };
 
   render() {
-    return (
-      <div>
-        {this.handleView(this.props.windowWidth)}
-      </div>
-    );
+    return <div>{this.handleView(this.props.windowWidth)}</div>;
   }
 }
 
