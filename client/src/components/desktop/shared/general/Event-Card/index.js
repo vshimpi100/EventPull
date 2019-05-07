@@ -166,7 +166,7 @@ class EventCard extends Component {
                                     className="card-icon"
                                 >
                                     <Icon type="message" />
-                                    <span className="icon-data">{this.props.comments.length}</span>
+                                    <span className="icon-data">{this.props.commentLength}</span>
                                 </Col>
                             </Row>
                         </Col>

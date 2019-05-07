@@ -8,27 +8,34 @@ const { TextArea } = Input;
 class CreateEvent extends Component {
 
     state = {
-        title: '',
-        description: '',
-        date: '',
-        price: '',
-        image_url: '',
-        event_url: '',
-        ticket_link: '',
+        title: null,
+        description: null,
+        date: null,
+        creator: this.props.user,
+        creatorID: this.props.userID,
+        price: null,
+        image_url: null,
+        event_link: null,
+        ticket_link: null,
         value: 1
     }
 
     handleFormSubmit = (e) => {
         e.preventDefault();
-
-        const newEvent = {
+        let newEvent = {
             title: this.state.title,
             description: this.state.description,
             date: this.state.date,
-            price: this.state.price,
-            image_url: this.state.image_url,
-            event_link: this.state.event_url,
+            creator: this.state.creator,
+            creatorID: this.state.creatorID,
+            event_link: this.state.event_link,
             ticket_link: this.state.ticket_link
+        };
+
+        if (this.state.image_url) {
+            newEvent = Object.assign(newEvent, {image_url: this.state.image_url});
+        } else if (this.state.price) {
+            newEvent = Object.assign(newEvent, {price: this.state.price});
         }
 
         console.log(newEvent);
@@ -37,13 +44,13 @@ class CreateEvent extends Component {
             .then(res => {
                 alert(`${res.data.title} has been successfuly created!`)
                 this.setState({
-                    title: '',
-                    description: '',
-                    date: '',
-                    price: '',
-                    image_url: '',
-                    event_link: '',
-                    ticket_link: ''
+                    title: null,
+                    description: null,
+                    date: null,
+                    price: null,
+                    image_url: null,
+                    event_link: null,
+                    ticket_link: null
                 })
                 this.props.onCancel();
                 this.props.loadEvents();
@@ -154,11 +161,11 @@ class CreateEvent extends Component {
                                 {this.state.value === 3 ?
                                     <Form.Item type="text">
                                         <Input
-                                            value={this.state.event_url}
+                                            value={this.state.event_link}
                                             onChange={this.handleInputChange}
-                                            name='event_url'
+                                            name='event_link'
                                             placeholder='Event Page URL'
-                                            id='event_url' />
+                                            id='event_link' />
                                     </Form.Item> : null}
                                 {this.state.value === 3 ?
                                     <Form.Item type="text">

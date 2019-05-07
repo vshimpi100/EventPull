@@ -1,4 +1,4 @@
-#title, #location, #description, #image_url, #event_url, #ticket_link {
+#title, #location, #description, #image_url, #event_link, #ticket_link {
     width: 500px;
     border: 1px solid rgba(0,0,0,.1);
     border-radius: 4px;

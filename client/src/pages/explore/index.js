@@ -10,29 +10,40 @@ import windowSize from 'react-window-size';
 class Explore extends Component {
 
   state = {
-    data: []
+    events: [],
+    user: null,
+    userID: null
   }
 
   componentDidMount = () => {
-    this.loadEvents('recent');
+    this.loadEvents();
+  }
+
+  componentWillReceiveProps = () => {
+    if (this.props.user) {
+      this.setState({
+        user: this.props.user.data.username,
+        userID: this.props.user.data._id
+      })
+    }
   }
 
   loadEvents = (sort_type, sort_order) => {
-    if (sort_type === 'recent') {
-      API.getEvents()
-        .then(res => {
-          this.setState({
-            data: res.data
-          })
-        });
-    } else {
+    if (sort_type) {
       API.getEventsBySort(sort_type, sort_order)
         .then(res => {
           this.setState({
-            data: res.data
+            events: res.data
           })
         })
-    } 
+    } else {
+      API.getEvents()
+        .then(res => {
+          this.setState({
+            events: res.data
+          })
+        });
+    }
   }
 
   handleSort = (sort_type, order) => {
@@ -62,8 +73,8 @@ class Explore extends Component {
           <SortDesktop
             sort={this.loadEvents}
           />
-          <SidebarDesktop loadEvents={this.loadEvents} />
-          {this.state.data.map(element => {
+          <SidebarDesktop loadEvents={this.loadEvents} userID={this.state.userID} user={this.state.user} />
+          {this.state.events.map(element => {
             return (
               <section style={{ width: '80%' }}>
                 <EventCardDesktop
@@ -75,6 +86,7 @@ class Explore extends Component {
                   date_created={element.created}
                   price={element.price}
                   comments={element.comments}
+                  commentLength={element.commentLength}
                   upvotes={element.up}
                   downvotes={element.down}
                   handleVote={this.handleVote}
