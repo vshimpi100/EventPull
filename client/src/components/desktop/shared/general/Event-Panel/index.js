@@ -6,7 +6,9 @@ import './style.css';
 const { Meta } = Card;
 
 class EventPanel extends Component {
+    
     render() {
+        console.log(this.props);
         return (
             <Card
                 className='event-panel inline'
