@@ -14,6 +14,10 @@ export default {
     console.log(eventData);
     return axios.post("/api/e", eventData)
   },
+  updateEvent: function(vote, creatorID) {
+    console.log(vote, creatorID);
+    return axios.put("/api/e/" + creatorID, vote)
+  },
   createUser: function(userData){
     console.log(userData)
     return axios.post("/api/u",userData)
