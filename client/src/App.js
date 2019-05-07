@@ -31,22 +31,26 @@ class App extends Component {
     user: null
   };
 
-  componentWillMount = () => {
+  componentDidMount = () => {
     // Analytics.record('APP_STARTED');
+    console.log("looking for current user...")
     authentication
       .getCurrentUser()
       .then(currentUser => {
         if (currentUser) {
           console.log("getting userID for " + currentUser.username);
-          API.getUserID(currentUser.username)
-            .then(dbUser => {
-              this.setState({
+          API.getUserID(currentUser.username).then(dbUser => {
+            this.setState(
+              {
                 user: dbUser
-              })
-              console.log("db user found", this.state.user)
-            })
+              },
+              () => {
+                console.log("db user found", this.state.user);
+              }
+            );
+          });
         } else {
-          console.log("no user currently logged in")
+          console.log("no user currently logged in");
         }
       })
       .catch(err => console.log(err));

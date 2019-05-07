@@ -43,7 +43,7 @@ class DropdownMenu extends Component {
       if (res) {
         this.setState({
           isAuthenticated: false
-        });
+        })
       }
     });
   };
