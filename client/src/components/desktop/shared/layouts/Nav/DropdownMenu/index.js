@@ -82,7 +82,9 @@ class DropdownMenu extends Component {
     return (
       <div>
         <Menu>
-          <Menu.Item key="0">Create Event</Menu.Item>
+          <Menu.Item key="0">
+            <a href="">1st menu item</a>
+          </Menu.Item>
           <Menu.Item key="1">
             <a href="">2nd menu item</a>
           </Menu.Item>
@@ -95,10 +97,10 @@ class DropdownMenu extends Component {
               Log Out
             </Menu.Item>
           ) : (
-            <Menu.Item onClick={this.handleLogin} key="3">
-              Log In / Sign Up
+              <Menu.Item onClick={this.handleLogin} key="3">
+                Log In / Sign Up
             </Menu.Item>
-          )}
+            )}
         </Menu>
         <Modal visible={visible} onCancel={this.handleCancel}>
           <Login

@@ -229,7 +229,7 @@ class Login extends Component {
             <Row>
               {!this.props.isPendingValidation ? (
                 <p className="modal-bottom">
-                  New to EventPull?
+                {this.props.isNewUser ? "Already existing user?" : "New to EventPull?"}
                   <span
                     className="signup-link"
                     onClick={this.props.handleNewUser}
